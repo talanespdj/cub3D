@@ -1,0 +1,27 @@
+1/
+
+check que tstrcmp de str (line[0],line[1]) soit egal a NO || SO || WE || EA
+	if (!tstrcmp(str, "NO"))
+	if (!tstrcmp(str, "SO"))
+	if (!tstrcmp(str, "WE"))
+	if (!tstrcmp(str, "EA"))
+
+ensuite check que apres NO || SO || WE || EA
+	la premiere occurence soit ./
+		test que le fichier existe et qu`on peut le lire
+
+2/
+
+check que les deux prochaines occurences de characteres dans les deux prochaines lignes
+	soient valid == F 220,100,0
+			C 225,30,0
+
+	
+a partir de la prochaines occurence de charactere si il y a une ligne vide puis une ligne
+	pas vide la map est invalide
+
+parser la map dans un char **map
+	se referer avec map[y] pour la ligne | map[y][x] ce que contient la texture
+
+	
+
