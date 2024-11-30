@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 21:21:46 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/28 21:29:46 by tespandj         ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/cub3d.h"
 
-int	cub3d(struct s_cub *cub)
+#include "mlx_int.h"
+
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	(void)cub;
-	return (0);
+	XCloseDisplay(xvar->display);
 }

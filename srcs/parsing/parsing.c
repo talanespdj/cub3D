@@ -32,14 +32,14 @@ void	print_params(t_cub *cub)
 void	parse_map(t_cub *cub, char *name)
 {
 	if (access(name, F_OK))
-		err_msg(cub, name, "File doesn't exist");
+		wgas(cub, name, "File doesn't exist");
 	else if (access(name, R_OK))
-		err_msg(cub, name, "No permission to read the map");
+		wgas(cub, name, "No permission to read the map");
 	cub->fd = open(name, O_RDONLY);
 	if (cub->fd == -1)
-		err_msg(cub, name, "Failed to open the map");
+		wgas(cub, name, "Failed to open the map");
 	textures(cub);
 	FC_colors(cub);
 	mapping(cub);
-	// print_params(cub);
+	print_params(cub);
 }

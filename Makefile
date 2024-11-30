@@ -1,31 +1,31 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -lm
-MLX_FLAGS = -L ./mlx -lm -Ilmlx -lXext -lX11 
+CFLAGS = -Wall -Werror -Wextra -g3
+MLX_FLAGS = -L ./includes/mlx/ -lmlx -lXext -lX11 -lm
 
 CFLAGS += -Wno-unused-command-line-argument
 
-EXEC =  srcs/main.c \
-	srcs/execution/gnl.c \
-	srcs/execution/tlib.c \
-	srcs/execution/split.c \
-	srcs/execution/gnlv2.c \
-	srcs/execution/utils.c \
-	srcs/execution/cub3D.c \
-	srcs/execution/processing.c \
-
 PARSING = srcs/parsing/parsing.c \
+		srcs/parsing/gnl.c \
 		srcs/parsing/ltoa.c \
+		srcs/parsing/gnlv2.c \
+		srcs/parsing/split.c \
 		srcs/parsing/mapping.c \
 		srcs/parsing/textures.c \
 		srcs/parsing/FC_colors.c \
+
+EXEC =  srcs/main.c \
+	srcs/execution/tlib.c \
+	srcs/execution/utils.c \
+	srcs/execution/event.c \
+	srcs/execution/cub3D.c \
+	srcs/execution/processing.c \
 
 RAYCASTING = 
 
 SRCS = $(EXEC) $(PARSING)
 
-
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o) 
 
 .c.o:
 	@$(CC) $(CFLAGS) -c -o $@ $< 
@@ -33,6 +33,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
         
 $(NAME): $(OBJS)
+	make -C ./includes/mlx
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
 	@echo "\033[1m		______     __  __     ______     _____    \n\
 		       /\  ___\   /\ \/\ \   /\  == \   /\  __-.  \n\
@@ -42,6 +43,7 @@ $(NAME): $(OBJS)
 
 
 clean:
+	@make clean -C ./includes/mlx
 	@rm -rf $(OBJS)
 	@echo "c'est clean"
 

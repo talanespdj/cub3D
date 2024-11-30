@@ -35,7 +35,7 @@ void	FC_colors(t_cub *cub)
 		line = gnl(cub->fd);
 	}
 	if (!cub->map->F || !cub->map->C)
-		err_msg(cub, cub->map_name,
+		wgas(cub, cub->map_name,
 			"First lines should contain address Floor and ceiling value");
 
 }
@@ -49,7 +49,7 @@ void	fill_floor(t_cub *cub, char *line)
 	if (tstrcmp(rgb[0], "F") || !rgb[1])
 	{
 		fsplit(rgb);
-		err_msg(cub, "First lines should contain Floor and Ceiling RGB colors\n", NULL);
+		wgas(cub, "First lines should contain Floor and Ceiling RGB colors\n", NULL);
 	}
 	floor = erase_new_line(rgb[1]);
 	fsplit(rgb);
@@ -59,7 +59,7 @@ void	fill_floor(t_cub *cub, char *line)
 		|| (!rgb_check(rgb[0]) || !rgb_check(rgb[1]) || !rgb_check(rgb[2])))
 	{
 		fsplit(rgb);
-		err_msg(cub, "floor", "invalid rgb value");
+		wgas(cub, "floor", "invalid rgb value");
 	}
 	cub->map->F = malloc(sizeof(t_rgb));
 	if (!cub->map->F)
@@ -79,7 +79,7 @@ void	fill_ceiling(t_cub *cub, char *line)
 	if (!rgb || tstrcmp(rgb[0], "C") || !rgb[1])
 	{
 		fsplit(rgb);
-		err_msg(cub, "First lines should contain floor and Ceiling RGB colors\n", NULL);
+		wgas(cub, "First lines should contain floor and Ceiling RGB colors\n", NULL);
 	}
 	ceiling = erase_new_line(rgb[1]);
 	fsplit(rgb);
@@ -89,7 +89,7 @@ void	fill_ceiling(t_cub *cub, char *line)
 		|| (!rgb_check(rgb[0]) || !rgb_check(rgb[1]) || !rgb_check(rgb[2])))
 	{
 		fsplit(rgb);
-		err_msg(cub, "ceiling", "invalid rgb value");
+		wgas(cub, "ceiling", "invalid rgb value");
 	}
 	cub->map->C = malloc(sizeof(t_rgb));
 	if (!cub->map->C)

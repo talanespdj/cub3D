@@ -37,18 +37,18 @@ void	textures(t_cub *cub)
 		line = gnl(cub->fd);
 	}
 	if (!cub->map->NO || !cub->map->SO || !cub->map->EA || !cub->map->WE)
-		err_msg(cub, cub->map_name,
+		wgas(cub, cub->map_name,
 			"First lines should contain address of NE SO WE EA textures");
 }
 
 int	texture_checking(t_cub *cub, char *file)
 {
 	if (file && file[0] && file[1] && (file[0] != '.' || file[1] != '/'))
-		err_msg(cub, file, "Should be a relative path");
+		wgas(cub, file, "Should be a relative path");
 	else if (access(file, F_OK))
-		err_msg(cub, file, "File doesn't exist");
+		wgas(cub, file, "File doesn't exist");
 	else if (access(file, R_OK))
-		err_msg(cub, file, "No permission to read the texture");
+		wgas(cub, file, "No permission to read the texture");
 	return (1);
 }
 
@@ -58,7 +58,7 @@ void	fill_textures(t_cub *cub, char *line)
 
 	inf = split(line, ' ');
 	if (!inf)
-		err_msg(cub, "Textures", "Couldn't split line");
+		wgas(cub, "Textures", "Couldn't split line");
 	if (inf && inf[0] && inf[1])
 	{
 		if (!tstrcmp(inf[0], "NO"))
@@ -72,5 +72,3 @@ void	fill_textures(t_cub *cub, char *line)
 	}
 	fsplit(inf);
 }
-
-

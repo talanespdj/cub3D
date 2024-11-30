@@ -15,8 +15,9 @@
 typedef struct s_cub
 {
 	struct s_map	*map;
+	struct s_data	*data;
 	char		*map_name;
-	int			fd;	
+	int			fd;
 }		t_cub;
 
 typedef struct spt
@@ -49,5 +50,18 @@ typedef struct s_map
 	t_rgb	*C;
 	char	**matrix;
 }		t_map;
+
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			width;
+	int			height;
+	int			endian;
+	int			bits_per_pixel;
+	int			line_length;
+}			t_data;
 
 #endif

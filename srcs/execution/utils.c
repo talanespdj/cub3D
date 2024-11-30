@@ -11,8 +11,15 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-void	err_msg(t_cub *cub, char *arg, char *str)
+void	next_line(t_cub *cub, char **line)
 {
+	free(*line);
+	*line = gnl(cub->fd);
+}
+
+void	wgas(t_cub *cub, char *arg, char *str)
+{
+	printf("Error\n");
 	if (arg)
 		printf("%s", arg);
 	if (str)
@@ -39,7 +46,6 @@ void	wegotasplituation(struct spt x)
 
 void	free_map(t_cub *cub)
 {
-	gnl_free(cub->fd);
 	if (cub->map)
 	{
 		if (cub->map->NO)
@@ -57,6 +63,8 @@ void	free_map(t_cub *cub)
 		if (cub->map->matrix)
 			fsplit(cub->map->matrix);
 	}
+	if (cub->fd > 0)
+		gnl_free(cub->fd);
 	free(cub->map);
 }
 
@@ -65,6 +73,8 @@ void	freend(t_cub *cub)
 	free_map(cub);
 	if (cub->map_name)
 		free(cub->map_name);
+	if (cub->data)
+		free(cub->data);
 }
 
 int	null_line(char *str)
@@ -118,4 +128,14 @@ char	*erase_new_line(char *str)
 		line[i] = str[i];
 	line[i] = '\0';
 	return (line);
+}
+
+int	end_win(t_cub *cub)
+{
+	mlx_destroy_image(cub->data->mlx, cub->data->img);
+	mlx_destroy_window(cub->data->mlx, cub->data->win);
+	mlx_destroy_display(cub->data->mlx);
+	free(cub->data->mlx);
+	freend(cub);
+	exit(0);
 }

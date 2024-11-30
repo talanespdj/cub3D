@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes.h                                         :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:22:13 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/28 21:23:18 by tespandj         ###   ########.fr       */
+/*   Updated: 2024/11/30 06:55:17 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "mlx/mlx.h"
 # include "structure.h"
 # include <stdio.h>
 # include <unistd.h>
@@ -44,6 +45,7 @@ void	fill_ceiling(t_cub *cub, char *line);
 
 ///// MAPPING.c
 void	mapping(t_cub *cub);
+void	build_matrix(t_cub *cub, char *save, char *line);
 
 ///// GNL
 char	*gnl(int fd);
@@ -69,14 +71,22 @@ char	*erase_new_line(char *str);
 int	null_line(char *str);
 
 ///// FREE
-void	err_msg(t_cub *cub, char *arg, char *str);
+void	wgas(t_cub *cub, char *arg, char *str);
 void	wegotasplituation(struct spt x);
 void	freend(t_cub *cub);
 void	fsplit(char **str);
 void	free_map(t_cub *cub);
 void	gnl_free(int fd);
+int	end_win(t_cub *cub);
 
 void	print_params(t_cub *cub);
+
+
+///// EXEC
+
+int	key_press(int key, t_cub *cub);
+void	fill_win(t_cub *cub);
+void	last_init(t_cub *cub);
 
 #endif
 
