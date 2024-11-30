@@ -47,16 +47,19 @@ char	*tjoin(char *str, char *add)
 
 	i = -1;
 	r = -1;
-	if (!str || !add)
-		return (NULL);
+	if (!str)
+		i = 0;
+	if (!add)
+		return (str);
 	tjoin = malloc(sizeof(char) * (tstrlen(str) + (tstrlen(add) + 1)));
 	if (!tjoin)
 		return (NULL);
-	while (str[++i])
+	while (str && str[++i])
 		tjoin[i] = str[i];
 	while (add[++r])
 		tjoin[i + r] = add[r];
 	tjoin[i + r] = '\0';
+	free(str);
 	return (tjoin);
 }
 

@@ -13,14 +13,20 @@
 
 void	print_params(t_cub *cub)
 {
+	printf("\n");
 	if (cub->map->NO)
-		printf("cub->map->NO // %s\n", cub->map->NO);
+		printf("\tNO %s\n", cub->map->NO);
 	if (cub->map->SO)
-		printf("cub->map->SO // %s\n", cub->map->SO);
+		printf("\tSO %s\n", cub->map->SO);
 	if (cub->map->WE)
-		printf("cub->map->WE // %s\n", cub->map->WE);
+		printf("\tWE %s\n", cub->map->WE);
 	if (cub->map->EA)
-		printf("cub->map->EA // %s\n", cub->map->EA);
+		printf("\tEA %s\n", cub->map->EA);
+	if (cub->map->F)
+		printf("\tFloor : %d,%d,%d\n", cub->map->F->r, cub->map->F->g, cub->map->F->b);
+	if (cub->map->C)
+		printf("\tCeiling : %d,%d,%d\n", cub->map->C->r, cub->map->C->g, cub->map->C->b);
+	printf("\n");
 }
 
 void	parse_map(t_cub *cub, char *name)
@@ -34,4 +40,6 @@ void	parse_map(t_cub *cub, char *name)
 		err_msg(cub, name, "Failed to open the map");
 	textures(cub);
 	FC_colors(cub);
+	mapping(cub);
+	// print_params(cub);
 }

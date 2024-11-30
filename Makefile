@@ -15,6 +15,8 @@ EXEC =  srcs/main.c \
 	srcs/execution/processing.c \
 
 PARSING = srcs/parsing/parsing.c \
+		srcs/parsing/ltoa.c \
+		srcs/parsing/mapping.c \
 		srcs/parsing/textures.c \
 		srcs/parsing/FC_colors.c \
 

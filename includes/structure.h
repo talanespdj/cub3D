@@ -31,16 +31,23 @@ typedef struct spt
 	int			i;
 }			t_split;
 
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+
+}		t_rgb;
+
 typedef struct s_map
 {
-
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	char	*floor;
-	char	*ceiling;
-	char	**map;
+	t_rgb	*F;
+	t_rgb	*C;
+	char	**matrix;
 }		t_map;
 
 #endif

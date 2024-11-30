@@ -21,8 +21,10 @@ void	everyinit(t_cub *cub, char *name)
 	cub->map->SO = NULL;
 	cub->map->WE = NULL;
 	cub->map->EA = NULL;
+	cub->map->F = NULL;
+	cub->map->C = NULL;
+	cub->map->matrix = NULL;
 	parse_map(cub, name);
-	(void)cub;
 }
 
 

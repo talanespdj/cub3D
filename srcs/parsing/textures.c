@@ -36,13 +36,9 @@ void	textures(t_cub *cub)
 			break ;
 		line = gnl(cub->fd);
 	}
-	// gnl_free(cub->fd);
-	print_params(cub);
 	if (!cub->map->NO || !cub->map->SO || !cub->map->EA || !cub->map->WE)
-	{
-		gnl_free(cub->fd);
-		err_msg(cub, cub->map_name, "First lines should contain address of NE SO WE EA textures");
-	}
+		err_msg(cub, cub->map_name,
+			"First lines should contain address of NE SO WE EA textures");
 }
 
 int	texture_checking(t_cub *cub, char *file)
@@ -66,13 +62,13 @@ void	fill_textures(t_cub *cub, char *line)
 	if (inf && inf[0] && inf[1])
 	{
 		if (!tstrcmp(inf[0], "NO"))
-			cub->map->NO = tdup(inf[1]);
+			cub->map->NO = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "SO"))
-			cub->map->SO = tdup(inf[1]);
+			cub->map->SO = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "WE"))
-			cub->map->WE = tdup(inf[1]);
+			cub->map->WE = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "EA"))
-			cub->map->EA = tdup(inf[1]);
+			cub->map->EA = erase_new_line(inf[1]);
 	}
 	fsplit(inf);
 }

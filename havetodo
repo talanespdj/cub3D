@@ -22,6 +22,19 @@ a partir de la prochaines occurence de charactere si il y a une ligne vide puis 
 
 parser la map dans un char **map
 	se referer avec map[y] pour la ligne | map[y][x] ce que contient la texture
+\\
+==1615200== 2,631 bytes in 13 blocks are definitely lost in loss record 1 of 1
+==1615200==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1615200==    by 0x4017F0: tjoin (tlib.c:52)
+==1615200==    by 0x4033C4: mapping (mapping.c:36)
+==1615200==    by 0x402EF8: parse_map (parsing.c:43)
+==1615200==    by 0x402C8F: everyinit (processing.c:40)
+==1615200==    by 0x402B9C: cub3d (cub3D.c:16)
+==1615200==    by 0x401213: main (main.c:36)
+==1615200== 
+//
+
+pour checker creer un int qui s`incremente chaque fois qu`une condition est remplie
 
 	
 

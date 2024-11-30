@@ -29,11 +29,12 @@ int	main(int argc, char **argv)
 	t_cub	cub;
 
 	if (argc != 2 || !valid_name(argv[1]))
-	{
 		printf("There must be a map (.cub) in argument\n");
-		return (1);
+	else
+	{
+		everyinit(&cub, argv[1]);
+		cub3d(&cub);
+		freend(&cub);
 	}
-	cub3d(&cub, argv[1]);
-	freend(&cub);
 	return (0);
 }

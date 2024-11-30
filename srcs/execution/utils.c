@@ -39,6 +39,7 @@ void	wegotasplituation(struct spt x)
 
 void	free_map(t_cub *cub)
 {
+	gnl_free(cub->fd);
 	if (cub->map)
 	{
 		if (cub->map->NO)
@@ -49,6 +50,12 @@ void	free_map(t_cub *cub)
 			free(cub->map->EA);
 		if (cub->map->WE)
 			free(cub->map->WE);
+		if (cub->map->F)
+			free(cub->map->F);
+		if (cub->map->C)
+			free(cub->map->C);
+		if (cub->map->matrix)
+			fsplit(cub->map->matrix);
 	}
 	free(cub->map);
 }
@@ -96,4 +103,19 @@ void	gnl_free(int fd)
 	}
 	if (fd > 0)
 		close(fd);
+}
+
+char	*erase_new_line(char *str)
+{
+	char	*line;
+	int	i;
+
+	i = -1;
+	line = malloc(sizeof(char) * tstrlen(str));
+	if (!line)
+		return (NULL);
+	while (str && str[++i] && str[i + 1])
+		line[i] = str[i];
+	line[i] = '\0';
+	return (line);
 }

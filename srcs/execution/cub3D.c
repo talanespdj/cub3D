@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-int	cub3d(struct s_cub *cub, char *name)
+int	cub3d(struct s_cub *cub)
 {
-	everyinit(cub, name);
-	if (!cub->map)
-		return (1);
+
+	(void)cub;
 	return (0);
 }
