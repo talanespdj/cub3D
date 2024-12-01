@@ -3,6 +3,10 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3
 MLX_FLAGS = -L ./includes/mlx/ -lmlx -lXext -lX11 -lm
 
+#	comment this to compile on mac
+LDL_FLAGS =  -L/opt/X11/lib -lX11
+CFLAGS += -I/opt/X11/include
+
 CFLAGS += -Wno-unused-command-line-argument
 
 PARSING = srcs/parsing/parsing.c \
@@ -34,7 +38,7 @@ all: $(NAME)
         
 $(NAME): $(OBJS)
 	make -C ./includes/mlx
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS) $(LDL_FLAGS)
 	@echo "\033[1m		______     __  __     ______     _____    \n\
 		       /\  ___\   /\ \/\ \   /\  == \   /\  __-.  \n\
 		       \ \ \____  \ \ \_\ \  \ \  __<   \ \ \/\ \ \n\
