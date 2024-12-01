@@ -43,13 +43,14 @@ typedef struct s_rgb
 
 typedef struct s_map
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	t_rgb	*F;
-	t_rgb	*C;
 	char	**matrix;
+	t_rgb		*F;
+	t_rgb		*C;
+	char			*NO;
+	char			*SO;
+	char			*WE;
+	char			*EA;
+	int				zoom;
 }		t_map;
 
 typedef struct s_data

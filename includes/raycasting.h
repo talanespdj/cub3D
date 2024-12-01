@@ -23,9 +23,12 @@ typedef struct s_cam
 
 void	raycast(t_cub *cub);
 
-void	reset_cub(t_cub *cub);
 void	fill_win(t_cub *cub);
 void	aff_cam(t_cub *cub);
+void	aff_map(t_cub *cub);
+
+void	reset_cub(t_cub *cub);
+void	setblock(t_cub *cub, int x, int y, int color);
 void	setpixel(t_data *data, int x, int y, int color);
 
 #endif

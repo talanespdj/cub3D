@@ -18,6 +18,7 @@ void	everyinit(t_cub *cub, char *name)
 	cub->map = malloc(sizeof(t_map));
 	if (cub->map == NULL)
 		wgas(cub, "fail malloc cub->map", NULL);
+	cub->map->zoom = 10;
 	cub->map->NO = NULL;
 	cub->map->SO = NULL;
 	cub->map->WE = NULL;
@@ -30,8 +31,8 @@ void	everyinit(t_cub *cub, char *name)
 	cub->cam = malloc(sizeof(t_cam));
 	if (!cub->cam)
 		wgas(cub, "malloc cam failed", NULL);
-	cub->cam->x = 300;
-	cub->cam->y = 300;
+	cub->cam->x = cub->data->width / 2;
+	cub->cam->y = cub->data->height / 2;
 }
 
 void	last_init(t_cub *cub)
@@ -39,8 +40,8 @@ void	last_init(t_cub *cub)
 	cub->data = malloc(sizeof(t_data));
 	if (cub->data == NULL)
 		wgas(cub, "fail malloc cub->data", NULL);
-	cub->data->width = 0;
-	cub->data->height = 0;
+	cub->data->width = 1200;
+	cub->data->height = 800;
 	cub->data->mlx = mlx_init();
 	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");

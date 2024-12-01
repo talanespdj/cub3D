@@ -20,6 +20,7 @@ static	void	next_line(t_cub *cub, char **line)
 void	mapping(t_cub *cub)
 {
 	build_matrix(cub, NULL, NULL);
+	
 }
 
 void	build_matrix(t_cub *cub, char *save, char *line)

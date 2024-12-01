@@ -13,6 +13,9 @@
 
 void	print_params(t_cub *cub)
 {
+	int	i;
+
+	i = -1;
 	printf("\n");
 	if (cub->map->NO)
 		printf("\tNO %s\n", cub->map->NO);
@@ -26,6 +29,11 @@ void	print_params(t_cub *cub)
 		printf("\tFloor : %d,%d,%d\n", cub->map->F->r, cub->map->F->g, cub->map->F->b);
 	if (cub->map->C)
 		printf("\tCeiling : %d,%d,%d\n", cub->map->C->r, cub->map->C->g, cub->map->C->b);
+	printf("\n");
+	printf("\n");
+	if (cub->map->matrix)
+		while (cub->map->matrix[++i])
+			printf("%s\n", cub->map->matrix[i]);
 	printf("\n");
 }
 
