@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 21:21:46 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/28 21:29:46 by tespandj         ###   ########.fr       */
+/*   Created: 2024/12/01 00:31:26 by tespandj          #+#    #+#             */
+/*   Updated: 2024/12/01 01:04:09 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-int	cub3d(struct s_cub *cub)
+#ifndef RAYCASTING_H
+# define RAYCASTING_H
+
+typedef struct s_cam
 {
-	fill_win(cub);
-	return (0);
-}
+	float	x;
+	float	y;
+	int	FOV;
+}		t_cam;
+
+void	raycast(t_cub *cub);
+
+void	reset_cub(t_cub *cub);
+void	fill_win(t_cub *cub);
+void	aff_cam(t_cub *cub);
+void	setpixel(t_data *data, int x, int y, int color);
+
+#endif

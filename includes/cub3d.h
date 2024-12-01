@@ -14,6 +14,7 @@
 
 # include "mlx/mlx.h"
 # include "structure.h"
+# include "raycasting.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -23,6 +24,9 @@
 # include <limits.h>
 # include <string.h>
 # include <math.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+
 
 # define BUFFER_SIZE 42
 

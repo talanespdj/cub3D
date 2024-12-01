@@ -1,40 +1,4 @@
 1/
 
-check que tstrcmp de str (line[0],line[1]) soit egal a NO || SO || WE || EA
-	if (!tstrcmp(str, "NO"))
-	if (!tstrcmp(str, "SO"))
-	if (!tstrcmp(str, "WE"))
-	if (!tstrcmp(str, "EA"))
-
-ensuite check que apres NO || SO || WE || EA
-	la premiere occurence soit ./
-		test que le fichier existe et qu`on peut le lire
-
-2/
-
-check que les deux prochaines occurences de characteres dans les deux prochaines lignes
-	soient valid == F 220,100,0
-			C 225,30,0
-
-	
-a partir de la prochaines occurence de charactere si il y a une ligne vide puis une ligne
-	pas vide la map est invalide
-
-parser la map dans un char **map
-	se referer avec map[y] pour la ligne | map[y][x] ce que contient la texture
-\\
-==1615200== 2,631 bytes in 13 blocks are definitely lost in loss record 1 of 1
-==1615200==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1615200==    by 0x4017F0: tjoin (tlib.c:52)
-==1615200==    by 0x4033C4: mapping (mapping.c:36)
-==1615200==    by 0x402EF8: parse_map (parsing.c:43)
-==1615200==    by 0x402C8F: everyinit (processing.c:40)
-==1615200==    by 0x402B9C: cub3d (cub3D.c:16)
-==1615200==    by 0x401213: main (main.c:36)
-==1615200== 
-//
-
-pour checker creer un int qui s`incremente chaque fois qu`une condition est remplie
-
-	
-
+	creer ma map en 3D
+	http://tfpsly.free.fr/Docs/TomHammersley/frustum.htm

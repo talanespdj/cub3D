@@ -75,6 +75,8 @@ void	freend(t_cub *cub)
 		free(cub->map_name);
 	if (cub->data)
 		free(cub->data);
+	if (cub->cam)
+		free(cub->cam);
 }
 
 int	null_line(char *str)

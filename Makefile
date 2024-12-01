@@ -21,9 +21,9 @@ EXEC =  srcs/main.c \
 	srcs/execution/cub3D.c \
 	srcs/execution/processing.c \
 
-RAYCASTING = 
+RAYCASTING = srcs/raycasting/raycasting.c \
 
-SRCS = $(EXEC) $(PARSING)
+SRCS = $(EXEC) $(PARSING) $(RAYCASTING)
 
 OBJS = $(SRCS:.c=.o) 
 

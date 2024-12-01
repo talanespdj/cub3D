@@ -15,6 +15,7 @@
 typedef struct s_cub
 {
 	struct s_map	*map;
+	struct s_cam	*cam;
 	struct s_data	*data;
 	char		*map_name;
 	int			fd;
