@@ -14,5 +14,6 @@
 int	cub3d(struct s_cub *cub)
 {
 	fill_win(cub);
+	freend(cub);
 	return (0);
 }

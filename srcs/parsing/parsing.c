@@ -37,7 +37,7 @@ void	print_params(t_cub *cub)
 	printf("\n");
 }
 
-void	parse_map(t_cub *cub, char *name)
+void		parse_map(t_cub *cub, char *name)
 {
 	if (access(name, F_OK))
 		wgas(cub, name, "File doesn't exist");
@@ -48,6 +48,7 @@ void	parse_map(t_cub *cub, char *name)
 		wgas(cub, name, "Failed to open the map");
 	textures(cub);
 	FC_colors(cub);
+	print_params(cub);
 	mapping(cub);
 	print_params(cub);
 }

@@ -34,7 +34,6 @@ int	main(int argc, char **argv)
 	{
 		everyinit(&cub, argv[1]);
 		cub3d(&cub);
-		freend(&cub);
 	}
 	return (0);
 }

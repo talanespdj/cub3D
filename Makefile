@@ -29,9 +29,11 @@ RAYCASTING = srcs/raycasting/raycasting.c \
 
 SRCS = $(EXEC) $(PARSING) $(RAYCASTING)
 
-OBJS = $(SRCS:.c=.o) 
+HIDDEN = .hidden
+OBJS = $(SRCS:%.c=$(HIDDEN)/%.o) 
 
-.c.o:
+$(HIDDEN)/%.o: %.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $< 
 
 all: $(NAME)
@@ -49,6 +51,7 @@ $(NAME): $(OBJS)
 clean:
 	@make clean -C ./includes/mlx
 	@rm -rf $(OBJS)
+	@rm -rf $(HIDDEN)
 	@echo "c'est clean"
 
 fclean: clean
