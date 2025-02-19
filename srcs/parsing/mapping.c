@@ -28,7 +28,7 @@ void	build_matrix(t_cub *cub, char *save, char *line)
 	line = gnl(cub->fd);
 	while (null_line(line))
 		next_line(cub, &line);
-	while (line)
+	while (!null_line(line))
 	{
 		while (null_line(line))
 		{
@@ -37,8 +37,7 @@ void	build_matrix(t_cub *cub, char *save, char *line)
 			{
 				free(line);
 				free(save);
-				wgas(cub, "mapping",
-					"Map is cut in some pieces i dont like it");
+				wgas(cub, "mapping", "Map is cut in some pieces i dont like it");
 			}
 		}
 		save = tjoin(save, line);

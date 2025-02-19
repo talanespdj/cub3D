@@ -52,6 +52,7 @@ clean:
 	@make clean -C ./includes/mlx
 	@rm -rf $(OBJS)
 	@rm -rf $(HIDDEN)
+	@rm -rf .vscode
 	@echo "c'est clean"
 
 fclean: clean

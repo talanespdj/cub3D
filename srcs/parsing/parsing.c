@@ -48,7 +48,6 @@ void		parse_map(t_cub *cub, char *name)
 		wgas(cub, name, "Failed to open the map");
 	textures(cub);
 	FC_colors(cub);
-	print_params(cub);
 	mapping(cub);
 	print_params(cub);
 }
