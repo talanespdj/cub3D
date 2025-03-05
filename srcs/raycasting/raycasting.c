@@ -29,7 +29,6 @@ void	raycast(t_cub *cub)
 	aff_map(cub);
 	aff_cam(cub);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
-	(void)x;
 }
 
 void	reset_cub(t_cub *cub)
