@@ -58,9 +58,8 @@ void	fill_win(t_cub *cub)
 	raycast(cub);
 	mlx_key_hook(cub->data->win, key_press, cub);
 	
-	mlx_hook(cub->data->win, (1L<<0), (1L<<1), &key_press, cub);
-	mlx_hook(cub->data->win, (1L<<1), (1L<<0), &key_press, cub);
-
+	mlx_hook(cub->data->win, key_press, (1L<<0), &press, cub);
+	mlx_hook(cub->data->win, key_press, (1L<<1), &release, cub);
 
 	mlx_hook(cub->data->win, 17, 0, &end_win, cub);
 	mlx_loop(cub->data->mlx);
