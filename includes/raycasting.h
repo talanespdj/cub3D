@@ -14,21 +14,49 @@
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
+typedef double		t_mgam2f	__attribute__((ext_vector_type(2)));
+typedef int		t_mgam2i	__attribute__((ext_vector_type(2)));
+
 typedef struct s_cam
 {
-	float	x;
-	float	y;
+	t_mgam2f	player_pos;
+	t_mgam2f	look;
+	
 	int	FOV;
 }		t_cam;
 
-void	raycast(t_cub *cub);
+typedef struct s_point
+{
+	int		x;
+	int		y;
+}		t_point;
 
-void	fill_win(t_cub *cub);
-void	aff_cam(t_cub *cub);
-void	aff_map(t_cub *cub);
+typedef struct s_bsl
+{
+	int		dx;
+	int		dy;
+	int		dx1;
+	int		dy1;
+	int		px;
+	int		py;
+	int		x;
+	int		y;
+	int		xe;
+	int		ye;
+}			t_bsl;
 
-void	reset_cub(t_cub *cub);
-void	setblock(t_cub *cub, int x, int y, int color);
-void	setpixel(t_data *data, int x, int y, int color);
+void		raycast(t_cub *cub);
+
+void		fill_win(t_cub *cub);
+
+void		setpixel(t_data *data, int x, int y, int color);
+
+
+/// @brief	save fdd bresenham line algorithm
+void		breseline(t_cub *cub, t_point a, t_point b);
+void		bslinit(t_bsl *t, t_point a, t_point b);
+void		slto(t_cub *cub, t_bsl *t);
+void		sbto(t_cub *cub, t_bsl *t);
+int			tabs(int n);
 
 #endif

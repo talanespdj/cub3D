@@ -44,6 +44,9 @@ typedef struct s_rgb
 typedef struct s_map
 {
 	char	**matrix;
+	int		L;
+	int		l;
+	int		zoom_map;
 	t_rgb		*F;
 	t_rgb		*C;
 	char			*NO;
@@ -51,6 +54,7 @@ typedef struct s_map
 	char			*WE;
 	char			*EA;
 	int				zoom;
+	int				color_bsl;
 }		t_map;
 
 typedef struct s_data

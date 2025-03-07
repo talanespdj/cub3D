@@ -1,4 +1,12 @@
-1/
 
-	creer ma map en 3D
-	http://tfpsly.free.fr/Docs/TomHammersley/frustum.htm
+//	segfault	v ./cub3D good_cub/cheese_maze.cub
+// psque ya .cub mais dcp ca va dans wgas et c`est cense exit
+
+
+
+deplacement  //
+
+	- w & s avance/recule via calcul arithmetique du vecteur_pos_player et vecteur_look
+
+	- a & d calcul arithmetique avec vecteur {0.0159, 0} || {0, 0.0159}
+
