@@ -14,6 +14,8 @@
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
+#define M_PI 3.14159265358979323846
+
 typedef double		t_mgam2f	__attribute__((ext_vector_type(2)));
 typedef int		t_mgam2i	__attribute__((ext_vector_type(2)));
 
@@ -23,6 +25,8 @@ typedef struct s_cam
 	t_mgam2f	player_pos;
 	t_mgam2i	_2dPlayer;
 	t_mgam2f	look;
+	t_mgam2f	view_angle; // a initialiser en fonction de N S E O sur la map et de la position du joueur sur la map
+
 	
 	int	FOV;
 }		t_cam;

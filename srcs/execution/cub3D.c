@@ -18,7 +18,11 @@ void	def_pos_player(t_cub *cub)
 
 	y = -1;
 	cub->data->x_off = cub->data->width / 2 - (cub->map->l / 2 * cub->data->SPACE);
-	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 *cub->data->SPACE);
+	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 * cub->data->SPACE);
+
+	printf("offset //    x %d\ty %d\n\n", cub->data->x_off, cub->data->y_off);
+
+	
 	while (++y && cub->map->matrix[y])
 	{
 		x = -1;
