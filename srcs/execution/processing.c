@@ -31,9 +31,10 @@ void	everyinit(t_cub *cub, char *name)
 	parse_map(cub, name);
 	cub->cam = malloc(sizeof(t_cam));
 	if (!cub->cam)
-	wgas(cub, "malloc cam failed", NULL);
+		wgas(cub, "malloc cam failed", NULL);
+	cub->cam->_2dPlayer = (t_mgam2i){2, 15};
 	cub->cam->player_pos = (t_mgam2f){cub->data->width / 2, cub->data->height / 2};
-	cub->cam->look = (t_mgam2f){0, 1};
+	cub->cam->look = (t_mgam2f){cub->data->width / 2, 0};
 }
 
 void	last_init(t_cub *cub)
@@ -44,7 +45,7 @@ void	last_init(t_cub *cub)
 	cub->data->width = 960;
 	cub->data->height = 600;
 	cub->data->mlx = mlx_init();
-	// mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
+	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");
 	if (!cub->data->win)
 	{

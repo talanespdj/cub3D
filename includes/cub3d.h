@@ -89,9 +89,10 @@ void	print_params(t_cub *cub);
 ///// EXEC
 
 void	lookMove(t_mgam2f *look);
-int	key_press(t_cub *cub, int key);
-void	press(t_cub *cub, int key);
-void	release(t_cub *cub, int key);
+int	keyPressed(int key, t_cub *cub);
+
+void	press(int key, t_cub *cub);
+void	release(int key, t_cub *cub);
 void	fill_win(t_cub *cub);
 void	last_init(t_cub *cub);
 
