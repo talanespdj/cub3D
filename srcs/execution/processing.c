@@ -41,11 +41,12 @@ void	last_init(t_cub *cub)
 {
 	cub->data = malloc(sizeof(t_data));
 	if (cub->data == NULL)
-		wgas(cub, "fail malloc cub->data", NULL);
+	wgas(cub, "fail malloc cub->data", NULL);
+	cub->data->SPACE = 32;
 	cub->data->width = 960;
 	cub->data->height = 600;
 	cub->data->mlx = mlx_init();
-	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
+	// mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");
 	if (!cub->data->win)
 	{

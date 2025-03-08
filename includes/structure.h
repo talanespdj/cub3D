@@ -12,6 +12,8 @@
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
+# include <stdlib.h>
+
 typedef struct s_cub
 {
 	struct s_map	*map;
@@ -68,6 +70,9 @@ typedef struct s_data
 	int			endian;
 	int			bits_per_pixel;
 	int			line_length;
+	size_t			SPACE;
+	int			x_off;
+	int			y_off;
 }			t_data;
 
 #endif

@@ -4,57 +4,79 @@
 /// faire les rayons 10 cases par 10 cases jusqu'a ce que ca hit un mur
 
 
-void	lookMove(t_mgam2f *look)
+void	lookMove(t_cam *cam, int key)
 {
-	(void)look;
-	
+	if (key == XK_Left)
+	{
+		if (cam->look[0] < 0 && cam->look[1] > 0) {
+			cam->look[0] -= 22;
+			cam->look[1] -= 22;
+		}
+		else if (cam->look[0] > 0 && cam->look[1] < 0) {
+			cam->look[0] += 22;
+			cam->look[1] += 22;
+		}
+		else if (cam->look[0] < 0 && cam->look[1] < 0) {
+			cam->look[0] -= 22;
+			cam->look[1] += 22;
+		}
+		else if (cam->look[0] > 0 && cam->look[1] > 0) {
+			cam->look[0] += 22;
+			cam->look[1] -= 22;
+		}
+	}
+	else
+	{
+		if (cam->look[0] < 0 && cam->look[1] > 0) {
+			cam->look[0] += 22;
+			cam->look[1] += 22;
+		}
+		else if (cam->look[0] > 0 && cam->look[1] < 0) {
+			cam->look[0] -= 22;
+			cam->look[1] -= 22;
+		}
+		else if (cam->look[0] < 0 && cam->look[1] < 0) {
+			cam->look[0] += 22;
+			cam->look[1] -= 22;
+		}
+		else if (cam->look[0] > 0 && cam->look[1] > 0) {
+			cam->look[0] -= 22;
+			cam->look[1] += 22;
+		}
+	}
 }
 
 int	keyPressed(int key, t_cub *cub)
 {
 	if (key == XK_w) {
-		// mlx_hook(cub->data->win, XK_w, (1L<<0), &press_w, cub);
-		// mlx_hook(cub->data->win, XK_w, (1L<<1), &release_w, cub);
 		cub->cam->player_pos -= (t_mgam2f){0, 10.1};
 		cub->cam->look -= (t_mgam2f){0, 10.1};
 	}
 	if (key == XK_s) {
-		// mlx_hook(cub->data->win, XK_s, (1L<<0), &press_s, cub);
-		// mlx_hook(cub->data->win, XK_s, (1L<<1), &release_s, cub);
 		cub->cam->player_pos += (t_mgam2f){0, 10.1};
 		cub->cam->look += (t_mgam2f){0, 10.1};
 	}
 	if (key == XK_a) {
-		// mlx_hook(cub->data->win, XK_a, (1L<<0), &press_a, cub);
-		// mlx_hook(cub->data->win, XK_a, (1L<<1), &release_a, cub);
 		cub->cam->player_pos -= (t_mgam2f){10.1, 0};
 		cub->cam->look -= (t_mgam2f){10.1, 0};
 	}
 	if (key == XK_d) {
-		// mlx_hook(cub->data->win, XK_d, (1L<<0), &press_d, cub);
-		// mlx_hook(cub->data->win, XK_d, (1L<<1), &release_d, cub);
 		cub->cam->player_pos += (t_mgam2f){10.1, 0};
 		cub->cam->look += (t_mgam2f){10.1, 0};
 	}
-	if (key == XK_Left) {
-		// mlx_hook(cub->data->win, XK_Left, (1L<<0), &press_left, cub);
-		// mlx_hook(cub->data->win, XK_Left, (1L<<1), &release_left, cub);
-		cub->cam->look += (t_mgam2f){0, 10.00159};
-		lookMove(&cub->cam->look);
-	}
-	if (key == XK_Right) {
-		// mlx_hook(cub->data->win, XK_Right, (1L<<0), &press_right, cub);
-		// mlx_hook(cub->data->win, XK_Right, (1L<<1), &release_right, cub);
-		cub->cam->look -= (t_mgam2f){0, 10.00159};
-		lookMove(&cub->cam->look);
+	if (key == XK_Left || key == XK_Right) {
+		if (key == XK_Left)
+			lookMove(cub->cam, XK_Left);
+		else
+			lookMove(cub->cam, XK_Right);
 	}
 	if (key == XK_Escape)
 		end_win(cub);
-
 	raycast(cub);
 	return (0);
 }
 
+/*
 int	press_w(t_cub *cub) {
 	cub->cam->player_pos -= (t_mgam2f){0, 0.1};
 	cub->cam->look -= (t_mgam2f){0, 0.1};
@@ -174,3 +196,4 @@ void	release(int key, t_cub *cub) {
 	if (key == XK_Escape)
 		end_win(cub);
 }
+*/

@@ -11,3 +11,14 @@ deplacement  //
 	- a & d calcul arithmetique avec vecteur {0.0159, 0} || {0, 0.0159}
 
 pour l'instatn bruteforce de la pos du joueur pour le mapping
+
+
+
+
+look	//
+
+		t_mgam2f	look;
+
+	faire une fonction qui prend l'event si c'est right or press_left
+
+	lookMove()

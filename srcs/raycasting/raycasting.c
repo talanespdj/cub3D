@@ -11,31 +11,42 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-void raycast(t_cub *cub)
+void	raycast(t_cub *cub)
 {
 	int y;
 	int x;
-	t_point pt;
-	t_point pt2;
+	t_point pos;
+	t_point view;
 
-	// pt.x = cub->cam->player_pos[0];
-	// pt.y = cub->cam->player_pos[1];
-	
-	pt.x = cub->cam->player_pos[0];
-	pt.y = cub->cam->player_pos[1];
-	pt2.x = cub->cam->look[0];
-	pt2.y = cub->cam->look[1];
+	// pos.x = cub->cam->player_pos[0];
+	// pos.y = cub->cam->player_pos[1];
+	pos.x = cub->cam->player_pos[0] + cub->data->SPACE;
+	pos.y = cub->cam->player_pos[1] + cub->data->SPACE;
+
+	// pos.x = cub->cam->_2dPlayer[0];
+	// pos.y = cub->cam->_2dPlayer[1];
+
+	// view.x = cub->cam->look[0];
+	// view.y = cub->cam->look[1];
+	view.x = pos.x + 20;
+	view.y = pos.y + 20;
+
+	// printf("%d // %d\n", view.x, view.y);
+	printf("%d // %d\n", pos.x, pos.y);
 
 	x = -1;
-	// mlx_xpm_file_to_image(cub->data->mlx, cub->map->NO, &cub->data->width, &cub->data->height);
 	while (++x < cub->data->width)
 	{
 		y = -1;
 		while (++y < cub->data->height)
 			setpixel(cub->data, x, y, 0);
 	}
-	draw_map(cub->map, cub->data);
-	breseline(cub, pt, pt2);
+	// draw_map(cub->map, cub->data);
+	setpixel(cub->data, pos.x, pos.y, 0xFF8600);
+	setpixel(cub->data, view.x, view.y, 0xFF8600);
+	// 0xFF8600
+	printf("pos joueur : x %f\t\ty %f\n", cub->cam->player_pos[0] + cub->data->SPACE, cub->cam->player_pos[1] + cub->data->SPACE);
+	// breseline(cub, pos, view);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
 
@@ -58,27 +69,25 @@ int return_color(char c)
 		return 0xAEB8FE;
 	if (c == '1')
 		return 0x27187E;
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'O')
-		return 0xFF8600;
+	// if (c == 'N' || c == 'S' || c == 'E' || c == 'O')
+	// 	return 0xFF8600;
 	return 0xAB12CD;
 			
 }
 
 void	draw_map(t_map *map, t_data *data)
 {
-	size_t SPACE = 32;
 	int h = map->L;
 	int l = map->l - 1;
 	int size = h * l;
-	int	x_off = data->width / 2 - (l / 2 * SPACE);
-	int	y_off = data->height / 2 - (h / 2 * SPACE);
-
+	
 	for (int i = 0; i < size; i++)
 	{
 		int row = i / l;  // FIXED: Correct row calculation
 		int col = i % l;  // FIXED: Correct column calculation
-		for (size_t k = 0; k < (SPACE * SPACE); k++)
-			setpixel(data, (col * SPACE + (k / SPACE)) + x_off, (row * SPACE + (k % SPACE)) + y_off, return_color(map->matrix[row][col]));
+		for (size_t k = 0; k < (data->SPACE * data->SPACE); k++)
+			setpixel(data, (col * data->SPACE + (k / data->SPACE)) + data->x_off,
+			(row * data->SPACE + (k % data->SPACE)) + data->y_off, return_color(map->matrix[row][col]));
 	}
 }
 

@@ -34,9 +34,9 @@ void	print_params(t_cub *cub)
 	if (cub->map->l)
 		printf("\tgrand L %d\n", cub->map->L);
 	printf("\n\n");
-	printf("WIDTH / petit l\t%d\n", cub->data->width / cub->map->l);
-	printf("HEIGHT / grand L\t%d\n", cub->data->height /cub->map->L);
-	printf("ZOOM MAPPPPPP\t%d\n", cub->map->zoom_map);
+	// printf("WIDTH / petit l\t%d\n", cub->data->width / cub->map->l);
+	// printf("HEIGHT / grand L\t%d\n", cub->data->height /cub->map->L);
+	// printf("ZOOM MAPPPPPP\t%d\n", cub->map->zoom_map);
 	if (cub->map->matrix)
 		while (cub->map->matrix[++i])
 			printf("%s\n", cub->map->matrix[i]);
