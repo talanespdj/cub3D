@@ -18,7 +18,7 @@ void raycast(t_cub *cub)
 	t_mgam2i pos;
 	t_mgam2i view;
 
-	pos = (t_mgam2i){cub->cam->player_pos.x + (SPACE / 4) - cub->map->l / 4, cub->cam->player_pos.y + (SPACE / 4) - cub->map->L / 2};
+	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
 	view = (t_mgam2i){cub->cam->look.x, cub->cam->look.y};
 
 	x = -1;
@@ -35,7 +35,7 @@ void raycast(t_cub *cub)
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
 
-void setpixel(t_data *data, int x, int y, int color)
+void	setpixel(t_data *data, int x, int y, int color)
 {
 	char *dst;
 	if ((x < data->width && x > 0) && (y < data->height && y > 0))

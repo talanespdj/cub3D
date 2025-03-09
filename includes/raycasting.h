@@ -15,7 +15,8 @@
 # define RAYCASTING_H
 
 # define M_PI 3.14159265358979323846
-# define SPACE 50
+# define SPACE 64
+# define ratio_player SPACE
 # define map_void 0xAEB8FE
 # define map_wall 0x27187E
 # define map_player 0xAEB8FE
@@ -70,6 +71,11 @@ void		slto(t_cub *cub, t_bsl *t);
 void		sbto(t_cub *cub, t_bsl *t);
 int			tabs(int n);
 
+
+
+void	lookMove(t_cam *cam, int key);
+int	valid_move(int key, t_cub *cub);
+int	keyPressed(int key, t_cub *cub);
 
 /// @brief hook
 int		press_w(t_cub *cub);

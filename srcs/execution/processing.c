@@ -48,8 +48,10 @@ void	dataInit(t_cub *cub)
 		wgas(cub, "fail malloc cub->data", NULL);
 	cub->data->width = 960;
 	cub->data->height = 600;
+	cub->data->width = cub->map->l * SPACE;
+	cub->data->height = cub->map->L * SPACE;
 	cub->data->mlx = mlx_init();
-	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
+	// mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->x_off = cub->data->width / 2 - (cub->map->l / 2 * SPACE);
 	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 * SPACE);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");

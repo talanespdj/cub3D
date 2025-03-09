@@ -92,8 +92,7 @@ void	print_params(t_cub *cub);
 
 ///// EXEC
 
-void	lookMove(t_cam *cam, int key);
-int	keyPressed(int key, t_cub *cub);
+
 
 void	press(int key, t_cub *cub);
 void	release(int key, t_cub *cub);
