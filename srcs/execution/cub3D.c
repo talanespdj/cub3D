@@ -17,20 +17,17 @@ void	def_pos_player(t_cub *cub)
 	int	y;
 
 	y = -1;
-	cub->data->x_off = cub->data->width / 2 - (cub->map->l / 2 * cub->data->SPACE);
-	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 * cub->data->SPACE);
+	cub->data->x_off = cub->data->width / 2 - (cub->map->l / 2 * SPACE);
+	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 * SPACE);
 
-	printf("offset //    x %d\ty %d\n\n", cub->data->x_off, cub->data->y_off);
-
-	
-	while (++y && cub->map->matrix[y])
+	while (cub->map->matrix[++y])
 	{
 		x = -1;
-		while (++x && cub->map->matrix[y][x])
+		while (cub->map->matrix[y][++x])
 		{
 			if (cub->map->matrix[y][x] == 'N' || cub->map->matrix[y][x] == 'S' || cub->map->matrix[y][x] == 'E' || cub->map->matrix[y][x] == 'O') {
-				cub->cam->player_pos[0] += x + cub->data->x_off;
-				cub->cam->player_pos[1] += y + cub->data->y_off;
+				cub->cam->player_pos.x = x * SPACE + cub->data->x_off;
+				cub->cam->player_pos.y = y * SPACE + cub->data->y_off;
 				return ;
 			}
 		}

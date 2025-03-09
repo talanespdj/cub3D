@@ -59,15 +59,15 @@ void		setpixel(t_data *data, int x, int y, int color);
 
 
 /// @brief	save fdd bresenham line algorithm
-void		breseline(t_cub *cub, t_point a, t_point b);
-void		bslinit(t_bsl *t, t_point a, t_point b);
+void		breseline(t_cub *cub, t_mgam2i a, t_mgam2i b);
+void		bslinit(t_bsl *t, t_mgam2i a, t_mgam2i b);
 void		slto(t_cub *cub, t_bsl *t);
 void		sbto(t_cub *cub, t_bsl *t);
 int			tabs(int n);
 
 
-
-void	draw_map(t_map *map, t_data *data);
+void		draw_player_pos(t_map *map, t_data *data);
+void		draw_map(t_cub *cub, t_data *data);
 
 
 

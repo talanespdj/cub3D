@@ -70,7 +70,6 @@ typedef struct s_data
 	int			endian;
 	int			bits_per_pixel;
 	int			line_length;
-	size_t			SPACE;
 	int			x_off;
 	int			y_off;
 }			t_data;

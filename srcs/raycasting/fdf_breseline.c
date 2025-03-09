@@ -1,7 +1,7 @@
 #include "../../includes/cub3d.h"
 
 
-void	breseline(t_cub *cub, t_point a, t_point b)
+void	breseline(t_cub *cub, t_mgam2i a, t_mgam2i b)
 {
 	t_bsl	t;
 
@@ -28,7 +28,7 @@ void	breseline(t_cub *cub, t_point a, t_point b)
 	}
 }
 
-void	bslinit(t_bsl *t, t_point a, t_point b)
+void	bslinit(t_bsl *t, t_mgam2i a, t_mgam2i b)
 {
 	t->dx = b.x - a.x;
 	t->dy = b.y - a.y;
