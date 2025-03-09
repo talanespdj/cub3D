@@ -9,7 +9,7 @@
 /*   Updated: 2025/03/09 22:46:12 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/cub3d.h"
+#include "raycasting.h"
 
 int	_2point_slope(t_mgam2f a, t_mgam2f b) {
 	return ((int)(b.y - a.y) / (b.x - a.x));

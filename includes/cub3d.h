@@ -14,7 +14,7 @@
 
 # include "mlx/mlx.h"
 # include "structure.h"
-# include "raycasting.h"
+# include "../srcs/raycasting/raycasting.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>

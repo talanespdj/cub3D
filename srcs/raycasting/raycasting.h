@@ -9,7 +9,7 @@
 /*   Updated: 2024/12/01 01:04:09 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#include "../../includes/cub3d.h"
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H

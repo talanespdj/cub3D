@@ -9,7 +9,7 @@
 /*   Updated: 2025/03/09 05:58:04 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/cub3d.h"
+#include "raycasting.h"
 
 int	return_color(char c)
 {
