@@ -26,8 +26,8 @@ EXEC =  srcs/main.c \
 	srcs/execution/processing.c \
 
 RAYCASTING = srcs/raycasting/map.c \
+		srcs/raycasting/dda.c \
 		srcs/raycasting/raycasting.c \
-		srcs/raycasting/fdf_breseline.c \
 
 SRCS = $(EXEC) $(PARSING) $(RAYCASTING)
 

@@ -18,8 +18,14 @@ void raycast(t_cub *cub)
 	t_mgam2i pos;
 	t_mgam2i view;
 
+	t_mgam2f posf;
+	t_mgam2f viewf;
+
 	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
 	view = (t_mgam2i){cub->cam->look.x, cub->cam->look.y};
+
+	posf = (t_mgam2f){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
+	viewf = (t_mgam2f){cub->cam->look.x, cub->cam->look.y};
 
 	x = -1;
 	while (++x < cub->data->width)
@@ -31,7 +37,8 @@ void raycast(t_cub *cub)
 	miniMap(cub, cub->data);
 	printf("joueur pos : {%d, %d}\n", pos.x, pos.y);
 	printf("view : {%d, %d}\n", view.x, view.y);
-	breseline(cub, pos, view);
+	// breseline(cub, pos, view);
+	dda(cub, posf, viewf);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
 

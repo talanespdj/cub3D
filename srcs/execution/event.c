@@ -41,16 +41,16 @@ int	valid_move(int key, t_cub *cub)
 		cub->cam->player_pos.y + (ratio_player / 2)};
 
 	if (key == XK_w)
-		if (pos.y - SPACE < 0)
+		if (pos.y - dist_player_move < 0)
 			return (0);
 	if (key == XK_s)
-		if (pos.y + SPACE > cub->data->height)
+		if (pos.y + dist_player_move > cub->data->height)
 			return (0);			
 	if (key == XK_a)
-		if (pos.x - SPACE < 0)
+		if (pos.x - dist_player_move < 0)
 			return (0);
 	if (key == XK_d)
-		if (pos.x + SPACE > cub->data->width)
+		if (pos.x + dist_player_move > cub->data->width)
 			return (0);
 	return (1);
 }	
@@ -63,20 +63,20 @@ int	keyPressed(int key, t_cub *cub)
 			cub->cam->player_pos.y + (ratio_player) - cub->map->L / 2};
 	
 	if (key == XK_w && valid_move(key, cub)) {
-		cub->cam->player_pos -= (t_mgam2f){0, SPACE};
-		cub->cam->look -= (t_mgam2f){0, SPACE};
+		cub->cam->player_pos -= (t_mgam2f){0, dist_player_move};
+		cub->cam->look -= (t_mgam2f){0, dist_player_move};
 	}
 	if (key == XK_s && valid_move(key, cub)) {
-		cub->cam->player_pos += (t_mgam2f){0, SPACE};
-		cub->cam->look += (t_mgam2f){0, SPACE};
+		cub->cam->player_pos += (t_mgam2f){0, dist_player_move};
+		cub->cam->look += (t_mgam2f){0, dist_player_move};
 	}
 	if (key == XK_a && valid_move(key, cub)) {
-		cub->cam->player_pos -= (t_mgam2f){SPACE, 0};
-		cub->cam->look -= (t_mgam2f){SPACE, 0};
+		cub->cam->player_pos -= (t_mgam2f){dist_player_move, 0};
+		cub->cam->look -= (t_mgam2f){dist_player_move, 0};
 	}
 	if (key == XK_d && valid_move(key, cub)) {
-		cub->cam->player_pos += (t_mgam2f){SPACE, 0};
-		cub->cam->look += (t_mgam2f){SPACE, 0};
+		cub->cam->player_pos += (t_mgam2f){dist_player_move, 0};
+		cub->cam->look += (t_mgam2f){dist_player_move, 0};
 	}
 	if (key == XK_Left || key == XK_Right) {
 		if (key == XK_Left)

@@ -16,14 +16,14 @@
 
 # define M_PI 3.14159265358979323846
 # define SPACE 64
-# define ratio_player SPACE
+# define ratio_player SPACE / 2
+# define dist_player_move ratio_player / 4
 # define map_void 0xAEB8FE
 # define map_wall 0x27187E
 # define map_player 0xAEB8FE
 
 typedef double		t_mgam2f	__attribute__((ext_vector_type(2)));
 typedef int		t_mgam2i	__attribute__((ext_vector_type(2)));
-
 
 typedef struct s_cam
 {
@@ -36,6 +36,7 @@ typedef struct s_cam
 	int	FOV;
 }		t_cam;
 
+    
 
 typedef struct s_bsl
 {
@@ -58,19 +59,9 @@ void		miniMap(t_cub *cub, t_data *data);
 
 
 
-
-
-
-
-
-
-/// @brief	save fdd bresenham line algorithm
-void		breseline(t_cub *cub, t_mgam2i a, t_mgam2i b);
-void		bslinit(t_bsl *t, t_mgam2i a, t_mgam2i b);
-void		slto(t_cub *cub, t_bsl *t);
-void		sbto(t_cub *cub, t_bsl *t);
-int			tabs(int n);
-
+// t_mgam2i	_2point_slope(t_mgam2f a, t_mgam2f b);
+int	_2point_slope(t_mgam2f a, t_mgam2f b);
+void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b);
 
 
 void	lookMove(t_cam *cam, int key);
