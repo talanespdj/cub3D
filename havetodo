@@ -41,3 +41,11 @@ creer les collisions
 	update _2Dplayer à chaque event WASD
 		--> si l'event mets le centre du player dans un mur ne pas faire l'accien, ne pas bouger les variables
 
+
+
+
+dans la fonction DDA					// en ayant convertit le newpoint en position 2d pour regarder dans le tableau
+	verifier a chaque fois qu'on pose un pixel si par rapport a la cub->map->matrix[newPoint.y][newPoint.x] :: ce charactere la ne soit pas un 1
+													si c'est un '1' on return ; de la fonction en leger gui
+
+
