@@ -35,6 +35,10 @@ int	cub3d(struct s_cub *cub);
 
 void	everyinit(t_cub *cub, char *map_name);
 
+void	mapInit(t_cub *cub);
+void	dataInit(t_cub *cub);
+void	camInit(t_cub *cub);
+
 ///// PARSING
 void	parse_map(t_cub *cub, char *name);
 
@@ -94,7 +98,6 @@ int	keyPressed(int key, t_cub *cub);
 
 void	press(int key, t_cub *cub);
 void	release(int key, t_cub *cub);
-void	fill_win(t_cub *cub);
 void	last_init(t_cub *cub);
 
 #endif
