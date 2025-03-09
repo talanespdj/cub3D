@@ -29,13 +29,14 @@ void	mapInit(t_cub *cub)
 	if (cub->map == NULL)
 		wgas(cub, "fail malloc cub->map", NULL);
 	cub->map->zoom = 20;
+	cub->map->l = 0;
+	cub->map->L = 0;
 	cub->map->NO = NULL;
 	cub->map->SO = NULL;
 	cub->map->WE = NULL;
 	cub->map->EA = NULL;
 	cub->map->F = NULL;
 	cub->map->C = NULL;
-	cub->map->zoom_map = 0;
 	cub->map->matrix = NULL;
 	parse_map(cub, cub->map_name);
 }
@@ -47,10 +48,10 @@ void	dataInit(t_cub *cub)
 		wgas(cub, "fail malloc cub->data", NULL);
 	cub->data->width = 960;
 	cub->data->height = 600;
+	cub->data->mlx = mlx_init();
+	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->x_off = cub->data->width / 2 - (cub->map->l / 2 * SPACE);
 	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 * SPACE);
-	cub->data->mlx = mlx_init();
-	// mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");
 	if (!cub->data->win)
 	{

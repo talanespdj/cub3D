@@ -37,19 +37,19 @@ int	keyPressed(int key, t_cub *cub)
 {
 	if (key == XK_w) {
 		cub->cam->player_pos -= (t_mgam2f){0, 10};
-		// cub->cam->look -= (t_mgam2f){0, 10};
+		cub->cam->look -= (t_mgam2f){0, 10};
 	}
 	if (key == XK_s) {
 		cub->cam->player_pos += (t_mgam2f){0, 10};
-		// cub->cam->look += (t_mgam2f){0, 10};
+		cub->cam->look += (t_mgam2f){0, 10};
 	}
 	if (key == XK_a) {
 		cub->cam->player_pos -= (t_mgam2f){10, 0};
-		// cub->cam->look -= (t_mgam2f){10, 0};
+		cub->cam->look -= (t_mgam2f){10, 0};
 	}
 	if (key == XK_d) {
 		cub->cam->player_pos += (t_mgam2f){10, 0};
-		// cub->cam->look += (t_mgam2f){10, 0};
+		cub->cam->look += (t_mgam2f){10, 0};
 	}
 	if (key == XK_Left || key == XK_Right) {
 		if (key == XK_Left)

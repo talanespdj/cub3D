@@ -29,10 +29,6 @@ void raycast(t_cub *cub)
 			setpixel(cub->data, x, y, 0);
 	}
 	miniMap(cub, cub->data);
-	for (int i = 0; i < SPACE / 5; i++)
-		for (int j = 0; j < SPACE / 5; j++)
-			setpixel(cub->data, pos.x + i, pos.y + j, 0xFF0000);
-
 	printf("joueur pos : {%d, %d}\n", pos.x, pos.y);
 	printf("view : {%d, %d}\n", view.x, view.y);
 	breseline(cub, pos, view);

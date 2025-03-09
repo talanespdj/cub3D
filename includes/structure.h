@@ -48,7 +48,6 @@ typedef struct s_map
 	char	**matrix;
 	int		L;
 	int		l;
-	int		zoom_map;
 	t_rgb		*F;
 	t_rgb		*C;
 	char			*NO;

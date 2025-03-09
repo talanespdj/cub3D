@@ -28,7 +28,6 @@
 # include <X11/keysym.h>
 
 # define BUFFER_SIZE 42
-# define SPACE 32
 
 
 int	cub3d(struct s_cub *cub);
