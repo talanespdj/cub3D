@@ -13,28 +13,40 @@
 
 void handleKeyPress(t_cub *cub)
 {
+	t_mgam2i pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2),
+				  cub->cam->player_pos.y + (ratio_player / 2)};
 	// printf("douqnwdoinqwodiq\n");
 	if (cub->keys.w == 1)
 	{
-		cub->cam->player_pos -= (t_mgam2f){0, RATIO_MOVE};
-		cub->cam->look -= (t_mgam2f){0, RATIO_MOVE};
+		if (!wallHit(cub, pos.x, pos.y - dist_player_move))
+		{
+			cub->cam->player_pos -= (t_mgam2f){0, RATIO_MOVE};
+			cub->cam->look -= (t_mgam2f){0, RATIO_MOVE};
+		}
 	}
 	if (cub->keys.s == 1)
 	{
-		cub->cam->player_pos += (t_mgam2f){0, RATIO_MOVE};
-		cub->cam->look += (t_mgam2f){0, RATIO_MOVE};
+		if (!wallHit(cub, pos.x, pos.y + dist_player_move))
+		{
+			cub->cam->player_pos += (t_mgam2f){0, RATIO_MOVE};
+			cub->cam->look += (t_mgam2f){0, RATIO_MOVE};
+		}
 	}
 	if (cub->keys.a == 1)
 	{
-		cub->cam->player_pos -= (t_mgam2f){RATIO_MOVE, 0};
-		cub->cam->look -= (t_mgam2f){RATIO_MOVE, 0};
+		if (!wallHit(cub, pos.x - dist_player_move, pos.y))
+		{
+			cub->cam->player_pos -= (t_mgam2f){RATIO_MOVE, 0};
+			cub->cam->look -= (t_mgam2f){RATIO_MOVE, 0};
+		}
 	}
 	if (cub->keys.d == 1)
 	{
-		printf("BEFORE %f %f\n", cub->cam->player_pos.x, cub->cam->player_pos.y);
-		cub->cam->player_pos += (t_mgam2f){RATIO_MOVE, 0};
-		cub->cam->look += (t_mgam2f){RATIO_MOVE, 0};
-		printf("AFTER %f %f\n", cub->cam->player_pos.x, cub->cam->player_pos.y);
+		if (!wallHit(cub, pos.x + dist_player_move, pos.y))
+		{
+			cub->cam->player_pos += (t_mgam2f){RATIO_MOVE, 0};
+			cub->cam->look += (t_mgam2f){RATIO_MOVE, 0};
+		}
 	}
 	if (cub->keys.l == 1)
 		lookMove(cub->cam, XK_Left);
