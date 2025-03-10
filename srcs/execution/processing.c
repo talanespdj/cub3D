@@ -85,5 +85,5 @@ void	camInit(t_cub *cub)
 		}
 	}
 	cub->cam->look = (t_mgam2f){cub->cam->player_pos.x + SPACE, cub->cam->player_pos.y + SPACE};
-
+	cub->cam->view_angle = 90 * M_PI / 180;
 }

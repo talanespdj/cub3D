@@ -59,4 +59,5 @@ pour chaque rayon qu'on s'apprete a lancer:
 	monstre 3:38 juste on vibe
 
 
-
+le vecteur look doit tous le temps avoir une magnitude de tabs(cub->data->height - pos.y, cub->data->width - pos.x);
+						

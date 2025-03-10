@@ -17,10 +17,10 @@ int	valid_move(int key, t_cub *cub)
 
 	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2),
 		cub->cam->player_pos.y + (ratio_player / 2)};
-
-	if (key == XK_w) {
-		// if (pos.y - dist_player_move < 0)
-		if (wallHit(cub, pos.x, pos.y - dist_player_move))
+		
+		if (key == XK_w) {
+			// if (pos.y - dist_player_move < 0)
+			if (wallHit(cub, pos.x, pos.y - dist_player_move))
 			return (0);
 		}
 	if (key == XK_s) {
@@ -31,17 +31,36 @@ int	valid_move(int key, t_cub *cub)
 	if (key == XK_a) {
 		// if (pos.x - dist_player_move < 0)
 		if (wallHit(cub, pos.x - dist_player_move, pos.y))
-			return (0);
+		return (0);
 	}
 	if (key == XK_d) {
 		// if (pos.x + dist_player_move > cub->data->width)
 		if (wallHit(cub, pos.x + dist_player_move, pos.y))		
 			return (0);
 		}
-	
-	return (1);
+		
+		return (1);
 }	
 
+void	lookMove(t_cam *cam, int key)
+{
+	double	theta;
+
+	// printf("Before : {%f, %f}\n", cam->look[0], cam->look[1]);
+	for (int i = 0; i < 50; ++i) {
+
+		theta = 100 * (M_PI / 180);
+		if (key == XK_Left) {
+			cam->look.x += cos(-theta) - sin(-theta);
+			cam->look.y += sin(-theta) - cos(-theta);
+		}
+		else {
+			cam->look.x += cos(theta) - sin(theta);
+			cam->look.y += sin(theta) - cos(theta);
+		}
+	}
+	printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
+}
 
 int	keyPressed(int key, t_cub *cub)
 {
@@ -140,30 +159,3 @@ int	keyPressed(int key, t_cub *cub)
 // }
 
 
-void	lookMove(t_cam *cam, int key)
-{
-	// printf("Before : {%f, %f}\n", cam->look[0], cam->look[1]);
-	if (key == XK_Left)
-	{
-		if (cam->look[0] < 0 && cam->look[1] > 0)
-			cam->look += (t_mgam2f){-20, -20};
-		else if (cam->look[0] > 0 && cam->look[1] < 0)
-			cam->look += (t_mgam2f){+20, +20};
-		else if (cam->look[0] < 0 && cam->look[1])
-			cam->look += (t_mgam2f){-20, +20};
-		else if (cam->look[0] > 0 && cam->look[1])
-			cam->look += (t_mgam2f){+20, -20};
-	}
-	else
-	{
-		if (cam->look[0] < 0 && cam->look[1] > 0)
-			cam->look += (t_mgam2f){+20, +20};
-		else if (cam->look[0] > 0 && cam->look[1] < 0)
-			cam->look += (t_mgam2f){-20, -20};
-		else if (cam->look[0] < 0 && cam->look[1] < 0)
-			cam->look += (t_mgam2f){+20, -20};
-		else if (cam->look[0] > 0 && cam->look[1] > 0)
-			cam->look += (t_mgam2f){-20, +20};
-	}
-	// printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
-}
