@@ -14,11 +14,23 @@
 
 # include <stdlib.h>
 
+typedef struct s_keys
+{
+	int w;
+	int a;
+	int s;
+	int d;
+	int l;
+	int r;
+	int q;
+}	t_keys;
+
 typedef struct s_cub
 {
 	struct s_map	*map;
 	struct s_cam	*cam;
 	struct s_data	*data;
+	t_keys		keys;
 	char		*map_name;
 	int			fd;
 }		t_cub;

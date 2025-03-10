@@ -26,7 +26,7 @@ static	int	valid_name(char *name)
 
 int	main(int argc, char **argv)
 {
-	t_cub	cub;
+	static t_cub	cub = {0};
 
 	if (argc != 2 || !valid_name(argv[1]))
 		printf("There must be a map (.cub) in argument\n");

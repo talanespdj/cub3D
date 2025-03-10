@@ -38,7 +38,7 @@ void	raycast(t_cub *cub)
 	}
 	miniMap(cub, cub->data);
 	// printf("joueur pos : {%d, %d}\n", pos.x, pos.y);
-	printf("view : {%d, %d}\n", view.x, view.y);
+	// printf("view : {%d, %d}\n", view.x, view.y);
 	breseline(cub, pos, view);
 	// dda(cub, posf, viewf);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);

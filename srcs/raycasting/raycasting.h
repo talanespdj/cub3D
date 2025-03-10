@@ -18,6 +18,7 @@
 # define SPACE 64
 # define ratio_player SPACE / 2
 # define dist_player_move ratio_player / 4
+# define RATIO_MOVE 4
 
 # define map_void 0xAEB8FE
 # define map_wall 0x27187E
