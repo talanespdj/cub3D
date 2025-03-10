@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "raycasting.h"
 
+void	draw_disk(t_data *data, int xc, int yc);
+
 int	return_color(char c)
 {
 	if (c == '0')
@@ -50,4 +52,12 @@ void	miniMap(t_cub *cub, t_data *data)
 		while (++j <= ratio_player)
 			setpixel(cub->data, pos.x + i, pos.y + j, 0xFF0000);
 	}
+}
+
+void	draw_disk(t_data *data, int xc, int yc)
+{
+	for (int y = yc - ratio_player; y <= yc + ratio_player; y++)
+		for (int x = xc - ratio_player; x <= xc + ratio_player; x++)
+			if ((x - xc) * (x - xc) + (y - yc) * (y - yc) <= ratio_player * ratio_player)
+				setpixel(data, x, y, map_wall);
 }

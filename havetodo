@@ -48,4 +48,15 @@ dans la fonction DDA					// en ayant convertit le newpoint en position 2d pour r
 	verifier a chaque fois qu'on pose un pixel si par rapport a la cub->map->matrix[newPoint.y][newPoint.x] :: ce charactere la ne soit pas un 1
 													si c'est un '1' on return ; de la fonction en leger gui
 
+pour chaque rayon qu'on s'apprete a lancer:
+
+	// calculer le vecteur forme par le segment des deux points.
+		definir x_step et y_step qui correspondent a de combien on avance pour avance d'une unite (SPACE dans notre cas)
+
+	// mettre en place que le point de look atteigne les limites de la fenetres
+		le resize aux limites de la minimap si possible pour opti ?
+	
+	monstre 3:38 juste on vibe
+
+
 

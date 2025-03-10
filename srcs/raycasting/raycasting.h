@@ -57,10 +57,11 @@ void		raycast(t_cub *cub);
 void		setpixel(t_data *data, int x, int y, int color);
 
 void		miniMap(t_cub *cub, t_data *data);
+double		lengthRay(t_cub *cub, t_mgam2f startP, t_mgam2f endP);
 int		wallHit(t_cub *cub, int x, int y);
 
 
-/// @brief bientot plus besoin 
+/// @brief restes de fdf bientot plus besoin 
 void		breseline(t_cub *cub, t_mgam2i a, t_mgam2i b);
 void		bslinit(t_bsl *t, t_mgam2i a, t_mgam2i b);
 void		slto(t_cub *cub, t_bsl *t);

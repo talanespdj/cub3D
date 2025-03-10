@@ -46,7 +46,6 @@ void	raycast(t_cub *cub)
 
 int	wallHit(t_cub *cub, int x, int y)
 {
-	// cub->cam->player_pos = (t_mgam2f){(x * SPACE + cub->data->x_off), (y * SPACE + cub->data->y_off)};
 	x = (x - cub->data->x_off) / SPACE;
 	y = (y - cub->data->y_off) / SPACE;
 	if (cub->map->matrix[y][x] == '1')
