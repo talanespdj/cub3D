@@ -15,8 +15,9 @@ int	cub3d(struct s_cub *cub)
 {
 	raycast(cub);
 	mlx_key_hook(cub->data->win, keyPressed, cub);
-	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
-	mlx_hook(cub->data->win, 17, 0, &end_win, cub);
+	// mlx_hook(cub->data->win, 2, 1L << 0, &press, cub->data->mlx);
+	// mlx_hook(cub->data->win, 3, 1L << 1, &release, cub->data->mlx);
+	mlx_hook(cub->data->win, DestroyNotify, 0, &end_win, cub);
 	mlx_loop(cub->data->mlx);
 	freend(cub);
 	return (0);

@@ -94,8 +94,8 @@ void	print_params(t_cub *cub);
 
 
 
-void	press(int key, t_cub *cub);
-void	release(int key, t_cub *cub);
+int	press(int key, t_cub *cub);
+int	release(int key, t_cub *cub);
 void	last_init(t_cub *cub);
 
 #endif
