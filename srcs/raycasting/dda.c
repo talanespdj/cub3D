@@ -29,13 +29,14 @@ void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b) {
 	t_mgam2i	oldPoint;
 	t_mgam2i	endPoint;
 	int		slope;
-	int i = -1;
+	int i = 0;
 	
 	newP = roundf_tmgam2f(a);
 	oldPoint = roundf_tmgam2f(a);
 	endPoint = roundf_tmgam2f(b);
 	slope = _2point_slope(a, b);
-	while (newP.x != endPoint.x) {
+	while (newP.x != endPoint.x || newP.y != endPoint.y) {
+		printf("i [%d]\n", i);
 		if (slope == 1)
 			newP = oldPoint + (t_mgam2i){1, 1};
 		else if (slope < 1)
@@ -45,6 +46,5 @@ void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b) {
 		setpixel(cub->data, newP.x, newP.y, 0xFFB8FE);
 		oldPoint = newP;
 		++i;
-		printf("i [%d]\n", i);
 	}
 }

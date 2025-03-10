@@ -18,6 +18,7 @@
 # define SPACE 64
 # define ratio_player SPACE / 2
 # define dist_player_move ratio_player / 4
+
 # define map_void 0xAEB8FE
 # define map_wall 0x27187E
 # define map_player 0xAEB8FE
@@ -56,8 +57,15 @@ void		raycast(t_cub *cub);
 void		setpixel(t_data *data, int x, int y, int color);
 
 void		miniMap(t_cub *cub, t_data *data);
+int		wallHit(t_cub *cub, int x, int y);
 
 
+/// @brief bientot plus besoin 
+void		breseline(t_cub *cub, t_mgam2i a, t_mgam2i b);
+void		bslinit(t_bsl *t, t_mgam2i a, t_mgam2i b);
+void		slto(t_cub *cub, t_bsl *t);
+void		sbto(t_cub *cub, t_bsl *t);
+int			tabs(int n);
 
 // t_mgam2i	_2point_slope(t_mgam2f a, t_mgam2f b);
 int	_2point_slope(t_mgam2f a, t_mgam2f b);

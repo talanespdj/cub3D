@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "raycasting.h"
 
-void raycast(t_cub *cub)
+void	raycast(t_cub *cub)
 {
 	int y;
 	int x;
@@ -21,11 +21,13 @@ void raycast(t_cub *cub)
 	t_mgam2f posf;
 	t_mgam2f viewf;
 
+	// pour breseline 
 	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
-	view = (t_mgam2i){cub->cam->look.x, cub->cam->look.y};
+	view = (t_mgam2i){cub->cam->look.x + SPACE * 3, cub->cam->look.y + SPACE * 3};
 
+	// pour dda de con qui boucle a l'infini 
 	posf = (t_mgam2f){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
-	viewf = (t_mgam2f){cub->cam->look.x, cub->cam->look.y};
+	viewf = (t_mgam2f){cub->cam->look.x + SPACE * 3, cub->cam->look.y + SPACE * 3};
 
 	x = -1;
 	while (++x < cub->data->width)
@@ -37,9 +39,19 @@ void raycast(t_cub *cub)
 	miniMap(cub, cub->data);
 	printf("joueur pos : {%d, %d}\n", pos.x, pos.y);
 	printf("view : {%d, %d}\n", view.x, view.y);
-	// breseline(cub, pos, view);
-	dda(cub, posf, viewf);
+	breseline(cub, pos, view);
+	// dda(cub, posf, viewf);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
+}
+
+int	wallHit(t_cub *cub, int x, int y)
+{
+	// cub->cam->player_pos = (t_mgam2f){(x * SPACE + cub->data->x_off), (y * SPACE + cub->data->y_off)};
+	x = (x - cub->data->x_off) / SPACE;
+	y = (y - cub->data->y_off) / SPACE;
+	if (cub->map->matrix[y][x] == '1')
+		return (1);
+	return 0;
 }
 
 void	setpixel(t_data *data, int x, int y, int color)
