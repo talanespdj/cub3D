@@ -14,7 +14,7 @@
 
 # include "mlx/mlx.h"
 # include "structure.h"
-# include "../srcs/raycasting/raycasting.h"
+# include "raycasting.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -94,9 +94,8 @@ void	print_params(t_cub *cub);
 
 
 
-int	press(int key, void *tmp);
-int	release(int key, void *tmp);
-void	last_init(t_cub *cub);
+int	press(int key, t_cub *cub);
+int	release(int key, t_cub *cub);
 
 #endif
 

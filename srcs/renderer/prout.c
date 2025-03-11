@@ -1,4 +1,4 @@
-#include "raycasting.h"
+#include "../../includes/raycasting.h"
 
 double	lengthRay(t_cub *cub, t_mgam2f startP, t_mgam2f endP)
 {

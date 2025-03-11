@@ -9,7 +9,7 @@
 /*   Updated: 2025/03/09 05:58:04 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "raycasting.h"
+#include "../../includes/raycasting.h"
 
 void	draw_disk(t_data *data, int xc, int yc);
 

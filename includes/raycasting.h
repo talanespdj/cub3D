@@ -9,7 +9,7 @@
 /*   Updated: 2024/12/01 01:04:09 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
@@ -74,23 +74,13 @@ int	_2point_slope(t_mgam2f a, t_mgam2f b);
 void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b);
 
 
-void	lookMove(t_cam *cam, int key);
-int	valid_move(int key, t_cub *cub);
-int	keyPressed(int key, t_cub *cub);
+
 
 /// @brief hook
-int		press_w(t_cub *cub);
-int		release_w(t_cub *cub);
-int		press_a(t_cub *cub);
-int		release_a(t_cub *cub);
-int		press_s(t_cub *cub);
-int		release_s(t_cub *cub);
-int		press_d(t_cub *cub);
-int		release_d(t_cub *cub);
-int		press_left(t_cub *cub);
-int		release_left(t_cub *cub);
-int		press_right(t_cub *cub);
-int		release_right(t_cub *cub);
+int	press(int key, t_cub *cub);
+int	release(int key, t_cub *cub);
 
+int	validMove(int key, t_cub *cub);
+void	lookMove(t_cam *cam, int key);
 
 #endif

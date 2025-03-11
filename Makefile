@@ -18,19 +18,19 @@ PARSING = srcs/parsing/parsing.c \
 		srcs/parsing/textures.c \
 		srcs/parsing/FC_colors.c \
 
-EXEC =  srcs/main.c \
-	srcs/execution/tlib.c \
-	srcs/execution/utils.c \
-	srcs/execution/event.c \
-	srcs/execution/cub3D.c \
-	srcs/execution/processing.c \
+EXECUTION =  srcs/main.c \
+		srcs/execution/tlib.c \
+		srcs/execution/cub3D.c \
+		srcs/execution/utils.c \
+		srcs/execution/processing.c \
 
-RAYCASTING = srcs/raycasting/map.c \
-		srcs/raycasting/dda.c \
-		srcs/raycasting/raycasting.c \
-		srcs/raycasting/fdf_breseline.c \
+RENDERER = srcs/renderer/map.c \
+		srcs/renderer/dda.c \
+		srcs/renderer/move.c \
+		srcs/renderer/raycasting.c \
+		srcs/renderer/fdf_breseline.c \
 
-SRCS = $(EXEC) $(PARSING) $(RAYCASTING)
+SRCS = $(PARSING) $(RENDERER) $(EXECUTION)
 
 HIDDEN = .hidden
 OBJS = $(SRCS:%.c=$(HIDDEN)/%.o) 

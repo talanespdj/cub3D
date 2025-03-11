@@ -9,7 +9,7 @@
 /*   Updated: 2024/12/01 01:03:59 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "raycasting.h"
+#include "../../includes/raycasting.h"
 
 void	raycast(t_cub *cub)
 {
