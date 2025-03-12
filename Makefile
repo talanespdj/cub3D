@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -o3
 MLX_FLAGS = -L ./includes/mlx/ -lmlx -lXext -lX11 -lm
 
 #	comment this to compile on mac

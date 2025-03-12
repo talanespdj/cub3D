@@ -4,43 +4,13 @@
 
 
 
-deplacement  //
+pour l`instatn bruteforce de la pos du joueur pour le mapping
 
-	- w & s avance/recule via calcul arithmetique du vecteur_pos_player et vecteur_look
-
-	- a & d calcul arithmetique avec vecteur {0.0159, 0} || {0, 0.0159}
-
-pour l'instatn bruteforce de la pos du joueur pour le mapping
-
-
-
-
-look	//
-
-		t_mgam2f	look;
-
-	faire une fonction qui prend l'event si c'est right or press_left
-
-	lookMove()
 
 
 
 fonction cube qui prend en parametre un point et l'aire du cube
 		{player_pos.x, player_pos.y}, SPACE * SPACE
-
-
-faire en sorte que la width et la height de la fenetre soit des dimensions de la map
-
-creer les collisions
-	// convertir la position t_mgam2f player_pos qui est centree sur la map en sa position 2D
-	// _2Dplayer = {roundf(player_pos.X), roundf(player_pos.y)}
-		arrondir l'unité inférieure
-
-	si event WASD
-		--> verifier que le centre du joueur n'est pas dans un cube de mur
-	update _2Dplayer à chaque event WASD
-		--> si l'event mets le centre du player dans un mur ne pas faire l'accien, ne pas bouger les variables
-
 
 
 

@@ -50,7 +50,7 @@ void	miniMap(t_cub *cub, t_data *data)
 	{
 		j = -1;
 		while (++j <= ratio_player)
-			setpixel(cub->data, pos.x + i, pos.y + j, 0xFF0000);
+			setpixel(cub->data, pos.x + i, pos.y + j, map_player);
 	}
 }
 

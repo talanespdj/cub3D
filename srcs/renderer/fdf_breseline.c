@@ -16,7 +16,7 @@ void	breseline(t_cub *cub, t_mgam2i a, t_mgam2i b)
 	t_bsl	t;
 
 	bslinit(&t, a, b);
-	cub->map->color_bsl = 0xFF8600;
+	cub->map->color_bsl = 0x757083;
 	if (t.dy1 <= t.dx1)
 		sbto(cub, &t);
 	else

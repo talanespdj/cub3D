@@ -1,10 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/11 02:55:32 by tespandj          #+#    #+#             */
+/*   Updated: 2025/03/11 02:55:34 by tespandj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
 int	press(int key, t_cub *cub)
 {
-	t_mgam2i pos;
-	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player)-cub->map->l / 4,
-			 cub->cam->player_pos.y + (ratio_player)-cub->map->L / 2};
 	if (key == XK_w)
 		cub->keys.w = 1;
 	if (key == XK_s)
@@ -20,14 +28,13 @@ int	press(int key, t_cub *cub)
 		else
 			cub->keys.r = 1;
 	}
+	if (key == XK_Escape)
+		end_win(cub);
 	return (0);
 }
 
 int	release(int key, t_cub *cub)
 {
-	t_mgam2i pos;
-	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player)-cub->map->l / 4,
-		cub->cam->player_pos.y + (ratio_player)-cub->map->L / 2};
 	if (key == XK_w)
 		cub->keys.w = 0;
 	if (key == XK_s)
@@ -43,46 +50,50 @@ int	release(int key, t_cub *cub)
 		else
 			cub->keys.r = 0;
 	}
-	if (key == XK_Escape)
-		end_win(cub);
 	return (0);
 }
 
-int	validMove(int key, t_cub *cub)
+void	movement(t_cub *cub)
 {
-	t_mgam2i pos;
-
-	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2),
-				cub->cam->player_pos.y + (ratio_player / 2)};
-	if (key == XK_w)
-		if (wallHit(cub, pos.x, pos.y - dist_player_move))
-			return (0);
-	if (key == XK_s)
-		if (wallHit(cub, pos.x, pos.y + dist_player_move))
-			return (0);
-	if (key == XK_a)
-		if (wallHit(cub, pos.x - dist_player_move, pos.y))
-			return (0);
-	if (key == XK_d)
-		if (wallHit(cub, pos.x + dist_player_move, pos.y))
-			return (0);
-	return (1);
+	t_mgam2i posPlayer = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2),
+				  cub->cam->player_pos.y + (ratio_player / 2)};
+	if (cub->keys.w == 1)
+		if (!wallHit(cub, posPlayer.x, posPlayer.y - dist_player_move))
+			cub->cam->player_pos -= (t_mgam2f){0, RATIO_MOVE};
+	if (cub->keys.s == 1)
+		if (!wallHit(cub, posPlayer.x, posPlayer.y + dist_player_move))
+			cub->cam->player_pos += (t_mgam2f){0, RATIO_MOVE};
+	if (cub->keys.a == 1)
+		if (!wallHit(cub, posPlayer.x - dist_player_move, posPlayer.y))
+			cub->cam->player_pos -= (t_mgam2f){RATIO_MOVE, 0};
+	if (cub->keys.d == 1)
+		if (!wallHit(cub, posPlayer.x + dist_player_move, posPlayer.y))
+			cub->cam->player_pos += (t_mgam2f){RATIO_MOVE, 0};
+	if (cub->keys.l == 1)
+		lookMove(cub->cam, XK_Left);
+	if (cub->keys.r == 1)
+		lookMove(cub->cam, XK_Right);
 }
 
-void lookMove(t_cam *cam, int key)
+void	lookMove(t_cam *cam, int key)
 {
 	double theta;
 
-	theta = 100 * (M_PI / 180);
+	theta = 0.015;
 	if (key == XK_Left)
 	{
-		cam->look.x += 100 * (cos(-theta) - sin(-theta));
-		cam->look.y += 100 * (sin(-theta) - cos(-theta));
+		cam->oldlook.x = cam->look.x;
+		cam->look.x = (cam->look.x * cos(theta)) - ( cam->look.y * sin(theta));
+		cam->look.y = (cam->oldlook.x  * sin(theta)) + (cam->look.y * cos(theta));
 	}
 	else
 	{
-		cam->look.x += 100 * (cos(theta) - sin(theta));
-		cam->look.y += 100 * (sin(theta) - cos(theta));
+	// 	cam->look.x -= (cos(theta) - sin(theta));
+	// 	cam->look.y -= (sin(theta) - cos(theta));
+		cam->oldlook.x = cam->look.x;
+		cam->look.x = (cam->look.x * cos(-theta)) - ( cam->look.y * sin(-theta));
+		cam->look.y = (cam->oldlook.x * sin(-theta)) + ( cam->look.y * cos(-theta));
 	}
 	printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
 }
+

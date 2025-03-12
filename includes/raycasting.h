@@ -20,9 +20,9 @@
 # define dist_player_move ratio_player / 4
 # define RATIO_MOVE 4
 
-# define map_void 0xAEB8FE
-# define map_wall 0x27187E
-# define map_player 0xAEB8FE
+# define map_void 0x353831
+# define map_wall 0x090C08
+# define map_player 0x474056
 
 typedef double		t_mgam2f	__attribute__((ext_vector_type(2)));
 typedef int		t_mgam2i	__attribute__((ext_vector_type(2)));
@@ -32,13 +32,12 @@ typedef struct s_cam
 	t_mgam2f	player_pos;
 	t_mgam2i	_2dPlayer;
 	t_mgam2f	look;
+	t_mgam2f	oldlook;
 	double		view_angle; // a initialiser en fonction de N S E O sur la map et de la position du joueur sur la map
+	int		FOV;
 
 
-	int	FOV;
 }		t_cam;
-
-    
 
 typedef struct s_bsl
 {
@@ -79,8 +78,6 @@ void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b);
 /// @brief hook
 int	press(int key, t_cub *cub);
 int	release(int key, t_cub *cub);
-
-int	validMove(int key, t_cub *cub);
 void	lookMove(t_cam *cam, int key);
 
 #endif

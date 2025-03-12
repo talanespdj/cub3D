@@ -13,33 +13,38 @@
 
 void	raycast(t_cub *cub)
 {
-	int y;
-	int x;
-	t_mgam2i pos;
-	t_mgam2i view;
+	t_mgam2i	pos;
+	t_mgam2i	view;
+	t_mgam2f	posf;
+	t_mgam2f	viewf;
 
-	t_mgam2f posf;
-	t_mgam2f viewf;
 
 	// pour breseline 
 	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
-	view = (t_mgam2i){cub->cam->look.x + SPACE * 3, cub->cam->look.y + SPACE * 3};
+	view = (t_mgam2i){cub->cam->look.x + SPACE * 5, cub->cam->look.y + SPACE * 5};
 
-	// pour dda de con qui boucle a l'infini 
+
 	posf = (t_mgam2f){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
-	viewf = (t_mgam2f){cub->cam->look.x + SPACE * 3, cub->cam->look.y + SPACE * 3};
-
-	x = -1;
-	while (++x < cub->data->width)
-	{
-		y = -1;
-		while (++y < cub->data->height)
-			setpixel(cub->data, x, y, 0);
-	}
+	viewf = (t_mgam2f){cub->cam->look.x + SPACE * 5, cub->cam->look.y + SPACE * 5};
+	
+	// int	y;
+	// int	x;
+	// y = -1;
+	// boucle final qui va tout dessiner de haut en bas
+	// d'abord dessiner le ciel, puis le pixel correspondant a la texture en fonction de la distance a laquelle le rayon a ete envoye
+	// puis dessiner le sol
+	// while (++y < cub->data->height)
+	// {
+	//	lengthRay(cub, y)
+	//	
+	// 	x = -1;
+	// 	while (++x < cub->data->width)
+	// 		setpixel(cub->data, x, y, 0);
+	// }
 	miniMap(cub, cub->data);
-	// printf("joueur pos : {%d, %d}\n", pos.x, pos.y);
-	// printf("view : {%d, %d}\n", view.x, view.y);
 	breseline(cub, pos, view);
+	(void)posf;
+	(void)viewf;
 	// dda(cub, posf, viewf);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
@@ -48,6 +53,8 @@ int	wallHit(t_cub *cub, int x, int y)
 {
 	x = (x - cub->data->x_off) / SPACE;
 	y = (y - cub->data->y_off) / SPACE;
+	if ((x < 0 || x > cub->map->l) || (y < 0 || y > cub->map->L))
+		return (1);
 	if (cub->map->matrix[y][x] == '1')
 		return (1);
 	return 0;
