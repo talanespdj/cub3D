@@ -11,51 +11,35 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-// int	tabs(int n)
-// {
-// 	if (n < 0)
-// 		return (-n);
-// 	return (n);
-// }
+int	tabs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
 int	_2point_slope(t_mgam2f a, t_mgam2f b) {
 	return ((int)(b.y - a.y) / (b.x - a.x));
 }
 
-t_mgam2i	roundf_tmgam2f(t_mgam2f a) {
-	t_mgam2i	new_a;
 
-	new_a.x = roundf(a.x);
-	new_a.y = roundf(a.y);
-	return (new_a);
-}
+void	dda(t_cub *cub, t_mgam2i a, t_mgam2i b)
+{ 
+	int dx = b.x - a.x; 
+	int dy = b.y - a.y; 
 
-void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b) {
-	
+	int steps = tabs(dx) > tabs(dy) ? tabs(dx) : tabs(dy); 
 
-	t_mgam2i	newP;
-	t_mgam2i	oldPoint;
-	t_mgam2i	endPoint;
-	int		slope;
-	int i = 0;
-	
-	newP = roundf_tmgam2f(a);
-	oldPoint = roundf_tmgam2f(a);
-	endPoint = roundf_tmgam2f(b);
-	slope = _2point_slope(a, b);
-	while (newP.x != endPoint.x || newP.y != endPoint.y) {
-		printf("i [%d]\n", i);
-		if (slope == 1)
-			newP = oldPoint + (t_mgam2i){1, 1};
-		else if (slope < 1)
-			newP = (t_mgam2i){oldPoint.x + 1, oldPoint.y + slope};
-		else if (slope > 1)
-			newP = (t_mgam2i){oldPoint.x + 1 / slope, oldPoint.y + 1};
-		if (wallHit(cub, newP.x, newP.y))
+	float Xinc = dx / (float)steps; 
+	float Yinc = dy / (float)steps; 
+
+	float X = a.x; 
+	float Y = a.y; 
+	for (int i = 0; i <= steps; i++) { 
+		if (wallHit(cub, X, Y))
 			return ;
-		setpixel(cub->data, newP.x, newP.y, 0xFFB8FE);
-		oldPoint = newP;
+		setpixel(cub->data, round(X), round(Y), cub->map->color_bsl); // put pixel at (X,Y) 
+		X += Xinc;
+		Y += Yinc;
 	}
-}
-
-
+} 

@@ -28,7 +28,6 @@ void	mapInit(t_cub *cub)
 	cub->map = malloc(sizeof(t_map));
 	if (cub->map == NULL)
 		wgas(cub, "fail malloc cub->map", NULL);
-	cub->map->zoom = 20;
 	cub->map->l = 0;
 	cub->map->L = 0;
 	cub->map->NO = NULL;
@@ -38,6 +37,7 @@ void	mapInit(t_cub *cub)
 	cub->map->F = NULL;
 	cub->map->C = NULL;
 	cub->map->matrix = NULL;
+	cub->map->color_bsl = 0x757083;
 	parse_map(cub, cub->map_name);
 }
 
@@ -81,6 +81,7 @@ void	camInit(t_cub *cub)
 			{
 				cub->cam->_2dPlayer = (t_mgam2i){x, y};
 				cub->cam->player_pos = (t_mgam2f){(x * SPACE + cub->data->x_off), (y * SPACE + cub->data->y_off)};
+				break ;
 			}
 		}
 	}

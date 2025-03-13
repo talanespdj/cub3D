@@ -18,7 +18,7 @@ int	looping(t_cub *cub)
 	return 0;
 }
 
-int cub3d(struct s_cub *cub)
+int	cub3d(struct s_cub *cub)
 {
 	mlx_hook(cub->data->win, KeyPress, 1L << 0, &press, cub);
 	mlx_hook(cub->data->win, KeyRelease, 1L << 1, &release, cub);

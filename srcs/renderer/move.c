@@ -79,21 +79,19 @@ void	lookMove(t_cam *cam, int key)
 {
 	double theta;
 
-	theta = 0.015;
+	theta = 1;
+	// if (key == XK_Left)
+	// else
+	theta = 10 * (M_PI / 180);
 	if (key == XK_Left)
 	{
-		cam->oldlook.x = cam->look.x;
-		cam->look.x = (cam->look.x * cos(theta)) - ( cam->look.y * sin(theta));
-		cam->look.y = (cam->oldlook.x  * sin(theta)) + (cam->look.y * cos(theta));
+		cam->look.x += 20 *(cos(-theta) - sin(-theta));
+		cam->look.y += 20 *(sin(-theta) - cos(-theta));
 	}
 	else
 	{
-	// 	cam->look.x -= (cos(theta) - sin(theta));
-	// 	cam->look.y -= (sin(theta) - cos(theta));
-		cam->oldlook.x = cam->look.x;
-		cam->look.x = (cam->look.x * cos(-theta)) - ( cam->look.y * sin(-theta));
-		cam->look.y = (cam->oldlook.x * sin(-theta)) + ( cam->look.y * cos(-theta));
+		cam->look.x -= 20 *(cos(theta) - sin(theta));
+		cam->look.y -= 20 *(sin(theta) - cos(theta));
 	}
 	printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
 }
-

@@ -66,7 +66,6 @@ typedef struct s_map
 	char			*SO;
 	char			*WE;
 	char			*EA;
-	int				zoom;
 	int				color_bsl;
 }		t_map;
 

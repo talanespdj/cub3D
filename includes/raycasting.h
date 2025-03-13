@@ -61,16 +61,10 @@ double		lengthRay(t_cub *cub, t_mgam2f startP, t_mgam2f endP);
 int		wallHit(t_cub *cub, int x, int y);
 
 
-/// @brief restes de fdf bientot plus besoin 
-void		breseline(t_cub *cub, t_mgam2i a, t_mgam2i b);
-void		bslinit(t_bsl *t, t_mgam2i a, t_mgam2i b);
-void		slto(t_cub *cub, t_bsl *t);
-void		sbto(t_cub *cub, t_bsl *t);
-int			tabs(int n);
-
 // t_mgam2i	_2point_slope(t_mgam2f a, t_mgam2f b);
 int	_2point_slope(t_mgam2f a, t_mgam2f b);
-void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b);
+// void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b);
+void	dda(t_cub *cub, t_mgam2i a, t_mgam2i b);
 
 
 

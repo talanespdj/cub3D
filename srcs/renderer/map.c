@@ -34,7 +34,7 @@ void	miniMap(t_cub *cub, t_data *data)
 	int	col;
 
 	i = -1;
-	size = cub->map->L * (cub->map->l - 1);
+	size = cub->map->L * (cub->map->l - 1); // l'aire de la map
 	pos = (t_mgam2i){cub->cam->player_pos.x - 1, cub->cam->player_pos.y - 1};
 	while (++i < size)
 	{

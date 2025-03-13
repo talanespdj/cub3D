@@ -28,7 +28,6 @@ RENDERER = srcs/renderer/map.c \
 		srcs/renderer/dda.c \
 		srcs/renderer/move.c \
 		srcs/renderer/raycasting.c \
-		srcs/renderer/fdf_breseline.c \
 
 SRCS = $(PARSING) $(RENDERER) $(EXECUTION)
 
