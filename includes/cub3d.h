@@ -51,7 +51,6 @@ void	fill_floor(t_cub *cub, char *line);
 void	fill_ceiling(t_cub *cub, char *line);
 
 void	mapping(t_cub *cub, char *save, char *line);
-void	build_matrix(t_cub *cub, char *save, char *line);
 
 char	*gnl(int fd);
 char	*org(char *str);

@@ -38,7 +38,7 @@ void	dda(t_cub *cub, t_mgam2i a, t_mgam2i b)
 	for (int i = 0; i <= steps; i++) { 
 		if (wallHit(cub, X, Y))
 			return ;
-		setpixel(cub->data, round(X), round(Y), cub->map->color_bsl); // put pixel at (X,Y) 
+		setpixel(cub->data, round(X), round(Y), 0x757083); // put pixel at (X,Y) 
 		X += Xinc;
 		Y += Yinc;
 	}

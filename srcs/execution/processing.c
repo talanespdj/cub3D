@@ -21,6 +21,10 @@ void	everyinit(t_cub *cub, char *name)
 	if (!cub->cam)
 		wgas(cub, "malloc cam failed", NULL);
 	camInit(cub);
+	cub->ray = malloc(sizeof(t_ray));
+	if (!cub->ray)
+		wgas(cub, "malloc ray failed", NULL);
+	rayInit(cub);
 }
 
 void	mapInit(t_cub *cub)
@@ -87,5 +91,19 @@ void	camInit(t_cub *cub)
 	}
 	cub->cam->look = (t_mgam2f){cub->cam->player_pos.x + SPACE, cub->cam->player_pos.y + SPACE};
 	cub->cam->oldlook = (t_mgam2f){0, 0};
-	cub->cam->view_angle = 90 * M_PI / 180;
+}
+
+void	rayInit(t_cub *cub)
+{
+	map;
+	ray;
+	plane;
+	sideDist;
+	deltaDist;
+	stepx
+	stepy;
+	cameraX;
+	perpWallDist;
+
+	cub->cam->oldlook = (t_mgam2f){0, 0};
 }

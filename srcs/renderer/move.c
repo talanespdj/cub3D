@@ -79,19 +79,48 @@ void	lookMove(t_cam *cam, int key)
 {
 	double theta;
 
-	theta = 1;
-	// if (key == XK_Left)
-	// else
 	theta = 10 * (M_PI / 180);
-	if (key == XK_Left)
-	{
-		cam->look.x += 20 *(cos(-theta) - sin(-theta));
-		cam->look.y += 20 *(sin(-theta) - cos(-theta));
-	}
-	else
-	{
-		cam->look.x -= 20 *(cos(theta) - sin(theta));
-		cam->look.y -= 20 *(sin(theta) - cos(theta));
-	}
-	printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
+	// if (key == XK_Left)
+	// {
+	// 	cam->look.x += 20 *(cos(-theta) - sin(-theta));
+	// 	cam->look.y += 20 *(sin(-theta) - cos(-theta));
+	// }
+	// else
+	// {
+	// 	cam->look.x -= 20 *(cos(theta) - sin(theta));
+	// 	cam->look.y -= 20 *(sin(theta) - cos(theta));
+	// }
+	// printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
+	(void)key;
+	(void)cam;
 }
+
+
+//	player->dir_deg -= ROTATION_SPEED;
+// 	if (player->dir_deg < 0)
+// 		player->dir_deg += 359;
+// 	player->old_dir_x = player->dir.x;
+// 	player->dir.x = player->dir.x * cos(ROTATION_SPEED)
+// 		- player->dir.y * sin(ROTATION_SPEED);
+// 	player->dir.y = player->old_dir_x * sin(ROTATION_SPEED)
+// 		+ player->dir.y * cos(ROTATION_SPEED);
+// 	player->old_plane_x = data->ray->plane.x;
+// 	data->ray->plane.x = data->ray->plane.x * cos(ROTATION_SPEED)
+// 		- data->ray->plane.y * sin(ROTATION_SPEED);
+// 	data->ray->plane.y = player->old_plane_x * sin(ROTATION_SPEED)
+// 		+ data->ray->plane.y * cos(ROTATION_SPEED);
+
+
+// if (map->left_pressed)
+// 	{
+// 		oldir = map->camera.dir.x;
+// 		map->camera.dir.x = map->camera.dir.x * cos(-rot_speed)
+// 			- map->camera.dir.y * sin(-rot_speed);
+// 		map->camera.dir.y = oldir * sin(-rot_speed) + map->camera.dir.y
+// 			* cos(-rot_speed);
+// 		old_planex = map->camera.plane.x;
+// 		map->camera.plane.x = map->camera.plane.x * cos(-rot_speed)
+// 			- map->camera.plane.y * sin(-rot_speed);
+// 		map->camera.plane.y = old_planex * sin(-rot_speed) + map->camera.plane.y
+// 			* cos(-rot_speed);
+// 	}
