@@ -91,6 +91,7 @@ void	lookMove(t_cam *cam, int key)
 	// 	cam->look.y -= 20 *(sin(theta) - cos(theta));
 	// }
 	// printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
+	(void)theta;
 	(void)key;
 	(void)cam;
 }

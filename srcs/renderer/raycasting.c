@@ -12,82 +12,62 @@
 #include "../../includes/raycasting.h"
 
 
-void	lengthRay(t_cub *cub)
+void	lengthRay(t_cub * cub, t_ray *ray)
 {
 	while (1)
 	{
-		if (cub->cam->sideDist.x < cub->cam->sideDist.y)
+		if (ray->sideDist.x < ray->sideDist.y)
 		{
-			cub->cam->sideDist.x += cub->cam->deltaDist.x
-			cub->cam->map.x += step.x;
-			side = 0;
+			ray->sideDist.x += ray->deltaDist.x;
+			ray->map.x += ray->step.x;
+			ray->whichSide = 0;
 		}
 		else
 		{
-			cub->cam->sideDist.y += cub->cam->deltaDist.y
-			cub->cam->map.y += step.y;
-			side = 1;
+			ray->sideDist.y += ray->deltaDist.y;
+			ray->map.y += ray->step.y;
+			ray->whichSide = 1;
 		}
-		if (cub->map->matrix[cub->cam->map.y][cub->cam->map.x] > 0)
+		if (cub->map->matrix[ray->map.y][ray->map.x] > 0)
 			break ;
 	}
-	if (side == 0)
-		cub->cam-
-
+	if (ray->whichSide == 0)
+		ray->perpWallDist = (ray->map.x - cub->cam->player_pos.x + (1 - ray->step.x) / 2) / ray->ray.x;
+	else
+		ray->perpWallDist = (ray->map.y - cub->cam->player_pos.y + (1 - ray->step.y) / 2) / ray->ray.y;
+	ray->rayLength = (int)(cub->data->height / ray->perpWallDist);
 }
-
-
-
-
-
 
 void	raycast(t_cub *cub)
 {
-	t_mgam2i	pos;
-	t_mgam2i	view;
 	int		x;
-	t_mgam2i	map;
-	int		stepx;
-	int		stepy;
 	double		cameraX;
-	double		perpWallDist;
-
-	pos = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2), cub->cam->player_pos.y + (ratio_player / 2)};
-	view = (t_mgam2i){pos.x + cub->cam->look.x, pos.y + cub->cam->look.y}; // temporaire
 
 	x = -1;
-	stepx = -1;
-	stepy = -1;
-	map.x = (int)cub->cam->player_pos.x;
-	map.y = (int)cub->cam->player_pos.y;
 	while (++x < cub->data->width)
 	{
 		cameraX = 2 * x / (double)cub->data->width - 1;
-		cub->cam->ray.x = cub->cam->look.x + (cub->cam->plane.x * cameraX);
-		cub->cam->ray.y = cub->cam->look.y + (cub->cam->plane.x * cameraX);
-		cub->cam->deltaDist.x = fabs(1 / cub->cam->ray.x);
-		cub->cam->deltaDist.y = fabs(1 / cub->cam->ray.y);
-		
-		if (cub->cam->ray.x > 0)
+		cub->ray->ray.x = cub->cam->look.x + (cub->ray->plane.x * cameraX);
+		cub->ray->ray.y = cub->cam->look.y + (cub->ray->plane.y * cameraX);
+		cub->ray->map.x = (int)cub->cam->player_pos.x;
+		cub->ray->map.y = (int)cub->cam->player_pos.y;
+		cub->ray->deltaDist.x = fabs(1 / cub->ray->ray.x);
+		cub->ray->deltaDist.y = fabs(1 / cub->ray->ray.y);
+		if (cub->ray->ray.x > 0)
 		{
-			stepx = 1;
-			cub->cam->sideDist.x = (map.x + 1.0 - cub->cam->player_pos.x) * cub->cam->deltaDist.x;
+			cub->ray->step.x = 1;
+			cub->ray->sideDist.x = (cub->ray->map.x + 1.0 - cub->cam->player_pos.x) * cub->ray->deltaDist.x;
 		}
 		else
-			cub->cam->sideDist.x = (cub->cam->player_pos.x - map.x) * cub->cam->deltaDist.x;
-		if (cub->cam->ray.y > 0)
+			cub->ray->sideDist.x = (cub->cam->player_pos.x - cub->ray->map.x) * cub->ray->deltaDist.x;
+		if (cub->ray->ray.y > 0)
 		{
-			stepy = 1;
-			cub->cam->sideDist.y = (map.y + 1.0 - cub->cam->player_pos.y) * cub->cam->deltaDist.y;
+			cub->ray->step.y = 1;
+			cub->ray->sideDist.y = (cub->ray->map.y + 1.0 - cub->cam->player_pos.y) * cub->ray->deltaDist.y;
 		}
 		else
-			cub->cam->sideDist.y = (cub->cam->player_pos.y - map.y) * cub->cam->deltaDist.y;
-		lengthRay(cub);
-		
-					
-
-
-		
+			cub->ray->sideDist.y = (cub->cam->player_pos.y - cub->ray->map.y) * cub->ray->deltaDist.y;
+		lengthRay(cub, cub->ray);
 	}
 	// dda(cub, pos, view);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);

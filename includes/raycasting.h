@@ -43,28 +43,29 @@ typedef struct s_cam
 
 typedef	struct s_ray
 {
+	int		rayLength;
+	int		whichSide;
 	t_mgam2i	map;
 	t_mgam2f	ray;
 	t_mgam2f	plane;
 	t_mgam2f	sideDist;
 	t_mgam2f	deltaDist;
-	int		stepx;
-	int		stepy;
+	t_mgam2i	step;
 	double		cameraX;
 	double		perpWallDist;
 }		t_ray;
 
+
 void		raycast(t_cub *cub);
+void		lengthRay(t_cub *cub, t_ray *ray);
+int		wallHit(t_cub *cub, int x, int y);
 void		setpixel(t_data *data, int x, int y, int color);
 
 void		miniMap(t_cub *cub, t_data *data);
-double		lengthRay(t_cub *cub, t_mgam2f startP, t_mgam2f endP);
-int		wallHit(t_cub *cub, int x, int y);
 
 
 // t_mgam2i	_2point_slope(t_mgam2f a, t_mgam2f b);
 int	_2point_slope(t_mgam2f a, t_mgam2f b);
-// void	dda(t_cub *cub, t_mgam2f a, t_mgam2f b);
 void	dda(t_cub *cub, t_mgam2i a, t_mgam2i b);
 
 

@@ -24,7 +24,7 @@ void	everyinit(t_cub *cub, char *name)
 	cub->ray = malloc(sizeof(t_ray));
 	if (!cub->ray)
 		wgas(cub, "malloc ray failed", NULL);
-	rayInit(cub);
+	rayInit(cub->ray);
 }
 
 void	mapInit(t_cub *cub)
@@ -41,7 +41,7 @@ void	mapInit(t_cub *cub)
 	cub->map->F = NULL;
 	cub->map->C = NULL;
 	cub->map->matrix = NULL;
-	cub->map->color_bsl = 0x757083;
+	// 0x757083;
 	parse_map(cub, cub->map_name);
 }
 
@@ -83,27 +83,25 @@ void	camInit(t_cub *cub)
 		{
 			if (cub->map->matrix[y][x] == 'N' || cub->map->matrix[y][x] == 'S' || cub->map->matrix[y][x] == 'E' || cub->map->matrix[y][x] == 'O')
 			{
-				cub->cam->_2dPlayer = (t_mgam2i){x, y};
-				cub->cam->player_pos = (t_mgam2f){(x * SPACE + cub->data->x_off), (y * SPACE + cub->data->y_off)};
+				cub->cam->player_pos = (t_mgam2f){x, y};
+				// faire un truc pour la direction suivant la lettre
 				break ;
 			}
 		}
 	}
-	cub->cam->look = (t_mgam2f){cub->cam->player_pos.x + SPACE, cub->cam->player_pos.y + SPACE};
+	cub->cam->look = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
 	cub->cam->oldlook = (t_mgam2f){0, 0};
 }
 
-void	rayInit(t_cub *cub)
+void	rayInit(t_ray *ray)
 {
-	map;
-	ray;
-	plane;
-	sideDist;
-	deltaDist;
-	stepx
-	stepy;
-	cameraX;
-	perpWallDist;
-
-	cub->cam->oldlook = (t_mgam2f){0, 0};
+	ray->map = (t_mgam2i){0, 0};
+	ray->step = (t_mgam2i){0, 0};
+	ray->ray = (t_mgam2f){0.0, 0.0};
+	ray->plane = (t_mgam2f){0.0, 0.0};
+	ray->sideDist = (t_mgam2f){0.0, 0.0};
+	ray->deltaDist = (t_mgam2f){0.0, 0.0};
+	ray->cameraX = 0.0;
+	ray->perpWallDist = 0.0;
+	ray->whichSide = 0;
 }

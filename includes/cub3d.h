@@ -39,6 +39,7 @@ void	everyinit(t_cub *cub, char *map_name);
 void	mapInit(t_cub *cub);
 void	dataInit(t_cub *cub);
 void	camInit(t_cub *cub);
+void	rayInit(t_ray *ray);
 
 void	parse_map(t_cub *cub, char *name);
 
