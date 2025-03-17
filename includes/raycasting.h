@@ -53,20 +53,22 @@ typedef	struct s_ray
 	t_mgam2i	step;
 	double		cameraX;
 	double		perpWallDist;
+	int		startP;
+	int		endP;
 }		t_ray;
 
 
 void		raycast(t_cub *cub);
-void		lengthRay(t_cub *cub, t_ray *ray);
 int		wallHit(t_cub *cub, int x, int y);
-void		setpixel(t_data *data, int x, int y, int color);
+void		lengthRay(t_cub *cub, t_ray *ray);
+void		startingBlocks(t_cub *cub, t_ray *ray);
+void		verticalLine(t_cub *cub, t_ray *ray, int x);
 
 void		miniMap(t_cub *cub, t_data *data);
 
 
-// t_mgam2i	_2point_slope(t_mgam2f a, t_mgam2f b);
-int	_2point_slope(t_mgam2f a, t_mgam2f b);
-void	dda(t_cub *cub, t_mgam2i a, t_mgam2i b);
+void		dda(t_cub *cub, t_mgam2i a, t_mgam2i b);
+void		setpixel(t_data *data, int x, int y, int color);
 
 
 

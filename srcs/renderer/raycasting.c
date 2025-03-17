@@ -11,33 +11,6 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-
-void	lengthRay(t_cub * cub, t_ray *ray)
-{
-	while (1)
-	{
-		if (ray->sideDist.x < ray->sideDist.y)
-		{
-			ray->sideDist.x += ray->deltaDist.x;
-			ray->map.x += ray->step.x;
-			ray->whichSide = 0;
-		}
-		else
-		{
-			ray->sideDist.y += ray->deltaDist.y;
-			ray->map.y += ray->step.y;
-			ray->whichSide = 1;
-		}
-		if (cub->map->matrix[ray->map.y][ray->map.x] > 0)
-			break ;
-	}
-	if (ray->whichSide == 0)
-		ray->perpWallDist = (ray->map.x - cub->cam->player_pos.x + (1 - ray->step.x) / 2) / ray->ray.x;
-	else
-		ray->perpWallDist = (ray->map.y - cub->cam->player_pos.y + (1 - ray->step.y) / 2) / ray->ray.y;
-	ray->rayLength = (int)(cub->data->height / ray->perpWallDist);
-}
-
 void	raycast(t_cub *cub)
 {
 	int		x;
@@ -68,10 +41,66 @@ void	raycast(t_cub *cub)
 		else
 			cub->ray->sideDist.y = (cub->cam->player_pos.y - cub->ray->map.y) * cub->ray->deltaDist.y;
 		lengthRay(cub, cub->ray);
+		startingBlocks(cub, cub->ray);
+		verticalLine(cub, cub->ray, x);
 	}
-	// dda(cub, pos, view);
+	t_mgam2i s = (t_mgam2i){0, 0};
+	t_mgam2i e = (t_mgam2i){cub->data->width - 1, cub->data->height - 1};
+	dda(cub, s, e);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
+
+void	lengthRay(t_cub * cub, t_ray *ray)
+{
+	while (1)
+	{
+		if (ray->sideDist.x < ray->sideDist.y)
+		{
+			ray->sideDist.x += ray->deltaDist.x;
+			ray->map.x += ray->step.x;
+			ray->whichSide = 0;
+		}
+		else
+		{
+			ray->sideDist.y += ray->deltaDist.y;
+			ray->map.y += ray->step.y;
+			ray->whichSide = 1;
+		}
+		if (cub->map->matrix[ray->map.y][ray->map.x] > 0)
+			break ;
+	}
+	if (ray->whichSide == 0)
+		ray->perpWallDist = (ray->map.x - cub->cam->player_pos.x + (1 - ray->step.x) / 2) / ray->ray.x;
+	else
+		ray->perpWallDist = (ray->map.y - cub->cam->player_pos.y + (1 - ray->step.y) / 2) / ray->ray.y;
+	ray->rayLength = (int)(cub->data->height / ray->perpWallDist);
+}
+
+void	startingBlocks(t_cub *cub, t_ray *ray)
+{
+	ray->startP = cub->data->height / 2 - ray->rayLength / 2;
+	ray->endP = cub->data->height / 2 + ray->rayLength / 2;
+	if (ray->startP < 0) {
+		printf("startP du ray est en < 0\n");
+		ray->startP = 0;
+		// exit (1);
+	}
+	if (ray->endP > cub->data->height) {
+		printf("endP du ray est en dehors de la height\n");
+		ray->endP = cub->data->height;
+		// exit (1);
+	}
+}
+
+void		verticalLine(t_cub *cub, t_ray *ray, int x)
+{
+	
+}
+
+
+
+
+
 
 int	wallHit(t_cub *cub, int x, int y)
 {
@@ -83,16 +112,3 @@ int	wallHit(t_cub *cub, int x, int y)
 		return (1);
 	return 0;
 }
-
-void	setpixel(t_data *data, int x, int y, int color)
-{
-	char *dst;
-	if ((x < data->width && x > 0) && (y < data->height && y > 0))
-	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
-	// else
-	// 	printf("Bouffon t'ecris en dehors\n");
-}
-
