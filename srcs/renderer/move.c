@@ -104,11 +104,11 @@ void	lookMove(t_ray *ray, t_cam *cam, int key)
 	if (key == XK_Left)
 		rotate = -rotateSpeed;
 	saveLook = cam->look.x;
-	cam->look.x = cam->look.x * cos(-rotateSpeed) - cam->look.y * sin(-rotateSpeed);
-	cam->look.y = saveLook * cos(-rotateSpeed) + cam->look.y * sin(-rotateSpeed);
+	cam->look.x = cam->look.x * cos(rotate) - cam->look.y * sin(rotate);
+	cam->look.y = saveLook * cos(rotate) + cam->look.y * sin(rotate);
 	savePlane = ray->plane.x;
-	ray->plane.x = ray->plane.x * cos(-rotateSpeed) - ray->plane.y * sin(-rotateSpeed);
-	ray->plane.y = saveLook * cos(-rotateSpeed) + ray->plane.y * sin(-rotateSpeed);
+	ray->plane.x = ray->plane.x * cos(rotate) - ray->plane.y * sin(rotate);
+	ray->plane.y = savePlane * cos(rotate) + ray->plane.y * sin(rotate);
 }
 
 int	wallHit(t_cub *cub, int x, int y)
