@@ -55,73 +55,59 @@ int	release(int key, t_cub *cub)
 
 void	movement(t_cub *cub)
 {
-	t_mgam2i posPlayer = (t_mgam2i){cub->cam->player_pos.x + (ratio_player / 2),
-				  cub->cam->player_pos.y + (ratio_player / 2)};
+	t_mgam2i	posPlayer;
+	t_mgam2f	look;
+	
+	look = cub->cam->look;
+	posPlayer = (t_mgam2i){cub->cam->player_pos.x, cub->cam->player_pos.y};
 	if (cub->keys.w == 1)
-		if (!wallHit(cub, posPlayer.x, posPlayer.y - dist_player_move))
-			cub->cam->player_pos -= (t_mgam2f){0, RATIO_MOVE};
+	{
+		if (!wallHit(cub, posPlayer.x + look.x * moveSpeed, posPlayer.y))
+			cub->cam->player_pos.x += look.x * moveSpeed;
+		if (!wallHit(cub, posPlayer.x, posPlayer.y + look.y * moveSpeed))
+			cub->cam->player_pos.y += look.y * moveSpeed;
+	}
 	if (cub->keys.s == 1)
-		if (!wallHit(cub, posPlayer.x, posPlayer.y + dist_player_move))
-			cub->cam->player_pos += (t_mgam2f){0, RATIO_MOVE};
-	if (cub->keys.a == 1)
-		if (!wallHit(cub, posPlayer.x - dist_player_move, posPlayer.y))
-			cub->cam->player_pos -= (t_mgam2f){RATIO_MOVE, 0};
-	if (cub->keys.d == 1)
-		if (!wallHit(cub, posPlayer.x + dist_player_move, posPlayer.y))
-			cub->cam->player_pos += (t_mgam2f){RATIO_MOVE, 0};
+	{
+		if (!wallHit(cub, posPlayer.x - look.x * moveSpeed, posPlayer.y))
+			cub->cam->player_pos.x -= look.x * moveSpeed;
+		if (!wallHit(cub, posPlayer.x, posPlayer.y - look.y * moveSpeed))
+			cub->cam->player_pos.y -= look.y * moveSpeed;
+	}
+	// if (cub->keys.a == 1)
+	// 	if (!wallHit(cub, posPlayer.x - look.x * moveSpeed, posPlayer.y))
+	// 		cub->cam->player_pos.x -= look.x * moveSpeed;
+	// if (cub->keys.d == 1)
+	// 	if (!wallHit(cub, posPlayer.x + look.x * moveSpeed, posPlayer.y))
+	// 		cub->cam->player_pos.x += look.x * moveSpeed;
 	if (cub->keys.l == 1)
-		lookMove(cub->cam, XK_Left);
+		lookMove(cub->ray, cub->cam, XK_Left);
 	if (cub->keys.r == 1)
-		lookMove(cub->cam, XK_Right);
+		lookMove(cub->ray, cub->cam, XK_Right);
 }
 
-void	lookMove(t_cam *cam, int key)
+void	lookMove(t_ray *ray, t_cam *cam, int key)
 {
-	double theta;
+	double	saveLook;
+	double	savePlane;
+	double	rotate;
 
-	theta = 10 * (M_PI / 180);
-	// if (key == XK_Left)
-	// {
-	// 	cam->look.x += 20 *(cos(-theta) - sin(-theta));
-	// 	cam->look.y += 20 *(sin(-theta) - cos(-theta));
-	// }
-	// else
-	// {
-	// 	cam->look.x -= 20 *(cos(theta) - sin(theta));
-	// 	cam->look.y -= 20 *(sin(theta) - cos(theta));
-	// }
-	// printf("After : {%f, %f}\n", cam->look[0], cam->look[1]);
-	(void)theta;
-	(void)key;
-	(void)cam;
+	rotate = rotateSpeed;
+	if (key == XK_Left)
+		rotate = -rotateSpeed;
+	saveLook = cam->look.x;
+	cam->look.x = cam->look.x * cos(-rotateSpeed) - cam->look.y * sin(-rotateSpeed);
+	cam->look.y = saveLook * cos(-rotateSpeed) + cam->look.y * sin(-rotateSpeed);
+	savePlane = ray->plane.x;
+	ray->plane.x = ray->plane.x * cos(-rotateSpeed) - ray->plane.y * sin(-rotateSpeed);
+	ray->plane.y = saveLook * cos(-rotateSpeed) + ray->plane.y * sin(-rotateSpeed);
 }
 
-
-//	player->dir_deg -= ROTATION_SPEED;
-// 	if (player->dir_deg < 0)
-// 		player->dir_deg += 359;
-// 	player->old_dir_x = player->dir.x;
-// 	player->dir.x = player->dir.x * cos(ROTATION_SPEED)
-// 		- player->dir.y * sin(ROTATION_SPEED);
-// 	player->dir.y = player->old_dir_x * sin(ROTATION_SPEED)
-// 		+ player->dir.y * cos(ROTATION_SPEED);
-// 	player->old_plane_x = data->ray->plane.x;
-// 	data->ray->plane.x = data->ray->plane.x * cos(ROTATION_SPEED)
-// 		- data->ray->plane.y * sin(ROTATION_SPEED);
-// 	data->ray->plane.y = player->old_plane_x * sin(ROTATION_SPEED)
-// 		+ data->ray->plane.y * cos(ROTATION_SPEED);
-
-
-// if (map->left_pressed)
-// 	{
-// 		oldir = map->camera.dir.x;
-// 		map->camera.dir.x = map->camera.dir.x * cos(-rot_speed)
-// 			- map->camera.dir.y * sin(-rot_speed);
-// 		map->camera.dir.y = oldir * sin(-rot_speed) + map->camera.dir.y
-// 			* cos(-rot_speed);
-// 		old_planex = map->camera.plane.x;
-// 		map->camera.plane.x = map->camera.plane.x * cos(-rot_speed)
-// 			- map->camera.plane.y * sin(-rot_speed);
-// 		map->camera.plane.y = old_planex * sin(-rot_speed) + map->camera.plane.y
-// 			* cos(-rot_speed);
-// 	}
+int	wallHit(t_cub *cub, int x, int y)
+{
+	if ((x < 0 || x > cub->map->l) || (y < 0 || y > cub->map->L - 1))
+		return (1);
+	if (cub->map->matrix[y][x] == '1')
+		return (1);
+	return 0;
+}

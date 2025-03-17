@@ -42,6 +42,7 @@ void	camInit(t_cub *cub);
 void	rayInit(t_ray *ray);
 
 void	parse_map(t_cub *cub, char *name);
+int	setLook(t_cub *cub, char *str, int y);
 
 void	textures(t_cub *cub);
 int	texture_checking(t_cub *cub, char *file);

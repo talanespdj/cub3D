@@ -72,25 +72,37 @@ void	dataInit(t_cub *cub)
 
 void	camInit(t_cub *cub)
 {
-	int	x;
 	int	y;
 
 	y = -1;
 	while (cub->map->matrix[++y])
+		if (setLook(cub, cub->map->matrix[y], y))
+			return ;
+	wgas(cub, "pblm ya pas de pos de joueur dans la map", NULL);
+}
+
+int	setLook(t_cub *cub, char *str, int y)
+{
+	int	x;
+
+	x = -1;
+	while (str[++x])
 	{
-		x = -1;
-		while (cub->map->matrix[y][++x])
+		if (str[x] == 'N' || str[x] == 'S' || str[x] == 'E' || str[x] == 'O')
 		{
-			if (cub->map->matrix[y][x] == 'N' || cub->map->matrix[y][x] == 'S' || cub->map->matrix[y][x] == 'E' || cub->map->matrix[y][x] == 'O')
-			{
-				cub->cam->player_pos = (t_mgam2f){x, y};
-				// faire un truc pour la direction suivant la lettre
-				break ;
-			}
+			if (str[x] == 'N')
+				cub->cam->look = (t_mgam2f){0, 1};
+			else if (str[x] == 'S')
+				cub->cam->look = (t_mgam2f){0, -1};
+			else if (str[x] == 'E')
+				cub->cam->look = (t_mgam2f){-1, 0};
+			else if (str[x] == 'O')
+				cub->cam->look = (t_mgam2f){1, 0};
+			cub->cam->player_pos = (t_mgam2f){x + 1, y + 1};
+			return (1);
 		}
 	}
-	cub->cam->look = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
-	cub->cam->oldlook = (t_mgam2f){0, 0};
+	return (0);
 }
 
 void	rayInit(t_ray *ray)
@@ -98,7 +110,7 @@ void	rayInit(t_ray *ray)
 	ray->map = (t_mgam2i){0, 0};
 	ray->step = (t_mgam2i){0, 0};
 	ray->ray = (t_mgam2f){0.0, 0.0};
-	ray->plane = (t_mgam2f){0.0, 0.0};
+	ray->plane = (t_mgam2f){0.0, 0.66};
 	ray->sideDist = (t_mgam2f){0.0, 0.0};
 	ray->deltaDist = (t_mgam2f){0.0, 0.0};
 	ray->cameraX = 0.0;

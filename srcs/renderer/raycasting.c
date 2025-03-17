@@ -44,9 +44,6 @@ void	raycast(t_cub *cub)
 		startingBlocks(cub, cub->ray);
 		verticalLine(cub, cub->ray, x);
 	}
-	t_mgam2i s = (t_mgam2i){0, 0};
-	t_mgam2i e = (t_mgam2i){cub->data->width - 1, cub->data->height - 1};
-	dda(cub, s, e);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
 
@@ -66,8 +63,9 @@ void	lengthRay(t_cub * cub, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->whichSide = 1;
 		}
-		if (cub->map->matrix[ray->map.y][ray->map.x] > 0)
+		if (cub->map->matrix[ray->map.y][ray->map.x] != 0) {
 			break ;
+		}
 	}
 	if (ray->whichSide == 0)
 		ray->perpWallDist = (ray->map.x - cub->cam->player_pos.x + (1 - ray->step.x) / 2) / ray->ray.x;
@@ -80,35 +78,22 @@ void	startingBlocks(t_cub *cub, t_ray *ray)
 {
 	ray->startP = cub->data->height / 2 - ray->rayLength / 2;
 	ray->endP = cub->data->height / 2 + ray->rayLength / 2;
-	if (ray->startP < 0) {
-		printf("startP du ray est en < 0\n");
+	if (ray->startP < 0)
 		ray->startP = 0;
-		// exit (1);
-	}
-	if (ray->endP > cub->data->height) {
-		printf("endP du ray est en dehors de la height\n");
+	if (ray->endP > cub->data->height) 
 		ray->endP = cub->data->height;
-		// exit (1);
-	}
 }
 
-void		verticalLine(t_cub *cub, t_ray *ray, int x)
+void	verticalLine(t_cub *cub, t_ray *ray, int x)
 {
-	
+	int	y;
+
+	y = -1;
+	while (++y < ray->startP)
+		setpixel(cub->data, x, y, map_sky); // setpixel(cub->data, x, y, cub->map->C) // apres avoir bien parse la couleur
+	while (++y <= ray->endP)
+		setpixel(cub->data, x, y, map_wall); // une fonction qui transpose pour le bon pixel en fonction de la texture
+	while (++y < cub->data->height - 1)
+		setpixel(cub->data, x, y, map_floor);	
 }
 
-
-
-
-
-
-int	wallHit(t_cub *cub, int x, int y)
-{
-	x = (x - cub->data->x_off) / SPACE;
-	y = (y - cub->data->y_off) / SPACE;
-	if ((x < 0 || x > cub->map->l) || (y < 0 || y > cub->map->L))
-		return (1);
-	if (cub->map->matrix[y][x] == '1')
-		return (1);
-	return 0;
-}
