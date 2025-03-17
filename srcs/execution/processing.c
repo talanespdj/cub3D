@@ -98,7 +98,8 @@ int	setLook(t_cub *cub, char *str, int y)
 				cub->cam->look = (t_mgam2f){-1, 0};
 			else if (str[x] == 'O')
 				cub->cam->look = (t_mgam2f){1, 0};
-			cub->cam->player_pos = (t_mgam2f){x + 1, y + 1};
+			cub->map->matrix[y][x] = '0';
+			cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
 			return (1);
 		}
 	}

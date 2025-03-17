@@ -27,8 +27,8 @@
 # define map_sky 0x778BF0
 # define map_floor 0x7C7C7C
 
-# define moveSpeed 0.02
-# define rotateSpeed 0.02
+# define moveSpeed 0.05
+# define rotateSpeed 0.05
 
 typedef double		t_mgam2f	__attribute__((ext_vector_type(2)));
 typedef int		t_mgam2i	__attribute__((ext_vector_type(2)));
@@ -61,7 +61,6 @@ typedef	struct s_ray
 void		raycast(t_cub *cub);
 int		wallHit(t_cub *cub, int x, int y);
 void		lengthRay(t_cub *cub, t_ray *ray);
-void		startingBlocks(t_cub *cub, t_ray *ray);
 void		verticalLine(t_cub *cub, t_ray *ray, int x);
 
 void		miniMap(t_cub *cub, t_data *data);

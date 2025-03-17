@@ -74,12 +74,20 @@ void	movement(t_cub *cub)
 		if (!wallHit(cub, posPlayer.x, posPlayer.y - look.y * moveSpeed))
 			cub->cam->player_pos.y -= look.y * moveSpeed;
 	}
-	// if (cub->keys.a == 1)
-	// 	if (!wallHit(cub, posPlayer.x - look.x * moveSpeed, posPlayer.y))
-	// 		cub->cam->player_pos.x -= look.x * moveSpeed;
-	// if (cub->keys.d == 1)
-	// 	if (!wallHit(cub, posPlayer.x + look.x * moveSpeed, posPlayer.y))
-	// 		cub->cam->player_pos.x += look.x * moveSpeed;
+	if (cub->keys.a == 1)
+	{
+		if (!wallHit(cub, posPlayer.x + look.y * moveSpeed, posPlayer.y))
+			cub->cam->player_pos.x += look.y * moveSpeed;
+		if (!wallHit(cub, posPlayer.x, posPlayer.y - look.x * moveSpeed))
+			cub->cam->player_pos.y -= look.x * moveSpeed;
+	}
+	if (cub->keys.d == 1)
+	{
+		if (!wallHit(cub, posPlayer.x - look.y * moveSpeed, posPlayer.y))
+			cub->cam->player_pos.x -= look.y * moveSpeed;
+		if (!wallHit(cub, posPlayer.x, posPlayer.y + look.x * moveSpeed))
+			cub->cam->player_pos.y += look.x * moveSpeed;
+	}
 	if (cub->keys.l == 1)
 		lookMove(cub->ray, cub->cam, XK_Left);
 	if (cub->keys.r == 1)

@@ -20,12 +20,10 @@ void	raycast(t_cub *cub)
 	while (++x < cub->data->width)
 	{
 		cameraX = 2 * x / (double)cub->data->width - 1;
-		cub->ray->ray.x = cub->cam->look.x + (cub->ray->plane.x * cameraX);
-		cub->ray->ray.y = cub->cam->look.y + (cub->ray->plane.y * cameraX);
-		cub->ray->map.x = (int)cub->cam->player_pos.x;
-		cub->ray->map.y = (int)cub->cam->player_pos.y;
-		cub->ray->deltaDist.x = fabs(1 / cub->ray->ray.x);
-		cub->ray->deltaDist.y = fabs(1 / cub->ray->ray.y);
+		cub->ray->ray = (t_mgam2f){cub->cam->look.x + (cub->ray->plane.x * cameraX),
+						cub->cam->look.y + (cub->ray->plane.y * cameraX)};
+		cub->ray->map = (t_mgam2i){(int)cub->cam->player_pos.x, (int)cub->cam->player_pos.y};
+		cub->ray->deltaDist = (t_mgam2f){fabs(1 / cub->ray->ray.x), fabs(1 / cub->ray->ray.y)};
 		if (cub->ray->ray.x > 0)
 		{
 			cub->ray->step.x = 1;
@@ -41,7 +39,6 @@ void	raycast(t_cub *cub)
 		else
 			cub->ray->sideDist.y = (cub->cam->player_pos.y - cub->ray->map.y) * cub->ray->deltaDist.y;
 		lengthRay(cub, cub->ray);
-		startingBlocks(cub, cub->ray);
 		verticalLine(cub, cub->ray, x);
 	}
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
@@ -63,7 +60,7 @@ void	lengthRay(t_cub * cub, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->whichSide = 1;
 		}
-		if (cub->map->matrix[ray->map.y][ray->map.x] != 0) {
+		if (cub->map->matrix[ray->map.y][ray->map.x] > 0) {
 			break ;
 		}
 	}
@@ -74,20 +71,16 @@ void	lengthRay(t_cub * cub, t_ray *ray)
 	ray->rayLength = (int)(cub->data->height / ray->perpWallDist);
 }
 
-void	startingBlocks(t_cub *cub, t_ray *ray)
+void	verticalLine(t_cub *cub, t_ray *ray, int x)
 {
+	int	y;
+
 	ray->startP = cub->data->height / 2 - ray->rayLength / 2;
 	ray->endP = cub->data->height / 2 + ray->rayLength / 2;
 	if (ray->startP < 0)
 		ray->startP = 0;
 	if (ray->endP > cub->data->height) 
 		ray->endP = cub->data->height;
-}
-
-void	verticalLine(t_cub *cub, t_ray *ray, int x)
-{
-	int	y;
-
 	y = -1;
 	while (++y < ray->startP)
 		setpixel(cub->data, x, y, map_sky); // setpixel(cub->data, x, y, cub->map->C) // apres avoir bien parse la couleur
@@ -96,4 +89,3 @@ void	verticalLine(t_cub *cub, t_ray *ray, int x)
 	while (++y < cub->data->height - 1)
 		setpixel(cub->data, x, y, map_floor);	
 }
-
