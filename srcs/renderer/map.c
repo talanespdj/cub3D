@@ -39,8 +39,8 @@ void	miniMap(t_cub *cub, t_data *data)
 	while (++i < size)
 	{
 		j = -1;
-		row = i / (cub->map->l - 1); // FIXED: Correct row calculation
-		col = i % (cub->map->l - 1); // FIXED: Correct column calculation
+		row = i / (cub->map->l - 1);
+		col = i % (cub->map->l - 1);
 		while (++j < (SPACE * SPACE))
 			setpixel(data, (col * SPACE + (j / SPACE)) + data->x_off,
 				 (row * SPACE + (j % SPACE)) + data->y_off, return_color(cub->map->matrix[row][col]));

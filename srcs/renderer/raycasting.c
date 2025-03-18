@@ -60,9 +60,8 @@ void	lengthRay(t_cub * cub, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->whichSide = 1;
 		}
-		if (cub->map->matrix[ray->map.y][ray->map.x] > 0) {
+		if (cub->map->matrix[ray->map.y][ray->map.x] > 0)
 			break ;
-		}
 	}
 	if (ray->whichSide == 0)
 		ray->perpWallDist = (ray->map.x - cub->cam->player_pos.x + (1 - ray->step.x) / 2) / ray->ray.x;

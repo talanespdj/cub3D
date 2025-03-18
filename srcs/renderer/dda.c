@@ -47,7 +47,7 @@ void	dda(t_cub *cub, t_mgam2i a, t_mgam2i b)
 	{ 
 		if (wallHit(cub, save.x, save.y))
 			return ;
-		setpixel(cub->data, round(save.x), round(save.y), 0x757083); // put pixel at (X,Y) 
+		setpixel(cub->data, round(save.x), round(save.y), 0x757083);
 		save += inc;
 	}
 }

@@ -57,37 +57,23 @@ void	movement(t_cub *cub)
 {
 	t_mgam2i	posPlayer;
 	t_mgam2f	look;
+	t_mgam2f	plane;
 	
 	look = cub->cam->look;
+	plane = cub->ray->plane;
 	posPlayer = (t_mgam2i){cub->cam->player_pos.x, cub->cam->player_pos.y};
 	if (cub->keys.w == 1)
-	{
-		if (!wallHit(cub, posPlayer.x + look.x * moveSpeed, posPlayer.y))
-			cub->cam->player_pos.x += look.x * moveSpeed;
-		if (!wallHit(cub, posPlayer.x, posPlayer.y + look.y * moveSpeed))
-			cub->cam->player_pos.y += look.y * moveSpeed;
-	}
+		if (!wallHit(cub, posPlayer.x + (look.x * moveSpeed), posPlayer.y + (look.y * moveSpeed)))
+			cub->cam->player_pos += (t_mgam2f){look.x * moveSpeed, look.y * moveSpeed};
 	if (cub->keys.s == 1)
-	{
-		if (!wallHit(cub, posPlayer.x - look.x * moveSpeed, posPlayer.y))
-			cub->cam->player_pos.x -= look.x * moveSpeed;
-		if (!wallHit(cub, posPlayer.x, posPlayer.y - look.y * moveSpeed))
-			cub->cam->player_pos.y -= look.y * moveSpeed;
-	}
+		if (!wallHit(cub, posPlayer.x - (look.x * moveSpeed), posPlayer.y - (look.y * moveSpeed)))
+			cub->cam->player_pos -= (t_mgam2f){look.x * moveSpeed, look.y * moveSpeed};
 	if (cub->keys.a == 1)
-	{
-		if (!wallHit(cub, posPlayer.x + look.y * moveSpeed, posPlayer.y))
-			cub->cam->player_pos.x += look.y * moveSpeed;
-		if (!wallHit(cub, posPlayer.x, posPlayer.y - look.x * moveSpeed))
-			cub->cam->player_pos.y -= look.x * moveSpeed;
-	}
+		if (!wallHit(cub, posPlayer.x - (plane.x * moveSpeed), posPlayer.y - (plane.y * moveSpeed)))
+			cub->cam->player_pos -= (t_mgam2f){plane.x * moveSpeed, plane.y * moveSpeed};
 	if (cub->keys.d == 1)
-	{
-		if (!wallHit(cub, posPlayer.x - look.y * moveSpeed, posPlayer.y))
-			cub->cam->player_pos.x -= look.y * moveSpeed;
-		if (!wallHit(cub, posPlayer.x, posPlayer.y + look.x * moveSpeed))
-			cub->cam->player_pos.y += look.x * moveSpeed;
-	}
+		if (!wallHit(cub, posPlayer.x + (plane.x * moveSpeed), posPlayer.y + (plane.y * moveSpeed)))
+			cub->cam->player_pos += (t_mgam2f){plane.x * moveSpeed, plane.y * moveSpeed};
 	if (cub->keys.l == 1)
 		lookMove(cub->ray, cub->cam, XK_Left);
 	if (cub->keys.r == 1)
@@ -98,17 +84,18 @@ void	lookMove(t_ray *ray, t_cam *cam, int key)
 {
 	double	saveLook;
 	double	savePlane;
-	double	rotate;
+	double	speed;
 
-	rotate = rotateSpeed;
+	speed = rotateSpeed;
 	if (key == XK_Left)
-		rotate = -rotateSpeed;
+		speed = -rotateSpeed;
 	saveLook = cam->look.x;
-	cam->look.x = cam->look.x * cos(rotate) - cam->look.y * sin(rotate);
-	cam->look.y = saveLook * cos(rotate) + cam->look.y * sin(rotate);
+	cam->look.x = cam->look.x * cos(speed) - cam->look.y * sin(speed);
+	cam->look.y = saveLook * sin(speed) + cam->look.y * cos(speed);
+
 	savePlane = ray->plane.x;
-	ray->plane.x = ray->plane.x * cos(rotate) - ray->plane.y * sin(rotate);
-	ray->plane.y = savePlane * cos(rotate) + ray->plane.y * sin(rotate);
+	ray->plane.x = ray->plane.x * cos(speed) - ray->plane.y * sin(speed);
+	ray->plane.y = savePlane * sin(speed) + ray->plane.y * cos(speed);
 }
 
 int	wallHit(t_cub *cub, int x, int y)
