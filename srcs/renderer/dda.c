@@ -91,8 +91,10 @@ void	verticaline(t_cub *cub, t_ray *ray, int x)
 	while (y < ray->endp)
 	{
 		setpixel(cub->data, x, y, colorwall); // une fonction qui transpose pour le bon pixel en fonction de la texture
+		texture_pixel(cub, x, y);
 		y++;
 	}
+	// y = ray->endp;
 	while (y < cub->data->height)
 	{
 		setpixel(cub->data, x, y, MAP_FLOOR);

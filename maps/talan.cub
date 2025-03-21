@@ -1,7 +1,7 @@
-NO ./../textures/skate/NO_skate.png
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./../textures/all.xpm
+SO ./../textures/all.xpm
+WE ./../textures/all.xpm
+EA ./../textures/all.xpm
 
 F 220,100,0
 C 225,30,0

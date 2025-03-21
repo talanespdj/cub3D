@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 00:31:26 by tespandj          #+#    #+#             */
-/*   Updated: 2024/12/01 01:04:09 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/03/21 23:41:35 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef RAYCASTING_H
@@ -66,6 +66,7 @@ int			wallhit(t_cub *cub, double x, double y);
 
 void		dda(t_cub *cub, t_ray *ray);
 void		verticaline(t_cub *cub, t_ray *ray, int x);
+void		texture_pixel(t_cub *cub, int x, int y);
 
 /// @brief hook
 void		lookmove(t_ray *ray, t_cam *cam, int key);

@@ -58,6 +58,11 @@ int	mousemotion(t_cub *cub)
 	int	x;
 	int	y;
 	
+	if(!cub->data->win) {
+		printf("JE SUIS CORROMPU\n");
+		freend(cub);
+		exit (1);
+	}
 	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &x, &y);
 	if (x < cub->cam->mouse_x - 2 || x > cub->cam->mouse_x + 2)
 	{
@@ -66,7 +71,7 @@ int	mousemotion(t_cub *cub)
 		else
 			lookmove(cub->ray, cub->cam, XK_Right);
 		mlx_mouse_move(cub->data->mlx, cub->data->win, cub->data->width / 2, cub->data->height / 2);
-		// cub->cam->mouse_x = x;
+		// mlx_mouse_get_pos(cub->data->mlx, cub->data->win, cub->cam->mouse_x, cub->cam->mouse_y);
 	}
 	return (0);
 }
@@ -96,7 +101,7 @@ void	movement(t_cub *cub)
 		lookmove(cub->ray, cub->cam, XK_Left);
 	if (cub->keys.r == 1)
 		lookmove(cub->ray, cub->cam, XK_Right);
-	mousemotion(cub);
+	// mousemotion(cub);
 }
 
 void	lookmove(t_ray *ray, t_cam *cam, int key)
