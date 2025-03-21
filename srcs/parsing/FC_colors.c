@@ -13,12 +13,12 @@
 
 static	int	rgb_check(char *str);
 
-void	FC_colors(t_cub *cub)
+void	fccolors(t_cub *cub)
 {
 	char	*line;
 
 	line = gnl(cub->fd);
-	while (line && (!cub->map->F || !cub->map->C))
+	while (line && (!cub->map->floor || !cub->map->ceiling))
 	{
 		if (!null_line(line))
 		{
@@ -30,11 +30,11 @@ void	FC_colors(t_cub *cub)
 				break ;
 		}
 		free(line);
-		if ((cub->map->F && cub->map->C))
+		if ((cub->map->floor && cub->map->ceiling))
 			break ; 
 		line = gnl(cub->fd);
 	}
-	if (!cub->map->F || !cub->map->C)
+	if (!cub->map->floor || !cub->map->ceiling)
 		wgas(cub, cub->map_name,
 			"First lines should contain address Floor and ceiling value");
 
@@ -61,12 +61,12 @@ void	fill_floor(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "floor", "invalid rgb value");
 	}
-	cub->map->F = malloc(sizeof(t_rgb));
-	if (!cub->map->F)
+	cub->map->floor = malloc(sizeof(t_rgb));
+	if (!cub->map->floor)
 		return (freend(cub));
-	cub->map->F->r = atolli(rgb[0]);
-	cub->map->F->g = atolli(rgb[1]);
-	cub->map->F->b = atolli(rgb[2]);
+	cub->map->floor->r = atolli(rgb[0]);
+	cub->map->floor->g = atolli(rgb[1]);
+	cub->map->floor->b = atolli(rgb[2]);
 	fsplit(rgb);
 }
 
@@ -91,12 +91,12 @@ void	fill_ceiling(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "ceiling", "invalid rgb value");
 	}
-	cub->map->C = malloc(sizeof(t_rgb));
-	if (!cub->map->C)
+	cub->map->ceiling = malloc(sizeof(t_rgb));
+	if (!cub->map->ceiling)
 		return (freend(cub));
-	cub->map->C->r = atolli(rgb[0]);
-	cub->map->C->g = atolli(rgb[1]);
-	cub->map->C->b = atolli(rgb[2]);
+	cub->map->ceiling->r = atolli(rgb[0]);
+	cub->map->ceiling->g = atolli(rgb[1]);
+	cub->map->ceiling->b = atolli(rgb[2]);
 	fsplit(rgb);
 }
 

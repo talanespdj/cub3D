@@ -15,19 +15,19 @@ void	everyinit(t_cub *cub, char *name)
 {
 	cub->fd = -1;
 	cub->map_name = tdup(name);
-	mapInit(cub);
-	dataInit(cub);
+	mapinit(cub);
+	datainit(cub);
 	cub->cam = malloc(sizeof(t_cam));
 	if (!cub->cam)
 		wgas(cub, "malloc cam failed", NULL);
-	camInit(cub);
+	caminit(cub);
 	cub->ray = malloc(sizeof(t_ray));
 	if (!cub->ray)
 		wgas(cub, "malloc ray failed", NULL);
-	rayInit(cub->ray);
+	rayinit(cub->ray);
 }
 
-void	mapInit(t_cub *cub)
+void	mapinit(t_cub *cub)
 {
 	cub->map = malloc(sizeof(t_map));
 	if (cub->map == NULL)
@@ -38,14 +38,13 @@ void	mapInit(t_cub *cub)
 	cub->map->SO = NULL;
 	cub->map->WE = NULL;
 	cub->map->EA = NULL;
-	cub->map->F = NULL;
-	cub->map->C = NULL;
+	cub->map->floor = NULL;
+	cub->map->ceiling = NULL;
 	cub->map->matrix = NULL;
-	cub->map->color_bsl = 0x757083;
 	parse_map(cub, cub->map_name);
 }
 
-void	dataInit(t_cub *cub)
+void	datainit(t_cub *cub)
 {
 	cub->data = malloc(sizeof(t_data));
 	if (cub->data == NULL)
@@ -70,7 +69,7 @@ void	dataInit(t_cub *cub)
 			&cub->data->line_length, &cub->data->endian);
 }
 
-void	camInit(t_cub *cub)
+void	caminit(t_cub *cub)
 {
 	int	x;
 	int	y;
@@ -84,7 +83,7 @@ void	camInit(t_cub *cub)
 			if (cub->map->matrix[y][x] == 'N' || cub->map->matrix[y][x] == 'S' || cub->map->matrix[y][x] == 'E' || cub->map->matrix[y][x] == 'O')
 			{
 				cub->map->matrix[y][x] = '0';
-				cub->cam->player_pos = (t_mgam2f){x, y};
+				cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
 				break ;
 			}
 		}
@@ -92,16 +91,16 @@ void	camInit(t_cub *cub)
 	cub->cam->look = (t_mgam2f){1.0, 0.0};
 }
 
-void	rayInit(t_ray *ray)
+void	rayinit(t_ray *ray)
 {
 	ray->x = 0;
 	ray->map = (t_mgam2i){0, 0};
 	ray->step = (t_mgam2i){-1, -1};
 	ray->ray = (t_mgam2f){0.0, 0.0};
 	ray->plane = (t_mgam2f){0.0, 0.66};
-	ray->sideDist = (t_mgam2f){0.0, 0.0};
-	ray->deltaDist = (t_mgam2f){0.0, 0.0};
-	ray->cameraX = 0.0;
-	ray->perpWallDist = 0.0;
-	ray->whichSide = 0;
+	ray->sidedist = (t_mgam2f){0.0, 0.0};
+	ray->deltadist = (t_mgam2f){0.0, 0.0};
+	ray->camerax = 0.0;
+	ray->perpwalldist = 0.0;
+	ray->whichside = 0;
 }

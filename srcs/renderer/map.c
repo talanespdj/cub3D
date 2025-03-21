@@ -11,62 +11,39 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-void	draw_disk(t_data *data, int xc, int yc);
-
 int	return_color(char c)
 {
 	if (c == '0')
-		return map_void;
-	if (c == '1')
-		return map_wall;
-	// if (c == 'N' || c == 'S' || c == 'E' || c == 'O')
-	// 	return 0xFF8600; // former : 0xFF8600
-	return map_void; //
+		return (MAP_VOID);
+	return (MAP_WALL);
 }
 
-
-void	miniMap(t_cub *cub, t_data *data)
+void	minimap(t_cub *cub, t_data *data)
 {
-	t_mgam2i pos;
-	int	i;
-	size_t	j;
-	int	size;
-	int	row;
-	int	col;
+	t_mgam2i	pos;
+	size_t		j;
+	int			i;
+	int			row;
+	int			col;
+	int			size;
 
 	i = -1;
-	size = cub->map->L * (cub->map->l - 1); // l'aire de la map
+	size = cub->map->L * (cub->map->l - 1);
 	pos = (t_mgam2i){cub->cam->player_pos.x - 1, cub->cam->player_pos.y - 1};
 	while (++i < size)
 	{
 		j = -1;
-		row = i / (cub->map->l - 1); // FIXED: Correct row calculation
-		col = i % (cub->map->l - 1); // FIXED: Correct column calculation
+		row = i / (cub->map->l - 1);
+		col = i % (cub->map->l - 1);
 		while (++j < (SPACE * SPACE))
 			setpixel(data, (col * SPACE + (j / SPACE)) + data->x_off,
-				 (row * SPACE + (j % SPACE)) + data->y_off, return_color(cub->map->matrix[row][col]));
+				(row * SPACE + (j % SPACE)) + data->y_off, return_color(cub->map->matrix[row][col]));
 	}
-	//draw_player(cub, cub->data);
 	i = -1;
-	while (++i <= ratio_player)
+	while (++i <= RATIO_PLAYER)
 	{
 		j = -1;
-		while (++j <= ratio_player)
-			setpixel(cub->data, (cub->cam->player_pos.x * SPACE) + i, (cub->cam->player_pos.y * SPACE) + j, map_player);
-			// setpixel(cub->data, (pos.x * SPACE) + i, (pos.y* SPACE) + j, map_player);
+		while (++j <= RATIO_PLAYER)
+			setpixel(cub->data, (cub->cam->player_pos.x * SPACE) + i, (cub->cam->player_pos.y * SPACE) + j, MAP_PLAYER);
 	}
-}
-
-
-// void	draw_player(t_cub *cub, t_data *data)
-// {
-// 	setpixel(cub->data, (cub->cam->player_pos.x * SPACE), (cub->cam->player_pos.y * SPACE), 0xFF0000);
-// 	(void)data;
-// }
-void	draw_disk(t_data *data, int xc, int yc)
-{
-	for (int y = yc - ratio_player; y <= yc + ratio_player; y++)
-		for (int x = xc - ratio_player; x <= xc + ratio_player; x++)
-			if ((x - xc) * (x - xc) + (y - yc) * (y - yc) <= ratio_player * ratio_player)
-				setpixel(data, x, y, map_wall);
 }

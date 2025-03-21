@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:05:10 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/29 01:05:12 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/03/21 03:03:39 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -56,10 +56,10 @@ void	free_map(t_cub *cub)
 			free(cub->map->EA);
 		if (cub->map->WE)
 			free(cub->map->WE);
-		if (cub->map->F)
-			free(cub->map->F);
-		if (cub->map->C)
-			free(cub->map->C);
+		if (cub->map->floor)
+			free(cub->map->floor);
+		if (cub->map->ceiling)
+			free(cub->map->ceiling);
 		if (cub->map->matrix)
 			fsplit(cub->map->matrix);
 	}
@@ -77,6 +77,8 @@ void	freend(t_cub *cub)
 		free(cub->data);
 	if (cub->cam)
 		free(cub->cam);
+	if (cub->ray)
+		free(cub->ray);
 }
 
 int	null_line(char *str)
