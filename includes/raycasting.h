@@ -27,8 +27,8 @@
 # define MAP_SKY 0x778BF0
 # define MAP_FLOOR 0x7C7C7C
 
-# define MOVESPEED 0.002
-# define ROTATESPEED 0.002
+# define MOVESPEED 0.02
+# define ROTATESPEED 0.02
 
 typedef double	t_mgam2f __attribute__((ext_vector_type(2)));
 typedef int		t_mgam2i __attribute__((ext_vector_type(2)));
@@ -37,6 +37,8 @@ typedef struct s_cam
 {
 	t_mgam2f	player_pos;
 	t_mgam2f	look;
+	int		mouse_x;
+	int		mouse_y;
 }		t_cam;
 
 typedef struct s_ray
@@ -69,5 +71,6 @@ void		verticaline(t_cub *cub, t_ray *ray, int x);
 void		lookmove(t_ray *ray, t_cam *cam, int key);
 int			press(int key, t_cub *cub);
 int			release(int key, t_cub *cub);
+int			mousemotion(t_cub *cub);
 
 #endif

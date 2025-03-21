@@ -2,32 +2,34 @@
 //	segfault	v ./cub3D good_cub/cheese_maze.cub
 // psque ya .cub mais dcp ca va dans wgas et c`est cense exit
 
+segfault avec map at.cub psque ya des tab dans la map et un tab est un character seulement
+
+	{
+		// printf("longueur : %d et Largeur : %d\n", cub->map->l, cub->map->L);
+		// for (int y = 0; cub->map->matrix[y]; ++y) {
+		// 	for (int x = 0; cub->map->matrix[y][x]; ++x) {
+		// 		printf("%c", cub->map->matrix[y][x]);
+		// 		if (!cub->map->matrix[y][x + 1])
+		// 			printf("\nl de cette line = %d\n", x);
+		// 	}
+		// 	printf("\n");
+
+		// }
+		// if (cub->map->matrix[34][3] == '1') {
+		// 	printf("on rentre dans la condition\n");
+		// 	freend(cub);
+		// }
+		// freend(cub);
+		// exit (0);
+	}
 
 
-pour l`instatn bruteforce de la pos du joueur pour le mapping
+Textures :	afficher les bonnes textures en fonction des murs
 
 
 
-
-fonction cube qui prend en parametre un point et l'aire du cube
-		{player_pos.x, player_pos.y}, SPACE * SPACE
-
-
-
-dans la fonction DDA					// en ayant convertit le newpoint en position 2d pour regarder dans le tableau
-	verifier a chaque fois qu'on pose un pixel si par rapport a la cub->map->matrix[newPoint.y][newPoint.x] :: ce charactere la ne soit pas un 1
-													si c'est un '1' on return ; de la fonction en leger gui
-
-pour chaque rayon qu'on s'apprete a lancer:
-
-	// calculer le vecteur forme par le segment des deux points.
-		definir x_step et y_step qui correspondent a de combien on avance pour avance d'une unite (SPACE dans notre cas)
-
-	// mettre en place que le point de look atteigne les limites de la fenetres
-		le resize aux limites de la minimap si possible pour opti ?
-	
-	monstre 3:38 juste on vibe
-
-
-le vecteur look doit tous le temps avoir une magnitude de tabs(cub->data->height - pos.y, cub->data->width - pos.x);
-						
+souris //
+		stocker la position initial (bilel)
+		
+		la comparer avec la position actuelle des quil y a un mouvement
+		agir en consequence

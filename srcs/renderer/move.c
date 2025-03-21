@@ -53,6 +53,24 @@ int	release(int key, t_cub *cub)
 	return (0);
 }
 
+int	mousemotion(t_cub *cub)
+{
+	int	x;
+	int	y;
+	
+	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &x, &y);
+	if (x < cub->cam->mouse_x - 2 || x > cub->cam->mouse_x + 2)
+	{
+		if (x < cub->cam->mouse_x - 2)
+			lookmove(cub->ray, cub->cam, XK_Left);
+		else
+			lookmove(cub->ray, cub->cam, XK_Right);
+		mlx_mouse_move(cub->data->mlx, cub->data->win, cub->data->width / 2, cub->data->height / 2);
+		// cub->cam->mouse_x = x;
+	}
+	return (0);
+}
+
 void	movement(t_cub *cub)
 {
 	t_mgam2f	posplayer;
@@ -78,6 +96,7 @@ void	movement(t_cub *cub)
 		lookmove(cub->ray, cub->cam, XK_Left);
 	if (cub->keys.r == 1)
 		lookmove(cub->ray, cub->cam, XK_Right);
+	mousemotion(cub);
 }
 
 void	lookmove(t_ray *ray, t_cam *cam, int key)

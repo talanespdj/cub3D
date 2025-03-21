@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 23:23:29 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/28 23:23:32 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:31:53 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -51,10 +51,8 @@ void	datainit(t_cub *cub)
 		wgas(cub, "fail malloc cub->data", NULL);
 	cub->data->width = 960;
 	cub->data->height = 600;
-	// cub->data->width = cub->map->l * SPACE;
-	// cub->data->height = cub->map->L * SPACE;
 	cub->data->mlx = mlx_init();
-	// mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
+	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->x_off = cub->data->width / 2 - (cub->map->l / 2 * SPACE);
 	cub->data->y_off = cub->data->height / 2 - (cub->map->L / 2 * SPACE);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");
@@ -89,6 +87,8 @@ void	caminit(t_cub *cub)
 		}
 	}
 	cub->cam->look = (t_mgam2f){1.0, 0.0};
+	mlx_mouse_move(cub->data->mlx, cub->data->win, cub->data->width / 2, cub->data->height / 2);
+	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &cub->cam->mouse_x, &cub->cam->mouse_y);
 }
 
 void	rayinit(t_ray *ray)

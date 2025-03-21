@@ -57,6 +57,10 @@ void	dda(t_cub *cub, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->whichside = 1;
 		}
+		// if (ray->map.x > cub->map->l || ray->map.y > cub->map->L) {
+		// 	printf("on essaie de check {%d, %d}\n", ray->map.x, ray->map.y);
+		// 	freend(cub);
+		// }
 		if (cub->map->matrix[ray->map.y][ray->map.x] == '1')
 			break ;
 	}
