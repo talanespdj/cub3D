@@ -42,7 +42,6 @@ void	camInit(t_cub *cub);
 void	rayInit(t_ray *ray);
 
 void	parse_map(t_cub *cub, char *name);
-int	setLook(t_cub *cub, char *str, int y);
 
 void	textures(t_cub *cub);
 int	texture_checking(t_cub *cub, char *file);
@@ -53,6 +52,7 @@ void	fill_floor(t_cub *cub, char *line);
 void	fill_ceiling(t_cub *cub, char *line);
 
 void	mapping(t_cub *cub, char *save, char *line);
+void	build_matrix(t_cub *cub, char *save, char *line);
 
 char	*gnl(int fd);
 char	*org(char *str);

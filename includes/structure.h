@@ -16,22 +16,22 @@
 
 typedef struct s_keys
 {
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-	int		l;
-	int		r;
-	int		q;
-}		t_keys;
+	int w;
+	int a;
+	int s;
+	int d;
+	int l;
+	int r;
+	int q;
+}	t_keys;
 
 typedef struct s_cub
 {
 	struct s_map	*map;
-	struct s_data	*data;
 	struct s_cam	*cam;
+	struct s_data	*data;
 	struct s_ray	*ray;
-	struct s_keys	keys;
+	t_keys		keys;
 	char		*map_name;
 	int			fd;
 }		t_cub;
@@ -48,17 +48,26 @@ typedef struct spt
 	int			i;
 }			t_split;
 
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+
+}		t_rgb;
+
 typedef struct s_map
 {
 	char	**matrix;
-	struct s_rgb	*F;
-	struct s_rgb	*C;
 	int		L;
 	int		l;
-	char		*NO;
-	char		*SO;
-	char		*WE;
-	char		*EA;
+	t_rgb		*F;
+	t_rgb		*C;
+	char			*NO;
+	char			*SO;
+	char			*WE;
+	char			*EA;
+	int				color_bsl;
 }		t_map;
 
 typedef struct s_data
@@ -75,14 +84,5 @@ typedef struct s_data
 	int			x_off;
 	int			y_off;
 }			t_data;
-
-typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-	
-}		t_rgb;
-
 
 #endif

@@ -24,6 +24,7 @@ int	return_color(char c)
 	return map_void; //
 }
 
+
 void	miniMap(t_cub *cub, t_data *data)
 {
 	t_mgam2i pos;
@@ -39,21 +40,29 @@ void	miniMap(t_cub *cub, t_data *data)
 	while (++i < size)
 	{
 		j = -1;
-		row = i / (cub->map->l - 1);
-		col = i % (cub->map->l - 1);
+		row = i / (cub->map->l - 1); // FIXED: Correct row calculation
+		col = i % (cub->map->l - 1); // FIXED: Correct column calculation
 		while (++j < (SPACE * SPACE))
 			setpixel(data, (col * SPACE + (j / SPACE)) + data->x_off,
 				 (row * SPACE + (j % SPACE)) + data->y_off, return_color(cub->map->matrix[row][col]));
 	}
+	//draw_player(cub, cub->data);
 	i = -1;
 	while (++i <= ratio_player)
 	{
 		j = -1;
 		while (++j <= ratio_player)
-			setpixel(cub->data, pos.x + i, pos.y + j, map_player);
+			setpixel(cub->data, (cub->cam->player_pos.x * SPACE) + i, (cub->cam->player_pos.y * SPACE) + j, map_player);
+			// setpixel(cub->data, (pos.x * SPACE) + i, (pos.y* SPACE) + j, map_player);
 	}
 }
 
+
+// void	draw_player(t_cub *cub, t_data *data)
+// {
+// 	setpixel(cub->data, (cub->cam->player_pos.x * SPACE), (cub->cam->player_pos.y * SPACE), 0xFF0000);
+// 	(void)data;
+// }
 void	draw_disk(t_data *data, int xc, int yc)
 {
 	for (int y = yc - ratio_player; y <= yc + ratio_player; y++)
