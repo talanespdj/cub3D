@@ -33,3 +33,8 @@ souris //
 		
 		la comparer avec la position actuelle des quil y a un mouvement
 		agir en consequence
+
+	pour regarder en haut ou en bas :
+			
+			simplement faire que ray->startp commence plus tot/tard
+						ray->endp commence plus tot/tard
