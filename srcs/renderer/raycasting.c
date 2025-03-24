@@ -19,6 +19,7 @@ void	raycast(t_cub *cub)
 		dda(cub, cub->ray);
 		verticaline(cub, cub->ray, cub->ray->x);
 	}
+	minimap(cub, cub->map->matrix);	
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
 }
 

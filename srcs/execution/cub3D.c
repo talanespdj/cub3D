@@ -22,7 +22,7 @@ int	cub3d(struct s_cub *cub)
 {
 	mlx_hook(cub->data->win, KeyPress, 1L << 0, &press, cub);
 	mlx_hook(cub->data->win, KeyRelease, 1L << 1, &release, cub);
-	mlx_hook(cub->data->win, MotionNotify, PointerMotionMask, &mousemotion, cub);
+	// mlx_hook(cub->data->win, MotionNotify, PointerMotionMask, &mousemotion, cub); // doesn't work on mac
 	// mlx_hook(cub->data->win, MotionNotify, 1L << 6, &mousemotion, cub);
 	// mlx_hook(cub->data->win, MotionNotify, 1L << 6, NULL, NULL);
 	mlx_hook(cub->data->win, DestroyNotify, 0, &end_win, cub);

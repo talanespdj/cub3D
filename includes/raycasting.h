@@ -14,11 +14,7 @@
 
 # include "cub3d.h"
 
-# define M_PI 3.14159265358979323846
-# define SPACE 64
-# define RATIO_PLAYER 8
-# define RATIO_MOVE 4
-
+# define MMAP 16
 # define MAP_VOID 0x353831
 // # define MAP_WALL 0x090C08
 # define MAP_WALL 0xFF0000
@@ -61,7 +57,7 @@ typedef struct s_ray
 void		raycast(t_cub *cub);
 void		setpixel(t_data *data, int x, int y, int color);
 
-void		minimap(t_cub *cub, t_data *data);
+void		minimap(t_cub *cub, char **matrix);
 int			wallhit(t_cub *cub, double x, double y);
 
 void		dda(t_cub *cub, t_ray *ray);

@@ -1,49 +1,65 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 05:58:01 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/09 05:58:04 by tespandj         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-#include "../../includes/raycasting.h"
+#include "../../includes/cub3d.h"
 
-int	return_color(char c)
+int	mmap_color(char c)
 {
 	if (c == '0')
 		return (MAP_VOID);
-	return (MAP_WALL);
+	else if (c == '1')
+		return (MAP_WALL);
+	return (0);
 }
 
-void	minimap(t_cub *cub, t_data *data)
+void	minimap(t_cub *cub, char **matrix)
 {
-	t_mgam2i	pos;
-	size_t		j;
-	int			i;
-	int			row;
-	int			col;
-	int			size;
+	int	x;
+	int	y;
+	int	r;
+	int	t;
+	int	color;
 
-	i = -1;
-	size = cub->map->L * (cub->map->l - 1);
-	pos = (t_mgam2i){cub->cam->player_pos.x - 1, cub->cam->player_pos.y - 1};
-	while (++i < size)
+	y = -1;
+	/// print the whole mMap
+	while (matrix[++y])
 	{
-		j = -1;
-		row = i / (cub->map->l - 1);
-		col = i % (cub->map->l - 1);
-		while (++j < (SPACE * SPACE))
-			setpixel(data, (col * SPACE + (j / SPACE)) + data->x_off,
-				(row * SPACE + (j % SPACE)) + data->y_off, return_color(cub->map->matrix[row][col]));
+		x = -1;
+		while (matrix[y][++x])
+		{
+			if (matrix[y][x] == '0' || matrix[y][x] == '1')
+			{
+				color = mmap_color(matrix[y][x]);
+				r = -1;
+				while (++r < MMAP)
+				{
+					t = -1;
+					while (++t < MMAP)
+						setpixel(cub->data, x * MMAP + r, y * MMAP + t, color);
+				}
+			}
+		}
 	}
-	i = -1;
-	while (++i <= RATIO_PLAYER)
-	{
-		j = -1;
-		while (++j <= RATIO_PLAYER)
-			setpixel(cub->data, (cub->cam->player_pos.x * SPACE) + i, (cub->cam->player_pos.y * SPACE) + j, MAP_PLAYER);
-	}
+
+	// map qui bouge en fonction de la pos du joueur
+
+	// t_mgam2f	pos;
+	// t_mgam2f	x_limits;
+	// t_mgam2f	y_limits;
+
+
+	// pos = cub->cam->player_pos;
+	// x_limits.x = pos.x - 4 > 0 ? pos.x - 4 : 0;
+	// x_limits.y = pos.x + 4 < cub->map->l ? pos.x + 4 : cub->map->l;
+	// y_limits.x = pos.x - 4 > 0 ? pos.x - 4 : 0;
+	// y_limits.y = pos.x + 4 < cub->map->l ? pos.x + 4 : cub->map->L;
+
+	// printf("x_limits = {%f, %f}\n", x_limits.x, x_limits.y); // d'où je dois aller horizontalement dans la map 
+	// printf("y_limits = {%f, %f}\n", y_limits.x, y_limits.y); // pareil verticalement
+
+	// while (y_limits.x < (y_limits.y))
+	// {
+	// 	x = (int)x_limits.x - 1;
+	// 	while (++x < (x_limits.y))
+	// 		setpixel(cub->data, term
+	// 			x, (int)y_limits.x, mmap_color(matrix[(int)y_limits.x][x]));
+	// 	y_limits.x++;
+	// }
 }
