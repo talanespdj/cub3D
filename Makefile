@@ -28,7 +28,7 @@ RENDERER = srcs/renderer/map.c \
 		srcs/renderer/dda.c \
 		srcs/renderer/move.c \
 		srcs/renderer/raycasting.c \
-		srcs/renderer/ratioTextures.c \
+		srcs/renderer/scaledTextures.c \
 
 SRCS = $(PARSING) $(RENDERER) $(EXECUTION)
 

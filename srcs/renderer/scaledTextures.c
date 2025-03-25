@@ -42,4 +42,6 @@ void	texture_pixel(t_cub *cub, t_ray *ray)
 		// color = (texture_buffer)[NO][cub->txt[NO]-> * ((int)pos & (MMAP - 1)) + tex_x];
 		setpixel(cub->data, cub->ray->x, ray->startp, color);
 	}
+	(void)dir;
+	(void)pas;
 }
