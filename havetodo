@@ -11,6 +11,8 @@
     - afficher un quadrillage → si on est sur la premiere ligne ou bien premiere colonne le pixel est noir
 
 
+creer un buffer [height][width] = moitie ceiling/floor
+
     
     
     Textures :	afficher les bonnes textures en fonction des murs

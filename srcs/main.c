@@ -11,6 +11,21 @@
 /* ************************************************************************** */
 #include "../includes/cub3d.h"
 
+void	everyinit(t_cub *cub, char *name)
+{
+	cub->fd = -1;
+	mapinit(cub, name);
+	datainit(cub);
+	cub->cam = malloc(sizeof(t_cam));
+	if (!cub->cam)
+		wgas(cub, "malloc cam failed", NULL);
+	caminit(cub);
+	cub->ray = malloc(sizeof(t_ray));
+	if (!cub->ray)
+		wgas(cub, "malloc ray failed", NULL);
+	rayinit(cub->ray);
+}
+
 static	int	valid_name(char *name)
 {
 	int	i;

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-void		parse_map(t_cub *cub, char *name)
+void	parse_map(t_cub *cub, char *name)
 {
 	if (access(name, F_OK))
 		wgas(cub, name, "File doesn't exist");
@@ -20,6 +20,7 @@ void		parse_map(t_cub *cub, char *name)
 	cub->fd = open(name, O_RDONLY);
 	if (cub->fd == -1)
 		wgas(cub, name, "Failed to open the map");
+	
 	textures(cub);
 	fccolors(cub);
 	mapping(cub, NULL, NULL);

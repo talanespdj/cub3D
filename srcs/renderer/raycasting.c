@@ -11,25 +11,23 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-void	raycast(t_cub *cub)
+void	raycast(t_cub *cub, t_ray *ray)
 {
-	cub->ray->x = -1;
-	while (++cub->ray->x < cub->data->width)
-	{
-		dda(cub, cub->ray);
-		verticaline(cub, cub->ray, cub->ray->x);
-	}
-	minimap(cub, cub->map->matrix);	
-	mlx_put_image_to_window(cub->data->mlx, cub->data->win, cub->data->img, 0, 0);
-}
+	int	y;
 
-int	wallhit(t_cub *cub, double x, double y)
-{
-	if ((x < 0 || x > cub->map->l - 1) || (y < 0 || y > cub->map->L))
-		return (1);
-	if (cub->map->matrix[(int)y][(int)x] == '1')
-		return (1);
-	return 0;
+	y = -1;
+	ray->startp = -ray->raylength / 2 + cub->data->height / 2;
+	if (ray->startp < 0)
+		ray->startp = -1;
+	ray->endp = ray->raylength / 2 + cub->data->height / 2;
+	if (ray->endp >= cub->data->height)
+		ray->endp = cub->data->height - 1;
+	while (++y < ray->startp)
+		setpixel(cub->data, cub->ray->x, y, MAP_SKY);
+	texture_pixel(cub, cub->ray);
+	y = ray->endp - 1;
+	while (++y < cub->data->height)
+		setpixel(cub->data, cub->ray->x, y, MAP_FLOOR);
 }
 
 void	setpixel(t_data *data, int x, int y, int color)

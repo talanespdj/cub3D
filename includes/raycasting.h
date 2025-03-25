@@ -23,6 +23,11 @@
 # define MAP_SKY 0x778BF0
 # define MAP_FLOOR 0x7C7C7C
 
+# define NO 0
+# define SO 1
+# define EA 2
+# define WE 3
+
 # define MOVESPEED 0.02
 # define ROTATESPEED 0.02
 
@@ -54,15 +59,15 @@ typedef struct s_ray
 	int			endp;
 }		t_ray;
 
-void		raycast(t_cub *cub);
+void		raycast(t_cub *cub, t_ray *ray);
+void		dda(t_cub *cub, t_ray *ray);
+void		texture_pixel(t_cub *cub, t_ray *ray);
+
+
 void		setpixel(t_data *data, int x, int y, int color);
 
 void		minimap(t_cub *cub, char **matrix);
 int			wallhit(t_cub *cub, double x, double y);
-
-void		dda(t_cub *cub, t_ray *ray);
-void		verticaline(t_cub *cub, t_ray *ray, int x);
-void		texture_pixel(t_cub *cub, int x, int y);
 
 /// @brief hook
 void		lookmove(t_ray *ray, t_cam *cam, int key);

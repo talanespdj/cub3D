@@ -1,7 +1,7 @@
-NO ./../textures/all.xpm
-SO ./../textures/all.xpm
-WE ./../textures/all.xpm
-EA ./../textures/all.xpm
+NO ./textures/all.xpm
+SO ./textures/all.xpm
+WE ./textures/all.xpm
+EA ./textures/all.xpm
 
 F 220,100,0
 C 225,30,0

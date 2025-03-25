@@ -11,9 +11,18 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-void	texture_pixel(t_cub *cub, int x, int y)
+void	texture_pixel(t_cub *cub, t_ray *ray)
 {
-	(void)x;
-	(void)y;
-	(void)cub;
+	int	length;
+	int	colorwall;
+
+	colorwall = 0x880000;
+	if (ray->whichside)
+		colorwall = 0xAA0000;
+	length = ray->raylength;
+	ray->startp = ray->startp - 1;
+	if (ray->startp < 0)
+		ray->startp = 0;
+	while (++ray->startp < ray->endp)
+		setpixel(cub->data, cub->ray->x, ray->startp, colorwall);
 }

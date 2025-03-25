@@ -48,14 +48,6 @@ void	free_map(t_cub *cub)
 {
 	if (cub->map)
 	{
-		if (cub->map->NO)
-			free(cub->map->NO);
-		if (cub->map->SO)
-			free(cub->map->SO);
-		if (cub->map->EA)
-			free(cub->map->EA);
-		if (cub->map->WE)
-			free(cub->map->WE);
 		if (cub->map->floor)
 			free(cub->map->floor);
 		if (cub->map->ceiling)
@@ -71,8 +63,6 @@ void	free_map(t_cub *cub)
 void	freend(t_cub *cub)
 {
 	free_map(cub);
-	if (cub->map_name)
-		free(cub->map_name);
 	if (cub->data)
 		free(cub->data);
 	if (cub->cam)

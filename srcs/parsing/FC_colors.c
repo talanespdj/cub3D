@@ -35,7 +35,7 @@ void	fccolors(t_cub *cub)
 		line = gnl(cub->fd);
 	}
 	if (!cub->map->floor || !cub->map->ceiling)
-		wgas(cub, cub->map_name,
+		wgas(cub, "fccolors",
 			"First lines should contain address Floor and ceiling value");
 
 }

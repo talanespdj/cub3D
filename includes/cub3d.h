@@ -38,7 +38,7 @@ int				looping(t_cub *cub);
 
 void			everyinit(t_cub *cub, char *map_name);
 
-void			mapinit(t_cub *cub);
+void			mapinit(t_cub *cub, char *name);
 void			datainit(t_cub *cub);
 void			caminit(t_cub *cub);
 void			rayinit(t_ray *ray);

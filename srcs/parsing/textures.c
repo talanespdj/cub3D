@@ -16,7 +16,7 @@ void	textures(t_cub *cub)
 	char	*line;
 
 	line = gnl(cub->fd);
-	while (line && (!cub->map->NO || !cub->map->SO || !cub->map->EA || !cub->map->WE))
+	while (line && (!cub->txt[NO]->name || !cub->txt[SO]->name || !cub->txt[EA]->name || !cub->txt[WE]->name))
 	{
 		if (!null_line(line))
 		{
@@ -32,12 +32,12 @@ void	textures(t_cub *cub)
 				break ;
 		}
 		free(line);
-		if (cub->map->NO && cub->map->SO && cub->map->EA && cub->map->WE)
+		if (cub->txt[NO]->name && cub->txt[SO]->name && cub->txt[EA]->name && cub->txt[WE]->name)
 			break ;
 		line = gnl(cub->fd);
 	}
-	if (!cub->map->NO || !cub->map->SO || !cub->map->EA || !cub->map->WE)
-		wgas(cub, cub->map_name,
+	if (!cub->txt[NO]->name && !cub->txt[SO]->name && !cub->txt[EA]->name && !cub->txt[WE]->name)
+		wgas(cub, "textures",
 			"First lines should contain address of NE SO WE EA textures");
 }
 
@@ -62,13 +62,17 @@ void	fill_textures(t_cub *cub, char *line)
 	if (inf && inf[0] && inf[1])
 	{
 		if (!tstrcmp(inf[0], "NO"))
-			cub->map->NO = erase_new_line(inf[1]);
+			cub->txt[NO]->name = erase_new_line(inf[1]);
+			// cub->map->north = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "SO"))
-			cub->map->SO = erase_new_line(inf[1]);
+			cub->txt[SO]->name = erase_new_line(inf[1]);
+			// cub->map->south = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "WE"))
-			cub->map->WE = erase_new_line(inf[1]);
+			cub->txt[WE]->name = erase_new_line(inf[1]);
+			// cub->map->west = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "EA"))
-			cub->map->EA = erase_new_line(inf[1]);
+			cub->txt[EA]->name = erase_new_line(inf[1]);
+			// cub->map->east = erase_new_line(inf[1]);
 	}
 	fsplit(inf);
 }

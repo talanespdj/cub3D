@@ -25,6 +25,14 @@ typedef struct s_keys
 	int	q;
 }		t_keys;
 
+typedef struct s_txt
+{
+	void	*img;
+	char	*name;
+	int	width;
+	int	height;
+}		t_txt;
+
 typedef struct s_cub
 {
 	struct s_map	*map;
@@ -32,7 +40,7 @@ typedef struct s_cub
 	struct s_data	*data;
 	struct s_ray	*ray;
 	t_keys			keys;
-	char			*map_name;
+	t_txt		*txt[4];
 	int				fd;
 }		t_cub;
 
@@ -63,10 +71,6 @@ typedef struct s_map
 	int		l;
 	t_rgb	*floor;
 	t_rgb	*ceiling;
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
 }		t_map;
 
 typedef struct s_data
@@ -83,5 +87,6 @@ typedef struct s_data
 	int			x_off;
 	int			y_off;
 }			t_data;
+
 
 #endif

@@ -11,7 +11,39 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-void	ddainit(t_cub *cub, t_ray *ray)
+static void	ddainit(t_cub *cub, t_ray *ray);
+
+void	dda(t_cub *cub, t_ray *ray)
+{
+	ddainit(cub, cub->ray);
+	while (1)
+	{
+		if (ray->sidedist.x < ray->sidedist.y)
+		{
+			ray->sidedist.x += ray->deltadist.x;
+			ray->map.x += ray->step.x;
+			ray->whichside = 0;
+		}
+		else
+		{
+			ray->sidedist.y += ray->deltadist.y;
+			ray->map.y += ray->step.y;
+			ray->whichside = 1;
+		}
+		// if (ray->map.x > cub->map->l || ray->map.y > cub->map->L) { // arrive quand il y a des tab dans la map
+		// 	printf("on essaie de check {%d, %d}\n", ray->map.x, ray->map.y);
+		// 	freend(cub);
+		// }
+		if (cub->map->matrix[ray->map.y][ray->map.x] == '1')
+			break ;
+	}
+	ray->perpwalldist = ray->sidedist.x - ray->deltadist.x;
+	if (ray->whichside)
+		ray->perpwalldist = ray->sidedist.y - ray->deltadist.y;
+	ray->raylength = cub->data->height / ray->perpwalldist;
+}
+
+static void	ddainit(t_cub *cub, t_ray *ray)
 {
 	ray->camerax = 2 * ray->x / (double)cub->data->width - 1;
 	cub->ray->ray = (t_mgam2f){cub->cam->look.x + (cub->ray->plane.x * ray->camerax),
@@ -40,64 +72,11 @@ void	ddainit(t_cub *cub, t_ray *ray)
 	}
 }
 
-void	dda(t_cub *cub, t_ray *ray)
+int	wallhit(t_cub *cub, double x, double y)
 {
-	ddainit(cub, cub->ray);
-	while (1)
-	{
-		if (ray->sidedist.x < ray->sidedist.y)
-		{
-			ray->sidedist.x += ray->deltadist.x;
-			ray->map.x += ray->step.x;
-			ray->whichside = 0;
-		}
-		else
-		{
-			ray->sidedist.y += ray->deltadist.y;
-			ray->map.y += ray->step.y;
-			ray->whichside = 1;
-		}
-		// if (ray->map.x > cub->map->l || ray->map.y > cub->map->L) {
-		// 	printf("on essaie de check {%d, %d}\n", ray->map.x, ray->map.y);
-		// 	freend(cub);
-		// }
-		if (cub->map->matrix[ray->map.y][ray->map.x] == '1')
-			break ;
-	}
-	if (ray->whichside == 0)
-		ray->perpwalldist = ray->sidedist.x - ray->deltadist.x;
-	else
-		ray->perpwalldist = ray->sidedist.y - ray->deltadist.y;
-	ray->raylength = (int)(cub->data->height / ray->perpwalldist);
-}
-
-void	verticaline(t_cub *cub, t_ray *ray, int x)
-{
-	int	y;
-	int	colorwall;
-
-	ray->startp = -ray->raylength / 2 + cub->data->height / 2;
-	ray->endp = ray->raylength / 2 + cub->data->height / 2;
-	if (ray->startp < 0)
-		ray->startp = 0;
-	if (ray->endp > cub->data->height)
-		ray->endp = cub->data->height - 1;
-	colorwall = 0x880000;
-	if (ray->whichside)
-		colorwall = 0xAA0000;
-	y = -1;
-	while (++y < ray->startp)
-		setpixel(cub->data, x, y, MAP_SKY); // setpixel(cub->data, x, y, cub->map->ceiling) // apres avoir bien parse la couleur
-	while (y < ray->endp)
-	{
-		setpixel(cub->data, x, y, colorwall); // une fonction qui transpose pour le bon pixel en fonction de la texture
-		texture_pixel(cub, x, y);
-		y++;
-	}
-	// y = ray->endp;
-	while (y < cub->data->height)
-	{
-		setpixel(cub->data, x, y, MAP_FLOOR);
-		y++;
-	}
+	if ((x < 0 || x > cub->map->l - 1) || (y < 0 || y > cub->map->L))
+		return (1);
+	if (cub->map->matrix[(int)y][(int)x] == '1')
+		return (1);
+	return 0;
 }

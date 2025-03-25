@@ -11,37 +11,33 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-void	everyinit(t_cub *cub, char *name)
+static	void	txtinit(t_cub *cub)
 {
-	cub->fd = -1;
-	cub->map_name = tdup(name);
-	mapinit(cub);
-	datainit(cub);
-	cub->cam = malloc(sizeof(t_cam));
-	if (!cub->cam)
-		wgas(cub, "malloc cam failed", NULL);
-	caminit(cub);
-	cub->ray = malloc(sizeof(t_ray));
-	if (!cub->ray)
-		wgas(cub, "malloc ray failed", NULL);
-	rayinit(cub->ray);
+	int	i = -1;
+
+	*cub->txt = malloc(sizeof(t_txt *));
+	while (++i < 4)
+	{
+		cub->txt[i] = malloc(sizeof(t_txt));
+		if (!cub->txt[i])
+			wgas(cub, "Textures", "malloc t_txt failed");
+		cub->txt[i]->name = NULL;
+		cub->txt[i]->img = NULL;
+	}
 }
 
-void	mapinit(t_cub *cub)
+void	mapinit(t_cub *cub, char *name)
 {
 	cub->map = malloc(sizeof(t_map));
 	if (cub->map == NULL)
 		wgas(cub, "fail malloc cub->map", NULL);
 	cub->map->l = 0;
 	cub->map->L = 0;
-	cub->map->NO = NULL;
-	cub->map->SO = NULL;
-	cub->map->WE = NULL;
-	cub->map->EA = NULL;
 	cub->map->floor = NULL;
 	cub->map->ceiling = NULL;
 	cub->map->matrix = NULL;
-	parse_map(cub, cub->map_name);
+	txtinit(cub);
+	parse_map(cub, name);
 }
 
 void	datainit(t_cub *cub)
