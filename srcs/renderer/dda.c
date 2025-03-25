@@ -50,26 +50,21 @@ static void	ddainit(t_cub *cub, t_ray *ray)
 		cub->cam->look.y + (cub->ray->plane.y * ray->camerax)};
 	cub->ray->map = (t_mgam2i){(int)cub->cam->player_pos.x, (int)cub->cam->player_pos.y};
 	cub->ray->deltadist = (t_mgam2f){fabs(1 / cub->ray->ray.x), fabs(1 / cub->ray->ray.y)};
+	cub->ray->step = (t_mgam2i){1, 1};
 	if (cub->ray->ray.x < 0)
 	{
 		cub->ray->step.x = -1;
 		cub->ray->sidedist.x = (cub->cam->player_pos.x - cub->ray->map.x) * cub->ray->deltadist.x;
 	}
 	else
-	{
-		cub->ray->step.x = 1;
 		cub->ray->sidedist.x = (cub->ray->map.x + 1.0 - cub->cam->player_pos.x) * cub->ray->deltadist.x;
-	}
 	if (cub->ray->ray.y < 0)
 	{
 		cub->ray->step.y = -1;
 		cub->ray->sidedist.y = (cub->cam->player_pos.y - cub->ray->map.y) * cub->ray->deltadist.y;
 	}
 	else
-	{
-		cub->ray->step.y = 1;
 		cub->ray->sidedist.y = (cub->ray->map.y + 1.0 - cub->cam->player_pos.y) * cub->ray->deltadist.y;
-	}
 }
 
 int	wallhit(t_cub *cub, double x, double y)

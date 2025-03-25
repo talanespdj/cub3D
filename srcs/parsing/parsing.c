@@ -13,6 +13,9 @@
 
 void	parse_map(t_cub *cub, char *name)
 {
+	int	i;
+
+	i = -1;
 	if (access(name, F_OK))
 		wgas(cub, name, "File doesn't exist");
 	else if (access(name, R_OK))
@@ -20,7 +23,14 @@ void	parse_map(t_cub *cub, char *name)
 	cub->fd = open(name, O_RDONLY);
 	if (cub->fd == -1)
 		wgas(cub, name, "Failed to open the map");
-	
+	*cub->txt = malloc(sizeof(t_txt *));
+	while (++i < 4)
+	{
+		cub->txt[i] = malloc(sizeof(t_txt));
+		if (!cub->txt[i])
+			wgas(cub, "Textures", "malloc t_txt failed");
+		cub->txt[i]->name = NULL;
+	}
 	textures(cub);
 	fccolors(cub);
 	mapping(cub, NULL, NULL);

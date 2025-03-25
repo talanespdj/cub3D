@@ -27,9 +27,6 @@ int	looping(t_cub *cub)
 
 int	cub3d(struct s_cub *cub)
 {
-	cub->txt[NO]->name = tdup(cub->txt[NO]->name);
-	cub->txt[NO]->width = 0;
-	cub->txt[NO]->height = 0;
 	cub->txt[NO]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[NO]->name, &cub->txt[NO]->width, &cub->txt[NO]->height);
 	if (cub->txt[NO]->img)
 		printf("fonctionne\n");

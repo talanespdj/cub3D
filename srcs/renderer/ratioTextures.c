@@ -11,18 +11,35 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
+static t_txt	*cardinalstxt(t_cub *cub)
+{
+	if (cub->ray->whichside)
+	{
+		if (cub->ray->ray.y > 0)
+			return (cub->txt[EA]);
+		return (cub->txt[WE]);
+	}
+	if (cub->ray->ray.x > 0)
+		return (cub->txt[NO]);
+	return (cub->txt[SO]);
+}
+
 void	texture_pixel(t_cub *cub, t_ray *ray)
 {
 	int	length;
-	int	colorwall;
+	int	color = 0;
+	int	pas;
+	t_txt	*dir;
 
-	colorwall = 0x880000;
-	if (ray->whichside)
-		colorwall = 0xAA0000;
-	length = ray->raylength;
+	dir = cardinalstxt(cub);
 	ray->startp = ray->startp - 1;
 	if (ray->startp < 0)
 		ray->startp = 0;
+	length = ray->raylength;
+	pas = 1 * cub->txt[NO]->height / length;
 	while (++ray->startp < ray->endp)
-		setpixel(cub->data, cub->ray->x, ray->startp, colorwall);
+	{
+		// color = (texture_buffer)[NO][cub->txt[NO]-> * ((int)pos & (MMAP - 1)) + tex_x];
+		setpixel(cub->data, cub->ray->x, ray->startp, color);
+	}
 }

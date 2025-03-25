@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-static	void	txtinit(t_cub *cub)
-{
-	int	i = -1;
-
-	*cub->txt = malloc(sizeof(t_txt *));
-	while (++i < 4)
-	{
-		cub->txt[i] = malloc(sizeof(t_txt));
-		if (!cub->txt[i])
-			wgas(cub, "Textures", "malloc t_txt failed");
-		cub->txt[i]->name = NULL;
-		cub->txt[i]->img = NULL;
-	}
-}
-
 void	mapinit(t_cub *cub, char *name)
 {
 	cub->map = malloc(sizeof(t_map));
@@ -36,7 +21,6 @@ void	mapinit(t_cub *cub, char *name)
 	cub->map->floor = NULL;
 	cub->map->ceiling = NULL;
 	cub->map->matrix = NULL;
-	txtinit(cub);
 	parse_map(cub, name);
 }
 
@@ -97,4 +81,20 @@ void	rayinit(t_ray *ray)
 	ray->camerax = 0.0;
 	ray->perpwalldist = 0.0;
 	ray->whichside = 0;
+}
+
+void	txtinit(t_cub *cub)
+{
+	cub->txt[NO]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[NO]->name, &cub->txt[NO]->width, &cub->txt[NO]->height);
+	if (!cub->txt[NO]->img)
+		wgas(cub, "mlx_xpm_file_to_image", "north texture");
+	cub->txt[SO]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[SO]->name, &cub->txt[SO]->width, &cub->txt[SO]->height);
+	if (!cub->txt[SO]->img)
+		wgas(cub, "mlx_xpm_file_to_image", "south texture");
+	cub->txt[EA]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[EA]->name, &cub->txt[EA]->width, &cub->txt[EA]->height);
+	if (!cub->txt[EA]->img)
+		wgas(cub, "mlx_xpm_file_to_image", "east texture");
+	cub->txt[WE]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[WE]->name, &cub->txt[WE]->width, &cub->txt[WE]->height);
+	if (!cub->txt[WE]->img)
+		wgas(cub, "mlx_xpm_file_to_image", "west texture");
 }

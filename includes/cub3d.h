@@ -42,6 +42,7 @@ void			mapinit(t_cub *cub, char *name);
 void			datainit(t_cub *cub);
 void			caminit(t_cub *cub);
 void			rayinit(t_ray *ray);
+void			txtinit(t_cub *cub);
 
 void			parse_map(t_cub *cub, char *name);
 

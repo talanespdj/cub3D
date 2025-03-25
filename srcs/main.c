@@ -24,6 +24,7 @@ void	everyinit(t_cub *cub, char *name)
 	if (!cub->ray)
 		wgas(cub, "malloc ray failed", NULL);
 	rayinit(cub->ray);
+	txtinit(cub);
 }
 
 static	int	valid_name(char *name)
