@@ -28,9 +28,13 @@ typedef struct s_keys
 typedef struct s_txt
 {
 	void	*img;
+	void	*addr;
 	char	*name;
 	int	width;
 	int	height;
+	int	bits_per_pixel;
+	int	size_line;
+	int	endian;
 }		t_txt;
 
 typedef struct s_cub

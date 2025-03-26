@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ratioTextures.c                                    :+:      :+:    :+:   */
+/*   scaledTextures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 23:40:49 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/21 23:42:16 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/03/26 04:48:17 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
@@ -37,6 +37,7 @@ void	texture_pixel(t_cub *cub, t_ray *ray)
 		ray->startp = 0;
 	length = ray->raylength;
 	pas = 1 * cub->txt[NO]->height / length;
+	cub->txt[NO]->addr = mlx_get_data_addr(cub->txt[NO]->img, &cub->txt[NO]->bits_per_pixel, &cub->txt[NO]->size_line, &cub->txt[NO]->endian);
 	while (++ray->startp < ray->endp)
 	{
 		// color = (texture_buffer)[NO][cub->txt[NO]-> * ((int)pos & (MMAP - 1)) + tex_x];
