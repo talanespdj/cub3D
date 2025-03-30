@@ -85,16 +85,14 @@ void	rayinit(t_ray *ray)
 
 void	txtinit(t_cub *cub)
 {
-	cub->txt[NO]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[NO]->name, &cub->txt[NO]->width, &cub->txt[NO]->height);
-	if (!cub->txt[NO]->img)
-		wgas(cub, "mlx_xpm_file_to_image", "north texture");
-	cub->txt[SO]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[SO]->name, &cub->txt[SO]->width, &cub->txt[SO]->height);
-	if (!cub->txt[SO]->img)
-		wgas(cub, "mlx_xpm_file_to_image", "south texture");
-	cub->txt[EA]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[EA]->name, &cub->txt[EA]->width, &cub->txt[EA]->height);
-	if (!cub->txt[EA]->img)
-		wgas(cub, "mlx_xpm_file_to_image", "east texture");
-	cub->txt[WE]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[WE]->name, &cub->txt[WE]->width, &cub->txt[WE]->height);
-	if (!cub->txt[WE]->img)
-		wgas(cub, "mlx_xpm_file_to_image", "west texture");
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		cub->txt[i]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[i]->name, &cub->txt[i]->width, &cub->txt[i]->height);
+		if (!cub->txt[i]->img)
+			wgas(cub, "mlx_xpm_file_to_image", NULL);
+		cub->txt[i]->addr = mlx_get_data_addr(cub->txt[i]->img, &cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line, &cub->txt[i]->endian);
+	}
 }

@@ -28,7 +28,7 @@ typedef struct s_keys
 typedef struct s_txt
 {
 	void	*img;
-	void	*addr;
+	char	*addr;
 	char	*name;
 	int	width;
 	int	height;
@@ -91,6 +91,5 @@ typedef struct s_data
 	int			x_off;
 	int			y_off;
 }			t_data;
-
 
 #endif

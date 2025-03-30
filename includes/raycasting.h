@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 00:31:26 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/21 23:41:35 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/03/28 20:24:06 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef RAYCASTING_H
@@ -44,6 +44,7 @@ typedef struct s_cam
 
 typedef struct s_ray
 {
+	t_txt		*txt;
 	t_mgam2i	map;
 	t_mgam2f	ray;
 	t_mgam2f	plane;
@@ -57,14 +58,19 @@ typedef struct s_ray
 	int			whichside;
 	int			startp;
 	int			endp;
+	int			texx;
 }		t_ray;
 
 void		raycast(t_cub *cub, t_ray *ray);
+
+t_txt		*cardinalstxt(t_cub *cub, t_ray *ray);
+void		xpos(t_cub *cub, t_ray *ray);
 void		dda(t_cub *cub, t_ray *ray);
 void		texture_pixel(t_cub *cub, t_ray *ray);
 
 
 void		setpixel(t_data *data, int x, int y, int color);
+uint		getpixel(t_txt *txt, int x, int y);
 
 void		minimap(t_cub *cub, char **matrix);
 int			wallhit(t_cub *cub, double x, double y);

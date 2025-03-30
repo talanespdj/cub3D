@@ -11,8 +11,13 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-static t_txt	*cardinalstxt(t_cub *cub)
+t_txt	*cardinalstxt(t_cub *cub, t_ray *ray)
 {
+	if (ray->whichside == 0)
+		ray->perpwalldist = ray->sidedist.x - ray->deltadist.x;
+	else
+		ray->perpwalldist = ray->sidedist.y - ray->deltadist.y;
+	ray->raylength = (int)cub->data->height / ray->perpwalldist;
 	if (cub->ray->whichside)
 	{
 		if (cub->ray->ray.y > 0)
@@ -24,25 +29,35 @@ static t_txt	*cardinalstxt(t_cub *cub)
 	return (cub->txt[SO]);
 }
 
+void	xpos(t_cub *cub, t_ray *ray)
+{
+	double		wallx;
+
+	if (!ray->whichside)
+		wallx = cub->cam->player_pos.y + ray->perpwalldist * ray->ray.y;
+	else
+		wallx = cub->cam->player_pos.x + ray->perpwalldist * ray->ray.x;
+	wallx -= (int)wallx;
+	ray->texx = (int)(wallx * (double)ray->txt->width);
+	if ((!ray->whichside && ray->ray.x > 0) || (ray->whichside && ray->ray.y < 0))
+		ray->texx = ray->txt->width - ray->texx - 1;
+}
+
 void	texture_pixel(t_cub *cub, t_ray *ray)
 {
+	double	pas;
+	double	texpos;
+	int	color;
 	int	length;
-	int	color = 0;
-	int	pas;
-	t_txt	*dir;
 
-	dir = cardinalstxt(cub);
-	ray->startp = ray->startp - 1;
-	if (ray->startp < 0)
-		ray->startp = 0;
 	length = ray->raylength;
-	pas = 1 * cub->txt[NO]->height / length;
-	cub->txt[NO]->addr = mlx_get_data_addr(cub->txt[NO]->img, &cub->txt[NO]->bits_per_pixel, &cub->txt[NO]->size_line, &cub->txt[NO]->endian);
-	while (++ray->startp < ray->endp)
+	pas = 1.0 * ray->txt->height / length;
+	texpos = (ray->startp - cub->data->height / 2 + ray->raylength / 2) * pas;
+	while (ray->startp < ray->endp)
 	{
-		// color = (texture_buffer)[NO][cub->txt[NO]-> * ((int)pos & (MMAP - 1)) + tex_x];
+		color = getpixel(ray->txt, ray->texx, (int)texpos);
 		setpixel(cub->data, cub->ray->x, ray->startp, color);
+		texpos += pas;
+		ray->startp++;
 	}
-	(void)dir;
-	(void)pas;
 }

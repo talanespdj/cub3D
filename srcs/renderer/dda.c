@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
 
-static void	ddainit(t_cub *cub, t_ray *ray);
+static void	ddainit(t_ray *ray, t_cam *cam);
 
 void	dda(t_cub *cub, t_ray *ray)
 {
-	ddainit(cub, cub->ray);
+	ray->camerax = 2 * ray->x / (double)cub->data->width - 1;
+	ddainit(cub->ray, cub->cam);
 	while (1)
 	{
 		if (ray->sidedist.x < ray->sidedist.y)
@@ -30,41 +31,33 @@ void	dda(t_cub *cub, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->whichside = 1;
 		}
-		// if (ray->map.x > cub->map->l || ray->map.y > cub->map->L) { // arrive quand il y a des tab dans la map
-		// 	printf("on essaie de check {%d, %d}\n", ray->map.x, ray->map.y);
-		// 	freend(cub);
-		// }
 		if (cub->map->matrix[ray->map.y][ray->map.x] == '1')
 			break ;
 	}
-	ray->perpwalldist = ray->sidedist.x - ray->deltadist.x;
-	if (ray->whichside)
-		ray->perpwalldist = ray->sidedist.y - ray->deltadist.y;
-	ray->raylength = cub->data->height / ray->perpwalldist;
+	cub->ray->txt = cardinalstxt(cub, cub->ray);
 }
 
-static void	ddainit(t_cub *cub, t_ray *ray)
+static void	ddainit(t_ray *ray, t_cam *cam)
 {
-	ray->camerax = 2 * ray->x / (double)cub->data->width - 1;
-	cub->ray->ray = (t_mgam2f){cub->cam->look.x + (cub->ray->plane.x * ray->camerax),
-		cub->cam->look.y + (cub->ray->plane.y * ray->camerax)};
-	cub->ray->map = (t_mgam2i){(int)cub->cam->player_pos.x, (int)cub->cam->player_pos.y};
-	cub->ray->deltadist = (t_mgam2f){fabs(1 / cub->ray->ray.x), fabs(1 / cub->ray->ray.y)};
-	cub->ray->step = (t_mgam2i){1, 1};
-	if (cub->ray->ray.x < 0)
+	ray->ray = (t_mgam2f){cam->look.x + (ray->plane.x * ray->camerax),
+		cam->look.y + (ray->plane.y * ray->camerax)};
+	ray->map = (t_mgam2i){(int)cam->player_pos.x, (int)cam->player_pos.y};
+	ray->deltadist = (t_mgam2f){fabs(1 / ray->ray.x), fabs(1 / ray->ray.y)};
+	ray->step = (t_mgam2i){1, 1};
+	if (ray->ray.x < 0)
 	{
-		cub->ray->step.x = -1;
-		cub->ray->sidedist.x = (cub->cam->player_pos.x - cub->ray->map.x) * cub->ray->deltadist.x;
+		ray->step.x = -1;
+		ray->sidedist.x = (cam->player_pos.x - ray->map.x) * ray->deltadist.x;
 	}
 	else
-		cub->ray->sidedist.x = (cub->ray->map.x + 1.0 - cub->cam->player_pos.x) * cub->ray->deltadist.x;
-	if (cub->ray->ray.y < 0)
+		ray->sidedist.x = (ray->map.x + 1.0 - cam->player_pos.x) * ray->deltadist.x;
+	if (ray->ray.y < 0)
 	{
-		cub->ray->step.y = -1;
-		cub->ray->sidedist.y = (cub->cam->player_pos.y - cub->ray->map.y) * cub->ray->deltadist.y;
+		ray->step.y = -1;
+		ray->sidedist.y = (cam->player_pos.y - ray->map.y) * ray->deltadist.y;
 	}
 	else
-		cub->ray->sidedist.y = (cub->ray->map.y + 1.0 - cub->cam->player_pos.y) * cub->ray->deltadist.y;
+		ray->sidedist.y = (ray->map.y + 1.0 - cam->player_pos.y) * ray->deltadist.y;
 }
 
 int	wallhit(t_cub *cub, double x, double y)
