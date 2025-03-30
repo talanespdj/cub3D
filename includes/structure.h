@@ -44,7 +44,7 @@ typedef struct s_cub
 	struct s_data	*data;
 	struct s_ray	*ray;
 	t_keys			keys;
-	t_txt		*txt[4];
+	t_txt			*txt[4];
 	int				fd;
 }		t_cub;
 

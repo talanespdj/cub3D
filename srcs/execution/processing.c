@@ -33,13 +33,15 @@ void	datainit(t_cub *cub)
 	cub->data->height = 600;
 	cub->data->mlx = mlx_init();
 	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
-	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width, cub->data->height, "CUB bcp de D");
+	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width,
+			cub->data->height, "CUB bcp de D");
 	if (!cub->data->win)
 	{
 		free(cub->data->mlx);
 		wgas(cub, "Couldn't open the window", NULL);
 	}
-	cub->data->img = mlx_new_image(cub->data->mlx, cub->data->width, cub->data->height);
+	cub->data->img = mlx_new_image(cub->data->mlx,
+			cub->data->width, cub->data->height);
 	cub->data->addr = mlx_get_data_addr(cub->data->img,
 			&cub->data->bits_per_pixel,
 			&cub->data->line_length, &cub->data->endian);
@@ -47,26 +49,31 @@ void	datainit(t_cub *cub)
 
 void	caminit(t_cub *cub)
 {
-	int	x;
-	int	y;
+	char	**matrix;
+	int		x;
+	int		y;
 
 	y = -1;
-	while (cub->map->matrix[++y])
+	matrix = cub->map->matrix;
+	while (matrix[++y])
 	{
 		x = -1;
-		while (cub->map->matrix[y][++x])
+		while (matrix[y][++x])
 		{
-			if (cub->map->matrix[y][x] == 'N' || cub->map->matrix[y][x] == 'S' || cub->map->matrix[y][x] == 'E' || cub->map->matrix[y][x] == 'O')
+			if (matrix[y][x] == 'N' || matrix[y][x] == 'S' ||
+				matrix[y][x] == 'E' || matrix[y][x] == 'O')
 			{
-				cub->map->matrix[y][x] = '0';
+				matrix[y][x] = '0';
 				cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
 				break ;
 			}
 		}
 	}
 	cub->cam->look = (t_mgam2f){1.0, 0.0};
-	mlx_mouse_move(cub->data->mlx, cub->data->win, cub->data->width / 2, cub->data->height / 2);
-	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &cub->cam->mouse_x, &cub->cam->mouse_y);
+	mlx_mouse_move(cub->data->mlx, cub->data->win,
+		cub->data->width / 2, cub->data->height / 2);
+	mlx_mouse_get_pos(cub->data->mlx, cub->data->win,
+		&cub->cam->mouse_x, &cub->cam->mouse_y);
 }
 
 void	rayinit(t_ray *ray)
@@ -90,9 +97,12 @@ void	txtinit(t_cub *cub)
 	i = -1;
 	while (++i < 4)
 	{
-		cub->txt[i]->img = mlx_xpm_file_to_image(cub->data->mlx, cub->txt[i]->name, &cub->txt[i]->width, &cub->txt[i]->height);
+		cub->txt[i]->img = mlx_xpm_file_to_image(cub->data->mlx,
+				cub->txt[i]->name, &cub->txt[i]->width, &cub->txt[i]->height);
 		if (!cub->txt[i]->img)
 			wgas(cub, "mlx_xpm_file_to_image", NULL);
-		cub->txt[i]->addr = mlx_get_data_addr(cub->txt[i]->img, &cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line, &cub->txt[i]->endian);
+		cub->txt[i]->addr = mlx_get_data_addr(cub->txt[i]->img,
+				&cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line,
+				&cub->txt[i]->endian);
 	}
 }

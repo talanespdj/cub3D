@@ -28,7 +28,7 @@
 # define EA 2
 # define WE 3
 
-# define MOVESPEED 0.02
+# define MS 0.02
 # define ROTATESPEED 0.02
 
 typedef double	t_mgam2f __attribute__((ext_vector_type(2)));
@@ -63,10 +63,10 @@ typedef struct s_ray
 
 void		raycast(t_cub *cub, t_ray *ray);
 
+void		dda(t_cub *cub, t_ray *ray);
 t_txt		*cardinalstxt(t_cub *cub, t_ray *ray);
 void		xpos(t_cub *cub, t_ray *ray);
-void		dda(t_cub *cub, t_ray *ray);
-void		texture_pixel(t_cub *cub, t_ray *ray);
+void		txt_pixel(t_cub *cub, t_ray *ray);
 
 
 void		setpixel(t_data *data, int x, int y, int color);

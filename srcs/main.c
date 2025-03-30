@@ -35,7 +35,7 @@ static	int	valid_name(char *name)
 	while (name && name[i])
 		i++;
 	if (i > 4 && (name[i - 1] == 'b' && name[i - 2] == 'u'
-		&& name[i - 3] == 'c' && name[i - 4] == '.'))
+			&& name[i - 3] == 'c' && name[i - 4] == '.'))
 		return (1);
 	return (0);
 }
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		everyinit(&cub, argv[1]);
-		cub3d(&cub);
+		cub3d(&cub, cub.data);
 	}
 	return (0);
 }

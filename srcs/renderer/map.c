@@ -29,7 +29,6 @@ void	minimap(t_cub *cub, char **matrix)
 	int	color;
 
 	y = -1;
-	/// print the whole mMap
 	while (matrix[++y])
 	{
 		x = -1;

@@ -33,7 +33,7 @@ typedef struct s_ray	t_ray;
 
 long long int	atolli(char *str);
 
-int				cub3d(struct s_cub *cub);
+int				cub3d(t_cub *cub, t_data *data);
 int				looping(t_cub *cub);
 
 void			everyinit(t_cub *cub, char *map_name);
@@ -46,7 +46,7 @@ void			txtinit(t_cub *cub);
 
 void			parse_map(t_cub *cub, char *name);
 
-void			textures(t_cub *cub);
+void			textures(t_cub *cub, t_txt **txt);
 int				texture_checking(t_cub *cub, char *file);
 void			fill_textures(t_cub *cub, char *line);
 

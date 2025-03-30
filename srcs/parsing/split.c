@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-static int hw_much_words(struct spt x)
+static int	hw_much_words(struct spt x)
 {
-	int i;
-	int d;
+	int	i;
+	int	d;
 
 	i = 0;
 	d = 0;
@@ -32,10 +32,10 @@ static int hw_much_words(struct spt x)
 	return (d);
 }
 
-static struct spt len_word(struct spt x, int op)
+static struct spt	len_word(struct spt x, int op)
 {
-	int i;
-	int d;
+	int	i;
+	int	d;
 
 	i = 0;
 	while (op >= 0)
@@ -44,7 +44,10 @@ static struct spt len_word(struct spt x, int op)
 		if (op == 0)
 		{
 			while (x.str[i] != '\0' && x.str[i] != x.c)
-				(i++, d++);
+			{
+				i++;
+				d++;
+			}
 			return (x.i = i, x.len = d, x);
 		}
 		while (x.str[i] != '\0' && x.str[i] != x.c)
@@ -56,7 +59,7 @@ static struct spt len_word(struct spt x, int op)
 	return (x);
 }
 
-static struct spt space_alloc(struct spt x)
+static struct spt	space_alloc(struct spt x)
 {
 	x.indic = 0;
 	x = len_word(x, x.op);
@@ -68,10 +71,10 @@ static struct spt space_alloc(struct spt x)
 	return (x);
 }
 
-static struct spt fill_split(struct spt x)
+static struct spt	fill_split(struct spt x)
 {
-	int tzy;
-	int tmp;
+	int	tzy;
+	int	tmp;
 
 	x.op = 0;
 	tzy = 0;
@@ -94,9 +97,9 @@ static struct spt fill_split(struct spt x)
 	return (x);
 }
 
-char **split(char const *str, char c)
+char	**split(char const *str, char c)
 {
-	static struct spt x = {0};
+	static struct spt	x = {0};
 
 	x.c = c;
 	x.str = str;

@@ -31,7 +31,7 @@ void	parse_map(t_cub *cub, char *name)
 			wgas(cub, "Textures", "malloc t_txt failed");
 		cub->txt[i]->name = NULL;
 	}
-	textures(cub);
+	textures(cub, cub->txt);
 	fccolors(cub);
 	mapping(cub, NULL, NULL);
 }

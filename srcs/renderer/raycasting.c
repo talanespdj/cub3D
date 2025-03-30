@@ -25,7 +25,7 @@ void	raycast(t_cub *cub, t_ray *ray)
 	while (++y < ray->startp)
 		setpixel(cub->data, cub->ray->x, y, MAP_SKY);
 	xpos(cub, cub->ray);
-	texture_pixel(cub, cub->ray);
+	txt_pixel(cub, cub->ray);
 	y = ray->endp - 1;
 	while (++y < cub->data->height)
 		setpixel(cub->data, cub->ray->x, y, MAP_FLOOR);
@@ -33,20 +33,21 @@ void	raycast(t_cub *cub, t_ray *ray)
 
 void	setpixel(t_data *data, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
-	if ((x < data->width && x >= 0) && (y < data->height && y >= 0))
+	if (!((x < data->width && x >= 0) && (y < data->height && y >= 0)))
 	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
+		printf("t'ecries en dehors\n");
+		return ;
 	}
-	// else
-	// 	printf("Bouffon t'ecris en dehors\n");
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
 uint	getpixel(t_txt *txt, int x, int y)
 {
-	char *dst;
+	char	*dst;
+
 	dst = txt->addr + (y * txt->size_line + x * (txt->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }

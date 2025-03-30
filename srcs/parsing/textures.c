@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-void	textures(t_cub *cub)
+void	textures(t_cub *cub, t_txt **txt)
 {
 	char	*line;
 
 	line = gnl(cub->fd);
-	while (line && (!cub->txt[NO]->name || !cub->txt[SO]->name || !cub->txt[EA]->name || !cub->txt[WE]->name))
+	while (line && (!txt[NO]->name || !txt[SO]->name
+			|| !txt[EA]->name || !txt[WE]->name))
 	{
 		if (!null_line(line))
 		{
@@ -28,17 +29,16 @@ void	textures(t_cub *cub)
 				fill_textures(cub, line);
 			else if (line[0] && line[1] && line[0] == 'E' && line[1] == 'A')
 				fill_textures(cub, line);
-			else 
+			else
 				break ;
 		}
 		free(line);
-		if (cub->txt[NO]->name && cub->txt[SO]->name && cub->txt[EA]->name && cub->txt[WE]->name)
+		if (txt[NO]->name && txt[SO]->name && txt[EA]->name && txt[WE]->name)
 			break ;
 		line = gnl(cub->fd);
 	}
-	if (!cub->txt[NO]->name && !cub->txt[SO]->name && !cub->txt[EA]->name && !cub->txt[WE]->name)
-		wgas(cub, "textures",
-			"First lines should contain address of NE SO WE EA textures");
+	if (!txt[NO]->name && !txt[SO]->name && !txt[EA]->name && !txt[WE]->name)
+		wgas(cub, "textures", "First lines should contain textures addresses");
 }
 
 int	texture_checking(t_cub *cub, char *file)
@@ -63,16 +63,12 @@ void	fill_textures(t_cub *cub, char *line)
 	{
 		if (!tstrcmp(inf[0], "NO"))
 			cub->txt[NO]->name = erase_new_line(inf[1]);
-			// cub->map->north = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "SO"))
 			cub->txt[SO]->name = erase_new_line(inf[1]);
-			// cub->map->south = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "WE"))
 			cub->txt[WE]->name = erase_new_line(inf[1]);
-			// cub->map->west = erase_new_line(inf[1]);
 		if (!tstrcmp(inf[0], "EA"))
 			cub->txt[EA]->name = erase_new_line(inf[1]);
-			// cub->map->east = erase_new_line(inf[1]);
 	}
 	fsplit(inf);
 }

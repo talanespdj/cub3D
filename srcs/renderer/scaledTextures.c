@@ -39,16 +39,17 @@ void	xpos(t_cub *cub, t_ray *ray)
 		wallx = cub->cam->player_pos.x + ray->perpwalldist * ray->ray.x;
 	wallx -= (int)wallx;
 	ray->texx = (int)(wallx * (double)ray->txt->width);
-	if ((!ray->whichside && ray->ray.x > 0) || (ray->whichside && ray->ray.y < 0))
+	if ((!ray->whichside && ray->ray.x > 0)
+		|| (ray->whichside && ray->ray.y < 0))
 		ray->texx = ray->txt->width - ray->texx - 1;
 }
 
-void	texture_pixel(t_cub *cub, t_ray *ray)
+void	txt_pixel(t_cub *cub, t_ray *ray)
 {
 	double	pas;
 	double	texpos;
-	int	color;
-	int	length;
+	int		color;
+	int		length;
 
 	length = ray->raylength;
 	pas = 1.0 * ray->txt->height / length;

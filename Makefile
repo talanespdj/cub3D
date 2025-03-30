@@ -22,6 +22,7 @@ EXECUTION =  srcs/main.c \
 		srcs/execution/tlib.c \
 		srcs/execution/cub3D.c \
 		srcs/execution/utils.c \
+		srcs/execution/garbage.c \
 		srcs/execution/processing.c \
 
 RENDERER = srcs/renderer/map.c \
