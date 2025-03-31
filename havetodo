@@ -13,17 +13,16 @@
 
 creer un buffer [height][width] = moitie ceiling/floor
 
-    
-    
-    Textures :	afficher les bonnes textures en fonction des murs
-    
-    
-    souris //
+
+✅ mettre en place rgb pour floor et ceiling, sont stocke dans cub->map sous t_rgb
+
+
 	pour regarder en haut ou en bas :
-	
+✅	
 	simplement faire que ray->startp commence plus tot/tard
 	ray->endp commence plus tot/tard
     
+	regler le pblm de lag quand j essaie d ecrire dehors
 
 
 

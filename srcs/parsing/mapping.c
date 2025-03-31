@@ -83,22 +83,12 @@ void	mapping(t_cub *cub, char *save, char *line)
 	line = gnl(cub->fd);
 	while (null_line(line))
 		next_line(cub, &line);
-	while (!null_line(line))
+	while (line)
 	{
 		++width;
 		///// corriger la ligne si elle comprend des tab sinon segfault
 		if (tstrlen(line) > cub->map->l)
 			cub->map->l = tstrlen(line);
-		while (null_line(line))
-		{
-			next_line(cub, &line);
-			if (!null_line(line))
-			{
-				free(line);
-				free(save);
-				wgas(cub, "mapping", "Map is cut in some pieces i dont like it");
-			}
-		}
 		save = tjoin(save, line);
 		next_line(cub, &line);
 	}

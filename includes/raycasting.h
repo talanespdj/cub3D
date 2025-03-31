@@ -54,6 +54,7 @@ typedef struct s_ray
 	double		camerax;
 	double		perpwalldist;
 	int			x;
+	int			head;
 	int			raylength;
 	int			whichside;
 	int			startp;

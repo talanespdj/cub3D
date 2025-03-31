@@ -16,19 +16,19 @@ void	raycast(t_cub *cub, t_ray *ray)
 	int	y;
 
 	y = -1;
-	ray->startp = -ray->raylength / 2 + cub->data->height / 2;
+	ray->startp = -ray->raylength / 2 + cub->data->height / 2 ;
 	if (ray->startp < 0)
 		ray->startp = 0;
 	ray->endp = ray->raylength / 2 + cub->data->height / 2;
 	if (ray->endp >= cub->data->height)
 		ray->endp = cub->data->height - 1;
-	while (++y < ray->startp)
-		setpixel(cub->data, cub->ray->x, y, MAP_SKY);
+	while (++y < ray->startp + cub->ray->head)
+		setpixel(cub->data, cub->ray->x, y, cub->map->ceiling);
 	xpos(cub, cub->ray);
 	txt_pixel(cub, cub->ray);
-	y = ray->endp - 1;
+	y = ray->endp - 1 + ray->head;
 	while (++y < cub->data->height)
-		setpixel(cub->data, cub->ray->x, y, MAP_FLOOR);
+		setpixel(cub->data, cub->ray->x, y, cub->map->floor);
 }
 
 void	setpixel(t_data *data, int x, int y, int color)

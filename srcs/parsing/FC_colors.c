@@ -61,12 +61,7 @@ void	fill_floor(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "floor", "invalid rgb value");
 	}
-	cub->map->floor = malloc(sizeof(t_rgb));
-	if (!cub->map->floor)
-		return (freend(cub));
-	cub->map->floor->r = atolli(rgb[0]);
-	cub->map->floor->g = atolli(rgb[1]);
-	cub->map->floor->b = atolli(rgb[2]);
+	cub->map->floor = (atolli(rgb[0]) << 16) | (atolli(rgb[1]) << 8) | atolli(rgb[2]);
 	fsplit(rgb);
 }
 
@@ -91,12 +86,7 @@ void	fill_ceiling(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "ceiling", "invalid rgb value");
 	}
-	cub->map->ceiling = malloc(sizeof(t_rgb));
-	if (!cub->map->ceiling)
-		return (freend(cub));
-	cub->map->ceiling->r = atolli(rgb[0]);
-	cub->map->ceiling->g = atolli(rgb[1]);
-	cub->map->ceiling->b = atolli(rgb[2]);
+	cub->map->ceiling = (atolli(rgb[0]) << 16) | (atolli(rgb[1]) << 8) | atolli(rgb[2]);
 	fsplit(rgb);
 }
 

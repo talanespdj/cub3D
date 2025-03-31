@@ -21,6 +21,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/time.h>
+# include <stdbool.h>
 # include <limits.h>
 # include <string.h>
 # include <math.h>

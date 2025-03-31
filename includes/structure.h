@@ -23,6 +23,8 @@ typedef struct s_keys
 	int	l;
 	int	r;
 	int	q;
+	int	up;
+	int	down;
 }		t_keys;
 
 typedef struct s_txt
@@ -60,21 +62,13 @@ typedef struct spt
 	int			i;
 }			t_split;
 
-typedef struct s_rgb
-{
-	int		r;
-	int		g;
-	int		b;
-
-}		t_rgb;
-
 typedef struct s_map
 {
 	char	**matrix;
 	int		L;
 	int		l;
-	t_rgb	*floor;
-	t_rgb	*ceiling;
+	int		floor;
+	int		ceiling;
 }		t_map;
 
 typedef struct s_data

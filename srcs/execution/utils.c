@@ -44,14 +44,8 @@ void	wegotasplituation(struct spt x)
 void	free_map(t_cub *cub)
 {
 	if (cub->map)
-	{
-		if (cub->map->floor)
-			free(cub->map->floor);
-		if (cub->map->ceiling)
-			free(cub->map->ceiling);
 		if (cub->map->matrix)
 			fsplit(cub->map->matrix);
-	}
 	if (cub->fd > 0)
 		gnl_free(cub->fd);
 	free(cub->map);

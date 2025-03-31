@@ -57,7 +57,7 @@ void	txt_pixel(t_cub *cub, t_ray *ray)
 	while (ray->startp < ray->endp)
 	{
 		color = getpixel(ray->txt, ray->texx, (int)texpos);
-		setpixel(cub->data, cub->ray->x, ray->startp, color);
+		setpixel(cub->data, cub->ray->x, ray->startp + ray->head, color);
 		texpos += pas;
 		ray->startp++;
 	}

@@ -18,8 +18,8 @@ void	mapinit(t_cub *cub, char *name)
 		wgas(cub, "fail malloc cub->map", NULL);
 	cub->map->l = 0;
 	cub->map->L = 0;
-	cub->map->floor = NULL;
-	cub->map->ceiling = NULL;
+	cub->map->floor = 0;
+	cub->map->ceiling = 0;
 	cub->map->matrix = NULL;
 	parse_map(cub, name);
 }

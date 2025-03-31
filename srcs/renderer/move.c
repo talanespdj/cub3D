@@ -28,6 +28,10 @@ int	press(int key, t_cub *cub)
 		else
 			cub->keys.r = 1;
 	}
+	if (key == XK_Up)
+		cub->keys.up = 1;
+	if (key == XK_Down)
+		cub->keys.down = 1;
 	if (key == XK_Escape)
 		end_win(cub);
 	return (0);
@@ -50,26 +54,30 @@ int	release(int key, t_cub *cub)
 		else
 			cub->keys.r = 0;
 	}
+	if (key == XK_Up)
+		cub->keys.up = 0;
+	if (key == XK_Down)
+		cub->keys.down = 0;
 	return (0);
 }
 
-int	mousemotion(t_cub *cub)
-{
-	int	x;
-	int	y;
+// int	mousemotion(t_cub *cub) // HS
+// {
+// 	int	x;
+// 	int	y;
 
-	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &x, &y);
-	if (x < cub->cam->mouse_x - 2 || x > cub->cam->mouse_x + 2)
-	{
-		if (x < cub->cam->mouse_x - 2)
-			lookmove(cub->ray, cub->cam, XK_Left);
-		else
-			lookmove(cub->ray, cub->cam, XK_Right);
-		mlx_mouse_move(cub->data->mlx, cub->data->win,
-			cub->data->width / 2, cub->data->height / 2);
-	}
-	return (0);
-}
+// 	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &x, &y);
+// 	if (x < cub->cam->mouse_x - 2 || x > cub->cam->mouse_x + 2)
+// 	{
+// 		if (x < cub->cam->mouse_x - 2)
+// 			lookmove(cub->ray, cub->cam, XK_Left);
+// 		else
+// 			lookmove(cub->ray, cub->cam, XK_Right);
+// 		mlx_mouse_move(cub->data->mlx, cub->data->win,
+// 			cub->data->width / 2, cub->data->height / 2);
+// 	}
+// 	return (0);
+// }
 
 void	movement(t_cub *cub)
 {
@@ -80,26 +88,32 @@ void	movement(t_cub *cub)
 	look = cub->cam->look;
 	plane = cub->ray->plane;
 	posplayer = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
-	if (cub->keys.w == 1)
+	if (cub->keys.w)
 		if (!wallhit(cub, posplayer.x + (look.x * MS),
 				posplayer.y + (look.y * MS)))
 			cub->cam->player_pos += (t_mgam2f){look.x * MS, look.y * MS};
-	if (cub->keys.s == 1)
+	if (cub->keys.s)
 		if (!wallhit(cub, posplayer.x - (look.x * MS),
 				posplayer.y - (look.y * MS)))
 			cub->cam->player_pos -= (t_mgam2f){look.x * MS, look.y * MS};
-	if (cub->keys.a == 1)
+	if (cub->keys.a)
 		if (!wallhit(cub, posplayer.x - (plane.x * MS),
 				posplayer.y - (plane.y * MS)))
 			cub->cam->player_pos -= (t_mgam2f){plane.x * MS, plane.y * MS};
-	if (cub->keys.d == 1)
+	if (cub->keys.d)
 		if (!wallhit(cub, posplayer.x + (plane.x * MS),
 				posplayer.y + (plane.y * MS)))
 			cub->cam->player_pos += (t_mgam2f){plane.x * MS, plane.y * MS};
-	if (cub->keys.l == 1)
+	if (cub->keys.l)
 		lookmove(cub->ray, cub->cam, XK_Left);
-	if (cub->keys.r == 1)
+	if (cub->keys.r)
 		lookmove(cub->ray, cub->cam, XK_Right);
+	if (cub->keys.up)
+		if (cub->ray->head < cub->data->height / 4)
+			cub->ray->head += 10;
+	if (cub->keys.down)
+		if (cub->ray->head > -cub->data->height / 4)
+			cub->ray->head -= 10;
 }
 
 void	lookmove(t_ray *ray, t_cam *cam, int key)
