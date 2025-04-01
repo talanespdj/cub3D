@@ -21,12 +21,12 @@ void	raycast(t_cub *cub, t_ray *ray)
 		ray->startp = 0;
 	ray->endp = ray->raylength / 2 + cub->data->height / 2;
 	if (ray->endp >= cub->data->height)
-		ray->endp = cub->data->height - 1;
-	while (++y < ray->startp + cub->ray->head)
+		ray->endp = cub->data->height;
+	while (++y < ray->startp)
 		setpixel(cub->data, cub->ray->x, y, cub->map->ceiling);
 	xpos(cub, cub->ray);
 	txt_pixel(cub, cub->ray);
-	y = ray->endp - 1 + ray->head;
+	y = ray->endp - 1;
 	while (++y < cub->data->height)
 		setpixel(cub->data, cub->ray->x, y, cub->map->floor);
 }

@@ -18,37 +18,19 @@ static	void	next_line(t_cub *cub, char **line)
 }
 
 /// @brief checker qu'il ne soit pas sur une extremite de la map
-/// checker que y - 1 ne contiennent pas d'espaces sur x - 1 | x | x + 1
-/// checker que y + 1 ne contiennent pas d'espaces sur x - 1 | x | x + 1
+/// checker que y - 1 ne contiennent pas d'espaces sur x
+/// checker que y + 1 ne contiennent pas d'espaces sur x
 /// checker que y  ne contiennent pas d'espaces sur x - 1 | x + 1
 static	bool	validcase(char **matrix, int width, int x, int y)
 {
 	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)  // check ligne du dessus
 		return (false);
 	if (y - 1 >= 0) // check ligne du haut
-	{
-		if (tstrlen(matrix[y - 1]) <= x + 1) // ligne contienne 3 characteres au dessus de x
-			return (false);
-		if (x - 1 >= 0)
-			if (matrix[y - 1][x - 1] == ' ')
-				return (false);
 		if (matrix[y - 1][x] == ' ')
 			return (false);
-		if (matrix[y - 1][x + 1] == ' ')
-			return (false);
-	}
 	if (y + 1 <= width) // check ligne du bas
-	{
-		if (tstrlen(matrix[y + 1]) <= x + 1) // ligne contienne 3 characteres au dessus de x
-			return (false);
-		if (x - 1 >= 0)
-			if (matrix[y + 1][x - 1] == ' ')
-				return (false);
 		if (matrix[y + 1][x] == ' ')
 			return (false);
-		if (matrix[y + 1][x + 1] == ' ')
-			return (false);
-	}
 	if (x + 1 <= tstrlen(matrix[y])) // check ligne actuelle
 	{
 		if (matrix[y][x - 1] == ' ')
@@ -76,6 +58,8 @@ static	bool	validmap(t_cub *cub, char **matrix)
 	return (true);
 }
 
+static void	rearrange_map(t_cub *cub, t_map *map);
+
 void	mapping(t_cub *cub, char *save, char *line)
 {
 	int	width = 0;
@@ -86,17 +70,96 @@ void	mapping(t_cub *cub, char *save, char *line)
 	while (line)
 	{
 		++width;
-		///// corriger la ligne si elle comprend des tab sinon segfault
 		if (tstrlen(line) > cub->map->l)
 			cub->map->l = tstrlen(line);
 		save = tjoin(save, line);
 		next_line(cub, &line);
 	}
 	cub->map->matrix = split(save, '\n');
-	cub->map->L = width;
+	cub->map->L = width - 1;
+	cub->map->l -= 1; // enlever \n dans le compte
 	free(save);
 	if (!cub->map->matrix || !validmap(cub, cub->map->matrix))
 		wgas(cub, "map invalid", NULL);
 	if (cub->fd > 0)
 		close(cub->fd);
+	rearrange_map(cub, cub->map);
+}
+
+static	bool	valid_char(char c)
+{
+	char	*str = "01NSEW";
+	int		i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] == c)
+			return (true);
+	return (false);
+}
+
+static	void	print_map(char **str);
+
+static	void	rearrange_map(t_cub *cub, t_map *map)
+{
+	char	**rearrange;
+	int		i;
+	int		x;
+
+	rearrange = malloc(sizeof(char *) * (map->L + 4));
+	if (!rearrange)
+		wgas(cub, "rearrange map", NULL);
+	rearrange[0] = malloc(sizeof(char) * (map->l + 3)); //premiere ligne
+	if (!rearrange[0])
+		wgas(cub, "rearrange[i] map", NULL);
+	x = -1;
+	while (++x < map->l + 2)
+		rearrange[0][x] = '.';
+	rearrange[0][x] = '\0';
+	i = 0;
+	while (++i < map->L + 2)
+	{
+		rearrange[i] = malloc(sizeof(char) * (map->l + 3));
+		if (!rearrange[i])
+			wgas(cub, "rearrange[i] map", NULL);
+		rearrange[i][0] = '.';
+		x = 0;
+		while (++x < map->l + 2)
+		{
+			if (x > tstrlen(map->matrix[i - 1]))
+			{
+				while (x < map->l + 2)
+				{
+					rearrange[i][x] = '.';
+					++x;
+				}
+				rearrange[i][x] = '\0';
+				break ;
+			}
+			if (valid_char(map->matrix[i - 1][x - 1]))
+				rearrange[i][x] = map->matrix[i - 1][x - 1];
+			else
+				rearrange[i][x] = '.';
+		}
+	}
+	rearrange[i] = malloc(sizeof(char) * (map->l + 3)); //derniere
+	if (!rearrange[i])
+		wgas(cub, "rearrange[i] map", NULL);
+	x = -1;
+	while (++x < map->l + 2)
+		rearrange[i][x] = '.';
+	rearrange[i][x] = '\0';
+	rearrange[i + 1] = NULL;
+	print_map(rearrange);
+	fsplit(cub->map->matrix);
+	cub->map->matrix = rearrange;
+}
+
+static	void	print_map(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		printf("%s\n", str[i]);
 }

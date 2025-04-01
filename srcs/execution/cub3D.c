@@ -38,3 +38,6 @@ int	cub3d(t_cub *cub, t_data *data)
 	mlx_loop(data->mlx);
 	return (0);
 }
+
+
+/// size : ->l 34 et ->L 14

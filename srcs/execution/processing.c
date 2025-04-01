@@ -64,7 +64,7 @@ void	caminit(t_cub *cub)
 				matrix[y][x] == 'E' || matrix[y][x] == 'O')
 			{
 				matrix[y][x] = '0';
-				cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
+				cub->cam->player_pos = (t_mgam2f){x + 1, y + 1};
 				break ;
 			}
 		}

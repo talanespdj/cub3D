@@ -31,7 +31,7 @@ void	dda(t_cub *cub, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->whichside = 1;
 		}
-		if (cub->map->matrix[ray->map.y][ray->map.x] == '1')
+		if (cub->map->matrix[ray->map.y][ray->map.x] != '0')
 			break ;
 	}
 	cub->ray->txt = cardinalstxt(cub, cub->ray);
@@ -64,9 +64,7 @@ static void	ddainit(t_ray *ray, t_cam *cam)
 
 int	wallhit(t_cub *cub, double x, double y)
 {
-	if ((x < 0 || x > cub->map->l - 1) || (y < 0 || y > cub->map->L))
-		return (1);
-	if (cub->map->matrix[(int)y][(int)x] == '1')
+	if (cub->map->matrix[(int)y][(int)x] == '1' || cub->map->matrix[(int)y][(int)x] == '.')
 		return (1);
 	return (0);
 }
