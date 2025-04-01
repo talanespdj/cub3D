@@ -28,11 +28,11 @@ void	minimap(t_cub *cub, char **matrix)
 	int	y;
 	int	color;
 
-	y = -1;
-	while (matrix[++y])
+	y = 1;
+	while (matrix[y + 1])
 	{
-		x = -1;
-		while (matrix[y][++x])
+		x = 0;
+		while (matrix[y][x + 1])
 		{
 			if (matrix[y][x] == '0' || matrix[y][x] == '1')
 			{
@@ -45,7 +45,9 @@ void	minimap(t_cub *cub, char **matrix)
 						setpixel(cub->data, x * MMAP + r, y * MMAP + t, color);
 				}
 			}
+			x++;
 		}
+		y++;
 	}
 
 	// map qui bouge en fonction de la pos du joueur

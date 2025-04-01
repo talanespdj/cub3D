@@ -1,6 +1,6 @@
 NO ./texture/wallNorth.xpm
-SO ./texture/wallSouth.xpm
 WE ./texture/wallWest.xpm
+SO ./texture/wallSouth.xpm
 EA ./texture/wallEast.xpm
 
 F 220,100,0

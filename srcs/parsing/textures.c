@@ -14,8 +14,10 @@
 void	textures(t_cub *cub, t_txt **txt)
 {
 	char	*line;
+	int		i;
 
-	line = gnl(cub->fd);
+	i = 0;
+	line = cub->map->matrix[i];
 	while (line && (!txt[NO]->name || !txt[SO]->name
 			|| !txt[EA]->name || !txt[WE]->name))
 	{
@@ -29,13 +31,10 @@ void	textures(t_cub *cub, t_txt **txt)
 				fill_textures(cub, line);
 			else if (line[0] && line[1] && line[0] == 'E' && line[1] == 'A')
 				fill_textures(cub, line);
-			else
-				break ;
 		}
-		free(line);
 		if (txt[NO]->name && txt[SO]->name && txt[EA]->name && txt[WE]->name)
 			break ;
-		line = gnl(cub->fd);
+		line = cub->map->matrix[++i];
 	}
 	if (!txt[NO]->name && !txt[SO]->name && !txt[EA]->name && !txt[WE]->name)
 		wgas(cub, "textures", "First lines should contain textures addresses");
@@ -56,7 +55,7 @@ void	fill_textures(t_cub *cub, char *line)
 {
 	char	**inf;
 
-	inf = split(line, ' ');
+	inf = split(tdup(line), ' ');
 	if (!inf)
 		wgas(cub, "Textures", "Couldn't split line");
 	if (inf && inf[0] && inf[1])

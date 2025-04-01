@@ -16,8 +16,10 @@ static	int	rgb_check(char *str);
 void	fccolors(t_cub *cub)
 {
 	char	*line;
+	int		i;
 
-	line = gnl(cub->fd);
+	i = 0;
+	line = cub->map->matrix[i];
 	while (line && (!cub->map->floor || !cub->map->ceiling))
 	{
 		if (!null_line(line))
@@ -26,13 +28,10 @@ void	fccolors(t_cub *cub)
 				fill_floor(cub, line);
 			else if (line[0] && line[0] == 'C')
 				fill_ceiling(cub, line);
-			else
-				break ;
 		}
-		free(line);
 		if ((cub->map->floor && cub->map->ceiling))
 			break ; 
-		line = gnl(cub->fd);
+		line = cub->map->matrix[++i];
 	}
 	if (!cub->map->floor || !cub->map->ceiling)
 		wgas(cub, "fccolors",

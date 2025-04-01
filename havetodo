@@ -14,6 +14,10 @@
 creer un buffer [height][width] = moitie ceiling/floor
 
 
+// l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n'est vrmt pas bonne
+		// cub->map->matrix = split(save, '\n');
+
+
 ✅ mettre en place rgb pour floor et ceiling, sont stocke dans cub->map sous t_rgb
 
 

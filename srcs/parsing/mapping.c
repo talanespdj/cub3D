@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-static	void	next_line(t_cub *cub, char **line)
-{
-	free(*line);
-	*line = gnl(cub->fd);
-}
-
 /// @brief checker qu'il ne soit pas sur une extremite de la map
 /// checker que y - 1 ne contiennent pas d'espaces sur x
 /// checker que y + 1 ne contiennent pas d'espaces sur x
@@ -62,13 +56,26 @@ static void	rearrange_map(t_cub *cub, t_map *map);
 
 void	mapping(t_cub *cub, char *save, char *line)
 {
-	int	width = 0;
+	int	width;
+	int	nill;
 
+	width = 0;
 	line = gnl(cub->fd);
 	while (null_line(line))
 		next_line(cub, &line);
 	while (line)
 	{
+		nill = 0;
+		while (line && !tstrcmp(line, "\n"))
+		{
+			nill++;
+			next_line(cub, &line);
+			if (!null_line(line) && tstrcmp(line, "\n"))
+			{
+				width += nill - 10;
+				break ;
+			}
+		}
 		++width;
 		if (tstrlen(line) > cub->map->l)
 			cub->map->l = tstrlen(line);
@@ -77,6 +84,7 @@ void	mapping(t_cub *cub, char *save, char *line)
 	}
 	cub->map->matrix = split(save, '\n');
 	cub->map->L = width - 1;
+	printf("LA WIDTH EST DE %d\n", cub->map->L);
 	cub->map->l -= 1; // enlever \n dans le compte
 	free(save);
 	if (!cub->map->matrix || !validmap(cub, cub->map->matrix))
@@ -86,19 +94,21 @@ void	mapping(t_cub *cub, char *save, char *line)
 	rearrange_map(cub, cub->map);
 }
 
-static	bool	valid_char(char c)
+bool	valid_char(char c, int indic)
 {
-	char	*str = "01NSEW";
+	char	*str;
 	int		i;
 
 	i = -1;
+	str = "01 \tNSEW";
+	if (indic)
+		str = "01NSEW";
 	while (str[++i])
 		if (str[i] == c)
 			return (true);
 	return (false);
 }
 
-static	void	print_map(char **str);
 
 static	void	rearrange_map(t_cub *cub, t_map *map)
 {
@@ -136,7 +146,7 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 				rearrange[i][x] = '\0';
 				break ;
 			}
-			if (valid_char(map->matrix[i - 1][x - 1]))
+			if (valid_char(map->matrix[i - 1][x - 1], 1))
 				rearrange[i][x] = map->matrix[i - 1][x - 1];
 			else
 				rearrange[i][x] = '.';
@@ -155,7 +165,7 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	cub->map->matrix = rearrange;
 }
 
-static	void	print_map(char **str)
+void	print_map(char **str)
 {
 	int	i;
 
