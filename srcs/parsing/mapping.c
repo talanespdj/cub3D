@@ -40,24 +40,28 @@ static	bool	validcase(char **matrix, int width, int x, int y)
 
 static	bool	validmap(t_cub *cub, char **matrix)
 {
+	int	stop;
 	int	x;
 	int	y;
 
 	y = -1;
-	// printf("on check : la map sans les points\n");
-	for (int i = 0; matrix[4][i]; ++i)
-		printf("[%d] - %c\n", i, matrix[4][i]);
-	print_map(matrix);
-	// printf("\n");
-	// return (true);
-	// printf("%s\n", matrix[4]);
+	stop = 0;
 	// print_map(matrix);
 	while (matrix[++y])
 	{
 		x = -1;
 		while (matrix[y][++x])
+		{
+			if (!valid_char(matrix[y][x], 0))
+			{
+				if (!stop && (matrix[y][x] == 'N' || matrix[y][x] == 'S' || matrix[y][x] == 'E' || matrix[y][x] == 'W'))
+					stop = 1;
+				else
+					wgas(cub, "invalid map", NULL);
+			}
 			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->L, x, y))
 				return (false);
+		}
 	}
 	return (true);
 }
@@ -102,6 +106,7 @@ void	mapping(t_cub *cub, char *save, char *line)
 	if (cub->fd > 0)
 		close(cub->fd);
 	rearrange_map(cub, cub->map);
+	print_map(cub->map->matrix);
 }
 
 bool	valid_char(char c, int indic)
@@ -170,7 +175,6 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 		rearrange[i][x] = '.';
 	rearrange[i][x] = '\0';
 	rearrange[i + 1] = NULL;
-	print_map(rearrange);
 	fsplit(cub->map->matrix);
 	cub->map->matrix = rearrange;
 }
