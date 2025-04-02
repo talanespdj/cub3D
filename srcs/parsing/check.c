@@ -30,25 +30,27 @@ bool	valid_char(char c, int indic)
 
 bool	validcase(char **matrix, int width, int x, int y)
 {
+	{ //ligne actuelle
+		if (x + 1 > tstrlen(matrix[y]))
+			return (false);
+		if (matrix[y][x - 1] == ' ' || matrix[y][x - 1] == '\n')
+			return (false);
+		if (matrix[y][x + 1] == ' ' || matrix[y][x + 1] == '\n')
+			return (false);
+	}
 	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)  // check ligne du dessus
 		return (false);
 	if (y - 1 >= 0) // check ligne du haut
 	{
-		if (x >= tstrlen(matrix[y - 1]) || matrix[y - 1][x] == ' ')
+		if (x >= tstrlen(matrix[y - 1]) || matrix[y - 1][x] == ' ' || matrix[y - 1][x] == '\n' )
 			return (false);
 	}
 	if (y + 1 <= width) // check ligne du bas
 	{
-		if (x >= tstrlen(matrix[y + 1]) || matrix[y + 1][x] == ' ')
+		if (x >= tstrlen(matrix[y + 1]) || matrix[y + 1][x] == ' ' || matrix[y + 1][x] == '\n')
 			return (false);
 	}
-	if (x + 1 >= tstrlen(matrix[y])) // check ligne actuelle
-	{
-		if (matrix[y][x - 1] == ' ')
-			return (false);
-		if (matrix[y][x + 1] == ' ')
-			return (false);
-	}
+
 	return (true);
 }
 
@@ -73,7 +75,7 @@ bool	validmap(t_cub *cub, char **matrix)
 					wgas(cub, "invalid map", NULL);
 			}
 			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->L, x, y))
-				return (false);
+					return (false);
 		}
 	}
 	return (true);

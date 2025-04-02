@@ -31,11 +31,9 @@ void	mapping(t_cub *cub, char *line)
 	cub->map->matrix[i] = NULL;
 	free(line);
 	close(cub->fd);
-	// print_map(cub->map->matrix);
 	if (!validmap(cub, cub->map->matrix))
 		wgas(cub, "map invalid", NULL);
 	rearrange_map(cub, cub->map);
-	print_map(cub->map->matrix);
 }
 
 void	length_map(t_cub *cub)
