@@ -11,6 +11,20 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
+int	null_linev2(char *str)
+{
+	int	i;
+
+	i = -1;
+	if (!str)
+		return (1);
+	while (str && str[++i])
+		if (!((str[i] >= 8 && str[i] <= 12) || str[i] == ' '))
+			return (0);
+	return (1);
+}
+
+
 int	null_line(char *str)
 {
 	int	i;

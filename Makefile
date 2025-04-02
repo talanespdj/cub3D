@@ -12,6 +12,7 @@ CFLAGS += -Wno-unused-command-line-argument
 PARSING = srcs/parsing/parsing.c \
 		srcs/parsing/gnl.c \
 		srcs/parsing/ltoa.c \
+		srcs/parsing/check.c \
 		srcs/parsing/gnlv2.c \
 		srcs/parsing/split.c \
 		srcs/parsing/mapping.c \

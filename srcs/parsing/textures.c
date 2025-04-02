@@ -66,22 +66,6 @@ void	fill_textures(t_cub *cub, char *line)
 	inf = NULL;
 	inf = split(str, ' ');
 	free(str);
-	// for (int i = 0; inf[i]; ++i) {
-	// 	printf("[%d] ", i);
-	// 	for (int x = 0; inf[i][x]; ++x) {
-	// 		if (inf[i][x] && inf[i][x] != '\n')
-	// 			printf("%c", inf[i][x]);
-	// 	}
-	// 	printf("[END]\n");
-	// }
-
-	// int	r = -1;
-	// while (inf[1][++r])
-	// {
-	// 	if (inf[1][r] > 8 && inf[1][r] < 12)
-	// 		wgas(cub, "texture path invalid", NULL);
-	// 	if (inf[1])
-	// }
 	if (!inf)
 		wgas(cub, "Textures", "Couldn't split line");
 	if (inf && inf[0] && inf[1] && inf[2])
@@ -89,13 +73,13 @@ void	fill_textures(t_cub *cub, char *line)
 	if (inf && inf[0] && inf[1])
 	{
 		if (!tstrcmp(inf[0], "NO"))
-			cub->txt[NO]->name = tdup(inf[1]); // erase_new_line(cub, inf[1]);
+			cub->txt[NO]->name = tdup(inf[1]);
 		if (!tstrcmp(inf[0], "SO"))
-			cub->txt[SO]->name = tdup(inf[1]); // erase_new_line(cub, inf[1]);
+			cub->txt[SO]->name = tdup(inf[1]);
 		if (!tstrcmp(inf[0], "WE"))
-			cub->txt[WE]->name = tdup(inf[1]); // erase_new_line(cub, inf[1]);
+			cub->txt[WE]->name = tdup(inf[1]);
 		if (!tstrcmp(inf[0], "EA"))
-			cub->txt[EA]->name = tdup(inf[1]); // erase_new_line(cub, inf[1]);
+			cub->txt[EA]->name = tdup(inf[1]);
 	}
 	fsplit(inf);
 }

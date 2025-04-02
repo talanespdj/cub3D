@@ -14,6 +14,7 @@
 void	everyinit(t_cub *cub, char *name)
 {
 	cub->fd = -1;
+	cub->lim = -1;
 	mapinit(cub, name);
 	datainit(cub);
 	cub->cam = malloc(sizeof(t_cam));

@@ -13,21 +13,6 @@
 
 static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name);
 
-static	void print_info(t_cub *cub)
-{
-	for (int i = 0; i < 4; i++)
-	{
-		if (cub->txt[i] && cub->txt[i]->name)
-			printf("Texture %d : %s\n", i, cub->txt[i]->name);
-		else
-			printf("Texture %d : (nom indisponible)\n", i);
-	}
-	printf("ceiling : %d\n", cub->map->ceiling);
-	printf("floor : %d\n", cub->map->floor);
-	printf("\n_________________________________\n\n");
-
-}
-
 void	parse_map(t_cub *cub, char *name)
 {
 	char	*line;
@@ -52,16 +37,22 @@ void	parse_map(t_cub *cub, char *name)
 	retrieve_txt_floor_ceiling(cub, name);
 	textures(cub, cub->txt); 
 	fccolors(cub);
-	i = cub->fd;
+	i = cub->lim;
 	cub->fd = open(name, O_RDONLY);
 	line = gnl(cub->fd);
 	while (line && --i > 0)
 		next_line(cub, &line);
 	free(line);
-	print_info(cub);
 	fsplit(cub->map->matrix);
 	cub->map->matrix = NULL;
-	mapping(cub, NULL, NULL);
+	length_map(cub);
+	i = cub->lim;
+	cub->fd = open(name, O_RDONLY);
+	line = gnl(cub->fd);
+	while (line && --i > 0)
+		next_line(cub, &line);
+	free(line);
+	mapping(cub, NULL);
 // SECURED TILL THERE
 // SECURED TILL THERE
 // SECURED TILL THERE
@@ -72,10 +63,9 @@ void	parse_map(t_cub *cub, char *name)
 static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 {
 	char	*line;
-	int		lim;
 	int		x;
 
-	lim = 0;
+	cub->lim = 0;
 	line = gnl(cub->fd);
 	while (line)
 	{
@@ -85,22 +75,21 @@ static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 		if ((!line[x] || !line[x + 1]) && !null_line(line))
 			break ;
 		next_line(cub, &line);
-		lim++;
+		cub->lim++; // stocker ou commence la map
 	}
 	while (line)
 		next_line(cub, &line);
 	close(cub->fd);
-	cub->map->matrix = malloc(sizeof(char *) * (lim + 1));
+	cub->map->matrix = malloc(sizeof(char *) * (cub->lim + 1));
 	if (!cub->map->matrix)
 		wgas(cub, "retrieve_txt_floor_ceiling", NULL);
 	cub->fd = open(name, O_RDONLY);
 	x = -1;
-	while (++x < lim)
+	while (++x < cub->lim)
 		cub->map->matrix[x] = gnl(cub->fd);
 	cub->map->matrix[x] = NULL;
 	line = gnl(cub->fd);
 	while (line)
 		next_line(cub, &line);
 	close(cub->fd);
-	cub->fd = lim; // stocker ou commence la map
 }

@@ -11,123 +11,67 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-/// @brief checker qu'il ne soit pas sur une extremite de la map
-/// checker que y - 1 ne contiennent pas d'espaces sur x
-/// checker que y + 1 ne contiennent pas d'espaces sur x
-/// checker que y  ne contiennent pas d'espaces sur x - 1 | x + 1
-static	bool	validcase(char **matrix, int width, int x, int y)
-{
-	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)  // check ligne du dessus
-		return (false);
-	// printf("dkonqwwoidnqwodn\n");
-	if (y - 1 >= 0) // check ligne du haut
-	{
-		if (matrix[y - 1][x] == ' ')
-			return (false);
-	}
-	if (y + 1 <= width) // check ligne du bas
-		if (matrix[y + 1][x] == ' ')
-			return (false);
-	if (x + 1 <= tstrlen(matrix[y])) // check ligne actuelle
-	{
-		if (matrix[y][x - 1] == ' ')
-			return (false);
-		if (matrix[y][x + 1] == ' ')
-			return (false);
-	}
-	return (true);
-}
-
-static	bool	validmap(t_cub *cub, char **matrix)
-{
-	int	stop;
-	int	x;
-	int	y;
-
-	y = -1;
-	stop = 0;
-	while (matrix[++y])
-	{
-		x = -1;
-		while (matrix[y][++x])
-		{
-			if (!valid_char(matrix[y][x], 0))
-			{
-				if (!stop && (matrix[y][x] == 'N' || matrix[y][x] == 'S' || matrix[y][x] == 'E' || matrix[y][x] == 'W'))
-					stop = 1;
-				else
-					wgas(cub, "invalid map", NULL);
-			}
-			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->L, x, y))
-				return (false);
-		}
-	}
-	return (true);
-}
-
 static void	rearrange_map(t_cub *cub, t_map *map);
 
-void	mapping(t_cub *cub, char *save, char *line)
+void	mapping(t_cub *cub, char *line)
 {
-	int	width;
-	int	nill;
+	int	i;
 
-	width = 0;
+	i = 0;
+	cub->map->matrix = malloc(sizeof(char *) * (cub->map->L + 2));
+	if (!cub->map->matrix)
+		wgas(cub, "pblm mapping matrix", "malloc(.. (cub->map->L + 1))");
 	line = gnl(cub->fd);
-	while (null_line(line))
-		next_line(cub, &line);
 	while (line)
 	{
-		nill = 0;
-		while (line && !tstrcmp(line, "\n"))
-		{
-			nill++;
-			next_line(cub, &line);
-			if (!null_line(line) && tstrcmp(line, "\n"))
-			{
-				width += nill - 10;
-				break ;
-			}
-		}
-		
-		++width;
-		if (tstrlen(line) > cub->map->l)
-			cub->map->l = tstrlen(line);
-		save = tjoin(save, line);
-		if (!save)
-			free(line);
+		cub->map->matrix[i] = tdup(line);
 		next_line(cub, &line);
+		i++;
 	}
-	cub->map->matrix = split(save, '\n');
-	free(save);
-	if (!cub->map->matrix)
-		wgas(cub, "mapping", "split(save, '\n')");
-	cub->map->l -= 1; // enlever \n dans le compte
-	cub->map->L = width - 1;
-	printf("LA WIDTH EST DE %d\n", cub->map->L);
+	cub->map->matrix[i] = NULL;
+	free(line);
+	close(cub->fd);
+	// print_map(cub->map->matrix);
 	if (!validmap(cub, cub->map->matrix))
 		wgas(cub, "map invalid", NULL);
-	if (cub->fd > 0)
-		close(cub->fd);
 	rearrange_map(cub, cub->map);
 	print_map(cub->map->matrix);
 }
 
-bool	valid_char(char c, int indic)
+void	length_map(t_cub *cub)
 {
-	char	*str;
-	int		i;
+	char	*line;
+	int	width;
+	int	nill;
+	int	i;
 
-	i = -1;
-	str = "01 NSEW";
-	if (indic)
-		str = "01NSEW";
-	while (str[++i])
-		if (str[i] == c)
-			return (true);
-	return (false);
+	width = 0;
+	i = 0;
+	line = gnl(cub->fd);
+	while (line)
+	{
+		nill = 0;
+		while (line && null_linev2(line))
+		{
+			nill++;
+			next_line(cub, &line);
+			if (!null_linev2(line))
+			{
+				width += nill;
+				break ;
+			}
+		}
+		++width;
+		if (tstrlen(line) > cub->map->l)
+			cub->map->l = tstrlen(line);
+		next_line(cub, &line);
+	}
+	cub->map->l -= 1; // enlever \n dans le compte
+	cub->map->L = width - 1;
+	printf("les size sont : ->l %d, ->L %d\n", cub->map->l, cub->map->L);
+	close(cub->fd);
+	free(line);
 }
-
 
 static	void	rearrange_map(t_cub *cub, t_map *map)
 {
@@ -203,3 +147,4 @@ void	print_map(char **str)
 	while (str[++i])
 		printf("%s\n", str[i]);
 }
+

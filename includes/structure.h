@@ -48,6 +48,7 @@ typedef struct s_cub
 	t_keys			keys;
 	t_txt			*txt[4];
 	int				fd;
+	int				lim;
 }		t_cub;
 
 typedef struct spt
