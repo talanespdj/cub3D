@@ -63,9 +63,9 @@ void	fill_textures(t_cub *cub, char *line)
 		wgas(cub, "first split", NULL);
 	str = tdup(inf[0]);
 	fsplit(inf);
+	inf = NULL;
 	inf = split(str, ' ');
-	if (!inf)
-		wgas(cub, "second split", NULL);
+	free(str);
 	// for (int i = 0; inf[i]; ++i) {
 	// 	printf("[%d] ", i);
 	// 	for (int x = 0; inf[i][x]; ++x) {

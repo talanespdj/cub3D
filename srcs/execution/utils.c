@@ -43,21 +43,41 @@ void	wegotasplituation(struct spt x)
 
 void	free_map(t_cub *cub)
 {
-	if (cub->map)
-		if (cub->map->matrix)
-			fsplit(cub->map->matrix);
-	if (cub->fd > 0)
-		gnl_free(cub->fd);
+	if ((cub->map) && (cub->map->matrix))
+		fsplit(cub->map->matrix);
 	free(cub->map);
+}
+
+void	free_data(t_cub *cub)
+{
+	if (cub->data)
+	{
+		mlx_destroy_image(cub->data->mlx, cub->data->img);
+		mlx_destroy_window(cub->data->mlx, cub->data->win);
+		mlx_destroy_display(cub->data->mlx);
+		free(cub->data->mlx);
+		free(cub->data);
+	}
 }
 
 void	freend(t_cub *cub)
 {
+	int	i;
+
+	i = -1;
 	free_map(cub);
-	if (cub->data)
-		free(cub->data);
-	if (cub->cam)
-		free(cub->cam);
-	if (cub->ray)
-		free(cub->ray);
+	free(cub->cam);
+	free(cub->ray);
+	while (++i < 4 && cub->txt[i])
+	{
+		if (cub->txt[i]->name)
+			free(cub->txt[i]->name);
+		if (cub->txt[i]->img)
+			mlx_destroy_image(cub->data->mlx, cub->txt[i]->img);
+		free(cub->txt[i]);
+	}
+	free_data(cub);
+
+	// // if (cub->fd > 0)
+	// 	gnl_free(cub->fd);
 }

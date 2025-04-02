@@ -13,45 +13,55 @@
 
 void	mapinit(t_cub *cub, char *name)
 {
+	int	i;
+
+	i = -1;
+	cub->map = NULL;
 	cub->map = malloc(sizeof(t_map));
-	if (cub->map == NULL)
+	if (!cub->map)
 		wgas(cub, "fail malloc cub->map", NULL);
 	cub->map->l = 0;
 	cub->map->L = 0;
 	cub->map->floor = 0;
 	cub->map->ceiling = 0;
 	cub->map->matrix = NULL;
+	while (++i < 4)
+		cub->txt[i] = NULL;
 	parse_map(cub, name);
 }
 
 void	datainit(t_cub *cub)
 {
+	cub->data = NULL;
 	cub->data = malloc(sizeof(t_data));
-	if (cub->data == NULL)
+	if (!cub->data)
 		wgas(cub, "fail malloc cub->data", NULL);
+	cub->data->mlx = NULL;
+	cub->data->win = NULL;
+	cub->data->img = NULL;
+	cub->data->addr = NULL;
 	cub->data->width = 960;
 	cub->data->height = 600;
 	cub->data->mlx = mlx_init();
+	if (!cub->data->mlx)
+		wgas(cub, "fail mlx open", NULL);
 	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width,
-			cub->data->height, "CUB bcp de D");
+					cub->data->height, "CUB bcp de D");
 	if (!cub->data->win)
-	{
-		free(cub->data->mlx);
 		wgas(cub, "Couldn't open the window", NULL);
-	}
 	cub->data->img = mlx_new_image(cub->data->mlx,
-			cub->data->width, cub->data->height);
+				       cub->data->width, cub->data->height);
 	cub->data->addr = mlx_get_data_addr(cub->data->img,
-			&cub->data->bits_per_pixel,
-			&cub->data->line_length, &cub->data->endian);
+					    &cub->data->bits_per_pixel,
+					    &cub->data->line_length, &cub->data->endian);
 }
 
 void	caminit(t_cub *cub)
 {
-	char	**matrix;
-	int		x;
-	int		y;
+	char **matrix;
+	int x;
+	int y;
 
 	y = -1;
 	matrix = cub->map->matrix;
@@ -61,20 +71,21 @@ void	caminit(t_cub *cub)
 		while (matrix[y][++x])
 		{
 			if (matrix[y][x] == 'N' || matrix[y][x] == 'S' ||
-				matrix[y][x] == 'E' || matrix[y][x] == 'O')
+			    matrix[y][x] == 'E' || matrix[y][x] == 'O')
 			{
 				matrix[y][x] = '0';
 				cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
-				break ;
+				break;
 			}
 		}
 	}
 	cub->cam->look = (t_mgam2f){1.0, 0.0};
-	mlx_mouse_move(cub->data->mlx, cub->data->win,
-		cub->data->width / 2, cub->data->height / 2);
-	mlx_mouse_get_pos(cub->data->mlx, cub->data->win,
-		&cub->cam->mouse_x, &cub->cam->mouse_y);
+	// mlx_mouse_move(cub->data->mlx, cub->data->win,
+	// 	       cub->data->width / 2, cub->data->height / 2);
+	// mlx_mouse_get_pos(cub->data->mlx, cub->data->win,
+	// 		  &cub->cam->mouse_x, &cub->cam->mouse_y);
 }
+
 
 void	rayinit(t_ray *ray)
 {
@@ -92,7 +103,7 @@ void	rayinit(t_ray *ray)
 
 void	txtinit(t_cub *cub)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < 4)
@@ -102,7 +113,7 @@ void	txtinit(t_cub *cub)
 		if (!cub->txt[i]->img)
 			wgas(cub, "mlx_xpm_file_to_image", NULL);
 		cub->txt[i]->addr = mlx_get_data_addr(cub->txt[i]->img,
-				&cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line,
-				&cub->txt[i]->endian);
+						      &cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line,
+						      &cub->txt[i]->endian);
 	}
 }

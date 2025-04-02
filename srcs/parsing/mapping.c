@@ -46,7 +46,6 @@ static	bool	validmap(t_cub *cub, char **matrix)
 
 	y = -1;
 	stop = 0;
-	// print_map(matrix);
 	while (matrix[++y])
 	{
 		x = -1;
@@ -90,18 +89,23 @@ void	mapping(t_cub *cub, char *save, char *line)
 				break ;
 			}
 		}
+		
 		++width;
 		if (tstrlen(line) > cub->map->l)
 			cub->map->l = tstrlen(line);
 		save = tjoin(save, line);
+		if (!save)
+			free(line);
 		next_line(cub, &line);
 	}
 	cub->map->matrix = split(save, '\n');
+	free(save);
+	if (!cub->map->matrix)
+		wgas(cub, "mapping", "split(save, '\n')");
+	cub->map->l -= 1; // enlever \n dans le compte
 	cub->map->L = width - 1;
 	printf("LA WIDTH EST DE %d\n", cub->map->L);
-	cub->map->l -= 1; // enlever \n dans le compte
-	free(save);
-	if (!cub->map->matrix || !validmap(cub, cub->map->matrix))
+	if (!validmap(cub, cub->map->matrix))
 		wgas(cub, "map invalid", NULL);
 	if (cub->fd > 0)
 		close(cub->fd);
@@ -115,7 +119,7 @@ bool	valid_char(char c, int indic)
 	int		i;
 
 	i = -1;
-	str = "01 \tNSEW";
+	str = "01 NSEW";
 	if (indic)
 		str = "01NSEW";
 	while (str[++i])
@@ -136,17 +140,25 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 		wgas(cub, "rearrange map", NULL);
 	rearrange[0] = malloc(sizeof(char) * (map->l + 3)); //premiere ligne
 	if (!rearrange[0])
+	{
+		fsplit(rearrange);
 		wgas(cub, "rearrange[i] map", NULL);
+	}
 	x = -1;
 	while (++x < map->l + 2)
 		rearrange[0][x] = '.';
 	rearrange[0][x] = '\0';
 	i = 0;
+	
 	while (++i < map->L + 2)
 	{
+		rearrange[i] = NULL;
 		rearrange[i] = malloc(sizeof(char) * (map->l + 3));
 		if (!rearrange[i])
+		{
+			fsplit(rearrange);
 			wgas(cub, "rearrange[i] map", NULL);
+		}
 		rearrange[i][0] = '.';
 		x = 0;
 		while (++x < map->l + 2)
@@ -167,9 +179,13 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 				rearrange[i][x] = '.';
 		}
 	}
+	rearrange[i] = NULL;
 	rearrange[i] = malloc(sizeof(char) * (map->l + 3)); //derniere
 	if (!rearrange[i])
+	{
+		fsplit(rearrange);
 		wgas(cub, "rearrange[i] map", NULL);
+	}
 	x = -1;
 	while (++x < map->l + 2)
 		rearrange[i][x] = '.';

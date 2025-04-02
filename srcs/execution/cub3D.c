@@ -34,7 +34,6 @@ int	cub3d(t_cub *cub, t_data *data)
 	// mlx_hook(data->win, MotionNotify, 1L << 6, &mousemotion, cub); // not working @mousemotion dans move.c
 	mlx_hook(data->win, DestroyNotify, 0, &end_win, cub);
 	mlx_loop_hook(data->mlx, looping, cub);
-	mlx_mouse_hide(data->mlx, data->win);
 	mlx_loop(data->mlx);
 	return (0);
 }

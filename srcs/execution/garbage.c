@@ -68,10 +68,6 @@ char	*erase_new_line(t_cub *cub, char *str)
 
 int	end_win(t_cub *cub)
 {
-	mlx_destroy_image(cub->data->mlx, cub->data->img);
-	mlx_destroy_window(cub->data->mlx, cub->data->win);
-	mlx_destroy_display(cub->data->mlx);
-	free(cub->data->mlx);
 	freend(cub);
 	exit(0);
 }

@@ -95,7 +95,7 @@ void	movement(t_cub *cub)
 	if (cub->keys.w)
 		if (!wallhit(cub, posplayer.x + (look.x * ms),
 				posplayer.y + (look.y * ms)))
-			cub->cam->player_pos += (t_mgam2f){look.x * ms, look.y * ms};
+				cub->cam->player_pos += (t_mgam2f){look.x * ms, look.y * ms};
 	if (cub->keys.s)
 		if (!wallhit(cub, posplayer.x - (look.x * ms),
 				posplayer.y - (look.y * ms)))

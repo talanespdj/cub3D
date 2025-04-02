@@ -41,27 +41,32 @@ void	parse_map(t_cub *cub, char *name)
 	cub->fd = open(name, O_RDONLY);
 	if (cub->fd == -1)
 		wgas(cub, name, "Failed to open the map");
-	*cub->txt = malloc(sizeof(t_txt *));
 	while (++i < 4)
 	{
 		cub->txt[i] = malloc(sizeof(t_txt));
-		if (!cub->txt[i])
+		if (!cub->txt[i]) // invalid free si ca faile
 			wgas(cub, "Textures", "malloc t_txt failed");
 		cub->txt[i]->name = NULL;
+		cub->txt[i]->img = NULL;
 	}
 	retrieve_txt_floor_ceiling(cub, name);
-	textures(cub, cub->txt);
+	textures(cub, cub->txt); 
 	fccolors(cub);
 	i = cub->fd;
 	cub->fd = open(name, O_RDONLY);
 	line = gnl(cub->fd);
 	while (line && --i > 0)
 		next_line(cub, &line);
+	free(line);
 	print_info(cub);
 	fsplit(cub->map->matrix);
 	cub->map->matrix = NULL;
 	mapping(cub, NULL, NULL);
-
+// SECURED TILL THERE
+// SECURED TILL THERE
+// SECURED TILL THERE
+// SECURED TILL THERE
+// SECURED TILL THERE
 }
 
 static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
@@ -96,5 +101,6 @@ static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 	line = gnl(cub->fd);
 	while (line)
 		next_line(cub, &line);
+	close(cub->fd);
 	cub->fd = lim; // stocker ou commence la map
 }

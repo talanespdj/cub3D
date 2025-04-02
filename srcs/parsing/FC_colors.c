@@ -45,16 +45,20 @@ void	fill_floor(t_cub *cub, char *line)
 	char	*floor;
 
 	rgb = split(line, ' ');
+	if (!rgb)
+		wgas(cub, "rgb", "split failed fill_floor");
 	if (tstrcmp(rgb[0], "F") || !rgb[1])
 	{
 		fsplit(rgb);
 		wgas(cub, "First lines should contain Floor and Ceiling RGB colors\n", NULL);
 	}
 	floor = erase_new_line(cub, rgb[1]);
-	// printf("%s\n", floor);
 	fsplit(rgb);
+	rgb = NULL;
 	rgb = split(floor, ',');
 	free(floor);
+	if (!rgb)
+		wgas(cub, "rgb", "second split failed fill_floor");
 	if (!rgb || (!(rgb[0] && rgb[1] && rgb[2]))
 		|| (!rgb_check(rgb[0]) || !rgb_check(rgb[1]) || !rgb_check(rgb[2])))
 	{
@@ -71,6 +75,8 @@ void	fill_ceiling(t_cub *cub, char *line)
 	char	*ceiling;
 
 	rgb = split(line, ' ');
+	if (!rgb)
+		wgas(cub, "rgb", "split failed fill_ceiling");
 	if (!rgb || tstrcmp(rgb[0], "C") || !rgb[1])
 	{
 		fsplit(rgb);
@@ -78,8 +84,11 @@ void	fill_ceiling(t_cub *cub, char *line)
 	}
 	ceiling = erase_new_line(cub, rgb[1]);
 	fsplit(rgb);
+	rgb = NULL;
 	rgb = split(ceiling, ',');
 	free(ceiling);
+	if (!rgb)
+		wgas(cub, "rgb", "second split failed fill_ceiling");
 	if (!rgb || (!(rgb[0] && rgb[1] && rgb[2]))
 		|| (!rgb_check(rgb[0]) || !rgb_check(rgb[1]) || !rgb_check(rgb[2])))
 	{
