@@ -21,8 +21,10 @@ static	bool	validcase(char **matrix, int width, int x, int y)
 		return (false);
 	// printf("dkonqwwoidnqwodn\n");
 	if (y - 1 >= 0) // check ligne du haut
+	{
 		if (matrix[y - 1][x] == ' ')
 			return (false);
+	}
 	if (y + 1 <= width) // check ligne du bas
 		if (matrix[y + 1][x] == ' ')
 			return (false);
@@ -42,6 +44,14 @@ static	bool	validmap(t_cub *cub, char **matrix)
 	int	y;
 
 	y = -1;
+	// printf("on check : la map sans les points\n");
+	for (int i = 0; matrix[4][i]; ++i)
+		printf("[%d] - %c\n", i, matrix[4][i]);
+	print_map(matrix);
+	// printf("\n");
+	// return (true);
+	// printf("%s\n", matrix[4]);
+	// print_map(matrix);
 	while (matrix[++y])
 	{
 		x = -1;

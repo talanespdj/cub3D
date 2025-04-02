@@ -20,6 +20,9 @@ creer un buffer [height][width] = moitie ceiling/floor
 	nom de texture supprimer les espaces et les \t
 
 
+s`il y a des tab dans la map ya des invalid read
+
+
 ✅ mettre en place rgb pour floor et ceiling, sont stocke dans cub->map sous t_rgb
 
 
