@@ -50,7 +50,8 @@ void	fill_floor(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "First lines should contain Floor and Ceiling RGB colors\n", NULL);
 	}
-	floor = erase_new_line(rgb[1]);
+	floor = erase_new_line(cub, rgb[1]);
+	// printf("%s\n", floor);
 	fsplit(rgb);
 	rgb = split(floor, ',');
 	free(floor);
@@ -75,7 +76,7 @@ void	fill_ceiling(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "First lines should contain floor and Ceiling RGB colors\n", NULL);
 	}
-	ceiling = erase_new_line(rgb[1]);
+	ceiling = erase_new_line(cub, rgb[1]);
 	fsplit(rgb);
 	rgb = split(ceiling, ',');
 	free(ceiling);

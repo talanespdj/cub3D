@@ -77,7 +77,7 @@ int				tinstr(char *str, char *search);
 
 int				valid_lli(long long int nt, char c, int sign, int situation);
 int				check_lli(char *str);
-char			*erase_new_line(char *str);
+char				*erase_new_line(t_cub *cub, char *str);
 int				null_line(char *str);
 
 void			wgas(t_cub *cub, char *arg, char *str);

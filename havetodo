@@ -14,8 +14,10 @@
 creer un buffer [height][width] = moitie ceiling/floor
 
 
-// l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n'est vrmt pas bonne
-		// cub->map->matrix = split(save, '\n');
+	l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n`est vrmt pas bonne
+		cub->map->matrix = split(save, '\n');
+
+	nom de texture supprimer les espaces et les \t
 
 
 ✅ mettre en place rgb pour floor et ceiling, sont stocke dans cub->map sous t_rgb
@@ -30,7 +32,7 @@ creer un buffer [height][width] = moitie ceiling/floor
 
 
 
-	SEGFAULT ERA
+✅	SEGFAULT ERA
     
     segfault avec map at.cub psque ya des tab dans la map et un tab est un character seulement
     

@@ -49,7 +49,7 @@ void	gnl_free(int fd)
 		close(fd);
 }
 
-char	*erase_new_line(char *str)
+char	*erase_new_line(t_cub *cub, char *str)
 {
 	char	*line;
 	int		i;
@@ -61,6 +61,8 @@ char	*erase_new_line(char *str)
 	while (str && str[++i] && str[i + 1])
 		line[i] = str[i];
 	line[i] = '\0';
+	// line = epur(line);
+	(void)cub;
 	return (line);
 }
 

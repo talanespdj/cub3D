@@ -55,19 +55,19 @@ void	fill_textures(t_cub *cub, char *line)
 {
 	char	**inf;
 
-	inf = split(tdup(line), ' ');
+	inf = split(line, ' ');
 	if (!inf)
 		wgas(cub, "Textures", "Couldn't split line");
 	if (inf && inf[0] && inf[1])
 	{
 		if (!tstrcmp(inf[0], "NO"))
-			cub->txt[NO]->name = erase_new_line(inf[1]);
+			cub->txt[NO]->name = erase_new_line(cub, inf[1]);
 		if (!tstrcmp(inf[0], "SO"))
-			cub->txt[SO]->name = erase_new_line(inf[1]);
+			cub->txt[SO]->name = erase_new_line(cub, inf[1]);
 		if (!tstrcmp(inf[0], "WE"))
-			cub->txt[WE]->name = erase_new_line(inf[1]);
+			cub->txt[WE]->name = erase_new_line(cub, inf[1]);
 		if (!tstrcmp(inf[0], "EA"))
-			cub->txt[EA]->name = erase_new_line(inf[1]);
+			cub->txt[EA]->name = erase_new_line(cub, inf[1]);
 	}
 	fsplit(inf);
 }

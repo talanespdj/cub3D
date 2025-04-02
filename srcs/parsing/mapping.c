@@ -19,6 +19,7 @@ static	bool	validcase(char **matrix, int width, int x, int y)
 {
 	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)  // check ligne du dessus
 		return (false);
+	// printf("dkonqwwoidnqwodn\n");
 	if (y - 1 >= 0) // check ligne du haut
 		if (matrix[y - 1][x] == ' ')
 			return (false);
@@ -33,7 +34,6 @@ static	bool	validcase(char **matrix, int width, int x, int y)
 			return (false);
 	}
 	return (true);
-
 }
 
 static	bool	validmap(t_cub *cub, char **matrix)
