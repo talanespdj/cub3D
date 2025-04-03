@@ -53,6 +53,8 @@ void	parse_map(t_cub *cub, char *name)
 		next_line(cub, &line);
 	free(line);
 	mapping(cub, NULL);
+	print_map(cub->map->matrix);
+	// wgas(cub, "debug", NULL);
 // SECURED TILL THERE
 // SECURED TILL THERE
 // SECURED TILL THERE

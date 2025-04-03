@@ -20,7 +20,7 @@ void	mapping(t_cub *cub, char *line)
 	i = 0;
 	cub->map->matrix = malloc(sizeof(char *) * (cub->map->L + 2));
 	if (!cub->map->matrix)
-		wgas(cub, "pblm mapping matrix", "malloc(.. (cub->map->L + 1))");
+		wgas(cub, "pblm mapping matrix", "malloc(.. (cub->map->L + 2))");
 	line = gnl(cub->fd);
 	while (line)
 	{
@@ -91,7 +91,6 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 		rearrange[0][x] = '.';
 	rearrange[0][x] = '\0';
 	i = 0;
-	
 	while (++i < map->L + 2)
 	{
 		rearrange[i] = NULL;
@@ -103,7 +102,7 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 		}
 		rearrange[i][0] = '.';
 		x = 0;
-		while (++x < map->l + 2)
+		while (++x < map->l + 3)
 		{
 			if (x > tstrlen(map->matrix[i - 1]))
 			{
@@ -120,6 +119,7 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 			else
 				rearrange[i][x] = '.';
 		}
+
 	}
 	rearrange[i] = NULL;
 	rearrange[i] = malloc(sizeof(char) * (map->l + 3)); //derniere
@@ -132,9 +132,11 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	while (++x < map->l + 2)
 		rearrange[i][x] = '.';
 	rearrange[i][x] = '\0';
+	printf("%s\n", rearrange[i]);
 	rearrange[i + 1] = NULL;
 	fsplit(cub->map->matrix);
 	cub->map->matrix = rearrange;
+
 }
 
 void	print_map(char **str)
@@ -143,6 +145,6 @@ void	print_map(char **str)
 
 	i = -1;
 	while (str[++i])
-		printf("%s\n", str[i]);
+		printf("[%d] - %s\n", i, str[i]);
 }
 
