@@ -39,12 +39,48 @@ void	fccolors(t_cub *cub)
 
 }
 
+char	*rearrange_color(t_cub *cub, char *line)
+{
+	char	*str;
+	int	i;
+	int	c;
+
+	c = 0;
+	i = 2;
+	if ((line[0] != 'F' && line[0] != 'C') || line[1] != ' ')
+		wgas(cub, "debug", NULL);
+	while (line[i])
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+			c++;
+	}
+	str = malloc(sizeof (char) * (tstrlen(line) - c + 1));
+	if (!str)
+		wgas(cub, "str malloc rearrange color", NULL);
+	c = 1;
+	str[0] = line[0];
+	str[1] = line[1];
+	i = 2;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t')
+			str[++c] = line[i];
+		i++;
+	}
+	// free(line);
+	str[++c] = '\0';
+	return (str);
+}
+
 void	fill_floor(t_cub *cub, char *line)
 {
 	char	**rgb;
 	char	*floor;
 
+	line = rearrange_color(cub, line);
+	// printf("%s\n", line);
 	rgb = split(line, ' ');
+	free(line);
 	if (!rgb)
 		wgas(cub, "rgb", "split failed fill_floor");
 	if (tstrcmp(rgb[0], "F") || !rgb[1])
@@ -74,7 +110,9 @@ void	fill_ceiling(t_cub *cub, char *line)
 	char	**rgb;
 	char	*ceiling;
 
+	line = rearrange_color(cub, line);
 	rgb = split(line, ' ');
+	free(line);
 	if (!rgb)
 		wgas(cub, "rgb", "split failed fill_ceiling");
 	if (!rgb || tstrcmp(rgb[0], "C") || !rgb[1])

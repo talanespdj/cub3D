@@ -28,6 +28,10 @@ int	press(int key, t_cub *cub)
 		else
 			cub->keys.r = 1;
 	}
+	if (key == XK_Tab)
+		cub->keys.tab = 1;
+	if (key == XK_Shift_L)
+		cub->keys.shift = 1;
 	if (key == XK_Up)
 		cub->keys.up = 1;
 	if (key == XK_Down)
@@ -54,6 +58,10 @@ int	release(int key, t_cub *cub)
 		else
 			cub->keys.r = 0;
 	}
+	if (key == XK_Tab)
+		cub->keys.tab = 0;
+	if (key == XK_Shift_L)
+		cub->keys.tab = 0;
 	if (key == XK_Up)
 		cub->keys.up = 0;
 	if (key == XK_Down)
@@ -87,8 +95,8 @@ void	movement(t_cub *cub)
 	double		ms;
 
 	ms = MS;
-	// if (cub->data->width > 700)
-		// ms *= 2;
+	if (cub->keys.shift)
+		ms = 0.015;
 	look = cub->cam->look;
 	plane = cub->ray->plane;
 	posplayer = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};

@@ -25,6 +25,8 @@ typedef struct s_keys
 	int	q;
 	int	up;
 	int	down;
+	int	tab;
+	int	shift;
 }		t_keys;
 
 typedef struct s_txt

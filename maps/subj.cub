@@ -3,8 +3,8 @@ WE ./texture/wallWest.xpm
 SO ./texture/wallSouth.xpm
 EA ./texture/wallEast.xpm
 
-F 220,100,0
-C 225,30,0
+F 220,	                   			    100,0
+C 225,						30,0
 
         1111111111111111111111111
         1000000000110000000010001
