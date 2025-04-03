@@ -23,7 +23,6 @@ int	looping(t_cub *cub)
 	}
 	if (cub->keys.tab)
 		minimap(cub, cub->map->matrix);
-	// minimap(cub, cub->map->matrix);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win,
 		cub->data->img, 0, 0);
 	return (0);
@@ -39,6 +38,3 @@ int	cub3d(t_cub *cub, t_data *data)
 	mlx_loop(data->mlx);
 	return (0);
 }
-
-
-/// size : ->l 34 et ->L 14

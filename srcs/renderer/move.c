@@ -61,7 +61,7 @@ int	release(int key, t_cub *cub)
 	if (key == XK_Tab)
 		cub->keys.tab = 0;
 	if (key == XK_Shift_L)
-		cub->keys.tab = 0;
+		cub->keys.shift = 0;
 	if (key == XK_Up)
 		cub->keys.up = 0;
 	if (key == XK_Down)
@@ -95,6 +95,7 @@ void	movement(t_cub *cub)
 	double		ms;
 
 	ms = MS;
+	printf("%d\n", cub->keys.shift);
 	if (cub->keys.shift)
 		ms = 0.015;
 	look = cub->cam->look;

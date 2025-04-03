@@ -47,8 +47,8 @@ typedef struct s_cub
 	struct s_cam	*cam;
 	struct s_data	*data;
 	struct s_ray	*ray;
-	t_keys			keys;
-	t_txt			*txt[4];
+	struct s_keys		keys;
+	struct s_txt		*txt[4];
 	int				fd;
 	int				lim;
 }		t_cub;
@@ -88,5 +88,8 @@ typedef struct s_data
 	int			x_off;
 	int			y_off;
 }			t_data;
+
+
+
 
 #endif

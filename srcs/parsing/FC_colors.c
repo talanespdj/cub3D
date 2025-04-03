@@ -46,10 +46,10 @@ char	*rearrange_color(t_cub *cub, char *line)
 	int	c;
 
 	c = 0;
-	i = 2;
+	i = 1;
 	if ((line[0] != 'F' && line[0] != 'C') || line[1] != ' ')
 		wgas(cub, "debug", NULL);
-	while (line[i])
+	while (line[++i])
 	{
 		if (line[i] == ' ' || line[i] == '\t')
 			c++;
