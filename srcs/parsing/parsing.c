@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 03:36:03 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/29 03:36:05 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:54:31 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -36,7 +36,7 @@ void	parse_map(t_cub *cub, char *name)
 		cub->txt[i]->addr = NULL;
 	}
 	retrieve_txt_floor_ceiling(cub, name);
-	textures(cub, cub->txt); 
+	textures(cub, cub->txt);
 	fccolors(cub);
 	i = cub->lim;
 	cub->fd = open(name, O_RDONLY);
@@ -71,7 +71,7 @@ static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 		if ((!line[x] || !line[x + 1]) && !null_line(line))
 			break ;
 		next_line(cub, &line);
-		cub->lim++; // stocker ou commence la map
+		cub->lim++;
 	}
 	while (line)
 		next_line(cub, &line);

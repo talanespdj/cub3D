@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 04:48:51 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/29 04:49:04 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:52:31 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -30,20 +30,19 @@ void	fccolors(t_cub *cub)
 				fill_ceiling(cub, line);
 		}
 		if ((cub->map->floor && cub->map->ceiling))
-			break ; 
+			break ;
 		line = cub->map->matrix[++i];
 	}
 	if (!cub->map->floor || !cub->map->ceiling)
 		wgas(cub, "fccolors",
 			"First lines should contain address Floor and ceiling value");
-
 }
 
 char	*rearrange_color(t_cub *cub, char *line)
 {
 	char	*str;
-	int	i;
-	int	c;
+	int		i;
+	int		c;
 
 	c = 0;
 	i = 1;
@@ -67,7 +66,6 @@ char	*rearrange_color(t_cub *cub, char *line)
 			str[++c] = line[i];
 		i++;
 	}
-	// free(line);
 	str[++c] = '\0';
 	return (str);
 }
@@ -78,7 +76,6 @@ void	fill_floor(t_cub *cub, char *line)
 	char	*floor;
 
 	line = rearrange_color(cub, line);
-	// printf("%s\n", line);
 	rgb = split(line, ' ');
 	free(line);
 	if (!rgb)

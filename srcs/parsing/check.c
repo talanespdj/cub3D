@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 22:58:49 by tespandj          #+#    #+#             */
-/*   Updated: 2025/04/02 22:58:50 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:53:47 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -36,19 +36,18 @@ bool	validcase(char **matrix, int width, int x, int y)
 		return (false);
 	if (matrix[y][x + 1] == ' ' || matrix[y][x + 1] == '\n')
 		return (false);
-	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)  // check ligne du dessus
+	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)
 		return (false);
-	if (y - 1 >= 0) // check ligne du haut
+	if (y - 1 >= 0)
 	{
 		if (x >= tstrlen(matrix[y - 1]) || matrix[y - 1][x] == ' ' || matrix[y - 1][x] == '\n' )
 			return (false);
 	}
-	if (y + 1 <= width) // check ligne du bas
+	if (y + 1 <= width)
 	{
 		if (x >= tstrlen(matrix[y + 1]) || matrix[y + 1][x] == ' ' || matrix[y + 1][x] == '\n')
 			return (false);
 	}
-
 	return (true);
 }
 
@@ -73,7 +72,7 @@ bool	validmap(t_cub *cub, char **matrix)
 					wgas(cub, "invalid map", NULL);
 			}
 			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->L, x, y))
-					return (false);
+				return (false);
 		}
 	}
 	return (true);

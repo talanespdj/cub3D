@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 02:55:32 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/11 02:55:34 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:42:11 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -72,24 +72,6 @@ int	release(int key, t_cub *cub)
 	return (0);
 }
 
-// int	mousemotion(t_cub *cub) // HS
-// {
-// 	int	x;
-// 	int	y;
-
-// 	mlx_mouse_get_pos(cub->data->mlx, cub->data->win, &x, &y);
-// 	if (x < cub->cam->mouse_x - 2 || x > cub->cam->mouse_x + 2)
-// 	{
-// 		if (x < cub->cam->mouse_x - 2)
-// 			lookmove(cub->ray, cub->cam, XK_Left);
-// 		else
-// 			lookmove(cub->ray, cub->cam, XK_Right);
-// 		mlx_mouse_move(cub->data->mlx, cub->data->win,
-// 			cub->data->width / 2, cub->data->height / 2);
-// 	}
-// 	return (0);
-// }
-
 void	movement(t_cub *cub)
 {
 	t_mgam2f	posplayer;
@@ -103,10 +85,6 @@ void	movement(t_cub *cub)
 	look = cub->cam->look;
 	plane = cub->ray->plane;
 	posplayer = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
-	// if (!wallhit(cub, (int)posplayer.x + cub->ray->ray.x * ms,
-				// (int)posplayer.y + cub->ray->ray.y * ms))
-	// (int)posplayer.x + cub->ray->ray.x * ms;
-	// (int)posplayer.y + cub->ray->ray.y * ms;
 	if (cub->keys.w)
 		if (!wallhit(cub, posplayer.x + (look.x * ms),
 				posplayer.y + (look.y * ms)))

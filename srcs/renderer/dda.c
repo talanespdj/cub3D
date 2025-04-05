@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mathematics.c                                      :+:      :+:    :+:   */
+/*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 22:46:10 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/09 22:46:12 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:04:38 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/raycasting.h"
@@ -65,14 +65,11 @@ static void	ddainit(t_ray *ray, t_cam *cam)
 int	wallhit(t_cub *cub, double x, double y)
 {
 	t_mgam2i	pos2d;
-	int		verti;
-	int		horiz;
+	int			verti;
+	int			horiz;
 
 	verti = -1;
 	horiz = -1;
-
-	// x += 0.25;
-	// y += 0.25;
 	pos2d = (t_mgam2i){(int)cub->cam->player_pos.x, (int)cub->cam->player_pos.y};
 	// if (pos2d.x != (int)x && pos2d.y != (int)y)
 	// {
@@ -85,7 +82,6 @@ int	wallhit(t_cub *cub, double x, double y)
 	// 		return (0);
 	// 	printf("on check les cases {%d, %d} et {%d, %d}\n", pos2d.y + verti, pos2d.x, pos2d.y, pos2d.x + horiz);
 	// 	printf("ou on veut aller : %d, %d\n", (int)x, (int)y);
-		
 	// }
 	if (cub->map->matrix[(int)y][(int)x] == '1' || cub->map->matrix[(int)y][(int)x] == '.')
 		return (1);

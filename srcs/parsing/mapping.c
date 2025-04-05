@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 03:14:13 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/30 03:14:31 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:50:35 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -45,9 +45,9 @@ void	mapping(t_cub *cub, char *line)
 void	length_map(t_cub *cub)
 {
 	char	*line;
-	int	width;
-	int	nill;
-	int	i;
+	int		i;
+	int		width;
+	int		nill;
 
 	width = 0;
 	i = 0;
@@ -124,7 +124,6 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 			else
 				rearrange[i][x] = '.';
 		}
-
 	}
 	rearrange[i] = NULL;
 	rearrange[i] = malloc(sizeof(char) * (map->l + 3));
@@ -140,7 +139,6 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	rearrange[i + 1] = NULL;
 	fsplit(cub->map->matrix);
 	cub->map->matrix = rearrange;
-
 }
 
 void	print_map(char **str)
@@ -151,4 +149,3 @@ void	print_map(char **str)
 	while (str[++i])
 		printf("[%d] - %s\n", i, str[i]);
 }
-

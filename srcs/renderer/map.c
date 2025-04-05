@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 01:22:35 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/30 01:22:40 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:48:18 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -20,7 +20,7 @@ int	mmap_color(char c)
 	return (0);
 }
 
-static void draw_disk(t_cub *cub, double x, double y, double radius);
+static void	player(t_cub *cub, double x, double y, double radius);
 
 void	minimap(t_cub *cub, char **matrix)
 {
@@ -53,16 +53,18 @@ void	minimap(t_cub *cub, char **matrix)
 		}
 		y++;
 	}
-	draw_disk(cub, cub->cam->player_pos.x * MMAP, cub->cam->player_pos.y * MMAP, 20.0);
+	player(cub, cub->cam->player_pos.x, cub->cam->player_pos.y, 20.0);
 }
 
-static void draw_disk(t_cub *cub, double x, double y, double radius)
+static void	player(t_cub *cub, double x, double y, double radius)
 {
 	t_mgam2i	delta;	
-	int		w;
-	int		h;
-	
+	int			w;
+	int			h;
+
 	w = -1;
+	x *= MMAP;
+	y *= MMAP;
 	while (++w < radius * 2)
 	{
 		h = -1;
@@ -70,8 +72,8 @@ static void draw_disk(t_cub *cub, double x, double y, double radius)
 		{
 			delta = (t_mgam2i){radius - w, radius - h};
 			if ((delta.x * delta.x + delta.y * delta.y) <= (radius * radius))
-				setpixel(cub->data, (int)(x + delta.x), (int)(y + delta.y), cub->map->floor);
+				setpixel(cub->data, (int)(x + delta.x),
+					(int)(y + delta.y), cub->map->floor);
 		}
-
 	}
 }
