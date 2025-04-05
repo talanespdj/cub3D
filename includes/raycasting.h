@@ -28,7 +28,7 @@
 # define EA 2
 # define WE 3
 
-# define MS 0.03
+# define MS 0.04
 # define ROTATESPEED 0.015
 
 typedef double	t_mgam2f __attribute__((ext_vector_type(2)));

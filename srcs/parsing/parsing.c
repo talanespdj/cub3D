@@ -33,6 +33,7 @@ void	parse_map(t_cub *cub, char *name)
 			wgas(cub, "Textures", "malloc t_txt failed");
 		cub->txt[i]->name = NULL;
 		cub->txt[i]->img = NULL;
+		cub->txt[i]->addr = NULL;
 	}
 	retrieve_txt_floor_ceiling(cub, name);
 	textures(cub, cub->txt); 
@@ -53,8 +54,7 @@ void	parse_map(t_cub *cub, char *name)
 		next_line(cub, &line);
 	free(line);
 	mapping(cub, NULL);
-	print_map(cub->map->matrix);
-	// wgas(cub, "debug", NULL);
+	// print_map(cub->map->matrix);
 // SECURED TILL THERE
 // SECURED TILL THERE
 // SECURED TILL THERE

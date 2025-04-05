@@ -50,14 +50,18 @@ void	free_map(t_cub *cub)
 
 void	free_data(t_cub *cub)
 {
-	if (cub->data)
-	{
+	if (!cub->data)
+		return ;
+	if (cub->data->img)
 		mlx_destroy_image(cub->data->mlx, cub->data->img);
+	if (cub->data->win)
 		mlx_destroy_window(cub->data->mlx, cub->data->win);
+	if (cub->data->mlx)
+	{
 		mlx_destroy_display(cub->data->mlx);
 		free(cub->data->mlx);
-		free(cub->data);
 	}
+	free(cub->data);
 }
 
 void	freend(t_cub *cub)
@@ -66,8 +70,10 @@ void	freend(t_cub *cub)
 
 	i = -1;
 	free_map(cub);
-	free(cub->cam);
-	free(cub->ray);
+	if (cub->cam)
+		free(cub->cam);
+	if (cub->ray)
+		free(cub->ray);
 	while (++i < 4 && cub->txt[i])
 	{
 		if (cub->txt[i]->name)
@@ -77,7 +83,4 @@ void	freend(t_cub *cub)
 		free(cub->txt[i]);
 	}
 	free_data(cub);
-
-	// // if (cub->fd > 0)
-	// 	gnl_free(cub->fd);
 }

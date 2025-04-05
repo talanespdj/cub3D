@@ -1,26 +1,13 @@
-
-//	segfault	v ./cub3D good_cub/cheese_maze.cub
-// psque ya .cub mais dcp ca va dans wgas et c`est cense exit
-
-# minimap cub
-
-- prendre la pos du joueur x, y par rapport à la matrice
-- afficher un carré de la map avec le point du joueur au milieu :
-    - s’il est dans un coin bloquer pour ne pas afficher du vide à l’emplacement de la map
-    - ajouter un effet transparent avec alpha RGB
-    - afficher un quadrillage → si on est sur la premiere ligne ou bien premiere colonne le pixel est noir
+// creer un buffer [height][width] = moitie ceiling/floor
 
 
-creer un buffer [height][width] = moitie ceiling/floor
-
-
-	l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n`est vrmt pas bonne
+✅	l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n`est vrmt pas bonne
 		cub->map->matrix = split(save, '\n');
 
 	nom de texture supprimer les espaces et les \t
 
 
-s`il y a des tab dans la map ya des invalid read
+✅ s`il y a des tab dans la map ya des invalid read
 
 
 ✅ mettre en place rgb pour floor et ceiling, sont stocke dans cub->map sous t_rgb
@@ -34,26 +21,3 @@ s`il y a des tab dans la map ya des invalid read
 	regler le pblm de lag quand j essaie d ecrire dehors
 
 
-
-✅	SEGFAULT ERA
-    
-    segfault avec map at.cub psque ya des tab dans la map et un tab est un character seulement
-    
-	    {
-		    // printf("longueur : %d et Largeur : %d\n", cub->map->l, cub->map->L);
-		    // for (int y = 0; cub->map->matrix[y]; ++y) {
-		    // 	for (int x = 0; cub->map->matrix[y][x]; ++x) {
-		    // 		printf("%c", cub->map->matrix[y][x]);
-		    // 		if (!cub->map->matrix[y][x + 1])
-		    // 			printf("\nl de cette line = %d\n", x);
-		    // 	}
-		    // 	printf("\n");
-    
-		    // }
-		    // if (cub->map->matrix[34][3] == '1') {
-		    // 	printf("on rentre dans la condition\n");
-		    // 	freend(cub);
-		    // }
-		    // freend(cub);
-		    // exit (0);
-	    }

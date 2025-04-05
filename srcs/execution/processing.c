@@ -52,9 +52,13 @@ void	datainit(t_cub *cub)
 		wgas(cub, "Couldn't open the window", NULL);
 	cub->data->img = mlx_new_image(cub->data->mlx,
 				       cub->data->width, cub->data->height);
+	if (!cub->data->img)
+		wgas(cub, "mlx_new_image failed", NULL);
 	cub->data->addr = mlx_get_data_addr(cub->data->img,
-					    &cub->data->bits_per_pixel,
-					    &cub->data->line_length, &cub->data->endian);
+				&cub->data->bits_per_pixel,
+				&cub->data->line_length, &cub->data->endian);
+	if (!cub->data->addr)
+		wgas(cub, "mlx_get_data_addr failed", NULL);
 }
 
 void	caminit(t_cub *cub)
@@ -80,6 +84,7 @@ void	caminit(t_cub *cub)
 		}
 	}
 	cub->cam->look = (t_mgam2f){1.0, 0.0};
+	////////////////// METTRE LE BON LOOK
 	// mlx_mouse_move(cub->data->mlx, cub->data->win,
 	// 	       cub->data->width / 2, cub->data->height / 2);
 	// mlx_mouse_get_pos(cub->data->mlx, cub->data->win,
@@ -111,9 +116,11 @@ void	txtinit(t_cub *cub)
 		cub->txt[i]->img = mlx_xpm_file_to_image(cub->data->mlx,
 				cub->txt[i]->name, &cub->txt[i]->width, &cub->txt[i]->height);
 		if (!cub->txt[i]->img)
-			wgas(cub, "mlx_xpm_file_to_image", NULL);
+			wgas(cub, "textures", "mlx_xpm_file_to_image");
 		cub->txt[i]->addr = mlx_get_data_addr(cub->txt[i]->img,
-						      &cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line,
+							&cub->txt[i]->bits_per_pixel, &cub->txt[i]->size_line,
 						      &cub->txt[i]->endian);
+		if (!cub->txt[i]->addr)
+			wgas(cub, "textures", "get_data_addr");
 	}
 }

@@ -95,12 +95,15 @@ void	movement(t_cub *cub)
 	double		ms;
 
 	ms = MS;
-	printf("%d\n", cub->keys.shift);
 	if (cub->keys.shift)
 		ms = 0.015;
 	look = cub->cam->look;
 	plane = cub->ray->plane;
 	posplayer = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
+	// if (!wallhit(cub, (int)posplayer.x + cub->ray->ray.x * ms,
+				// (int)posplayer.y + cub->ray->ray.y * ms))
+	// (int)posplayer.x + cub->ray->ray.x * ms;
+	// (int)posplayer.y + cub->ray->ray.y * ms;
 	if (cub->keys.w)
 		if (!wallhit(cub, posplayer.x + (look.x * ms),
 				posplayer.y + (look.y * ms)))

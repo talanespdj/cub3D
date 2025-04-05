@@ -24,7 +24,16 @@ void	mapping(t_cub *cub, char *line)
 	line = gnl(cub->fd);
 	while (line)
 	{
-		cub->map->matrix[i] = tdup(line);
+		cub->map->matrix[i] = tdup(line); // protege
+		if (!cub->map->matrix[i])
+		{
+			while (line)
+			{
+				free(line);
+				line = gnl(cub->fd);
+			}
+			wgas(cub, "monstre tdup", NULL);
+		}
 		next_line(cub, &line);
 		i++;
 	}
@@ -66,7 +75,7 @@ void	length_map(t_cub *cub)
 	}
 	cub->map->l -= 1; // enlever \n dans le compte
 	cub->map->L = width - 1;
-	printf("les size sont : ->l %d, ->L %d\n", cub->map->l, cub->map->L);
+	// printf("les size sont : ->l %d, ->L %d\n", cub->map->l, cub->map->L);
 	close(cub->fd);
 	free(line);
 }
@@ -132,7 +141,6 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	while (++x < map->l + 2)
 		rearrange[i][x] = '.';
 	rearrange[i][x] = '\0';
-	printf("%s\n", rearrange[i]);
 	rearrange[i + 1] = NULL;
 	fsplit(cub->map->matrix);
 	cub->map->matrix = rearrange;
