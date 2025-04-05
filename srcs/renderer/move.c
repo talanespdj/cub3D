@@ -86,42 +86,46 @@ void	movement(t_cub *cub)
 	plane = cub->ray->plane;
 	posplayer = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
 	if (cub->keys.w)
-		if (!wallhit(cub, posplayer.x + (look.x * ms),
-				posplayer.y + (look.y * ms)))
-				cub->cam->player_pos += (t_mgam2f){look.x * ms, look.y * ms};
+	{
+		if (!wallhit(cub, posplayer.x + look.x * ms, posplayer.y))
+			cub->cam->player_pos.x += look.x * ms;
+		if (!wallhit(cub, posplayer.x ,posplayer.y + look.y * ms))
+			cub->cam->player_pos.y += look.y * ms;
+	}
 	if (cub->keys.s)
-		if (!wallhit(cub, posplayer.x - (look.x * ms),
-				posplayer.y - (look.y * ms)))
-			cub->cam->player_pos -= (t_mgam2f){look.x * ms, look.y * ms};
+	{
+		if (!wallhit(cub, posplayer.x - look.x * ms, posplayer.y))
+			cub->cam->player_pos.x -= look.x * ms;
+		if (!wallhit(cub, posplayer.x ,posplayer.y - look.y * ms))
+			cub->cam->player_pos.y -= look.y * ms;
+	}
 	if (cub->keys.a)
-		if (!wallhit(cub, posplayer.x - (plane.x * ms),
-				posplayer.y - (plane.y * ms)))
-			cub->cam->player_pos -= (t_mgam2f){plane.x * ms, plane.y * ms};
+	{
+		if (!wallhit(cub, posplayer.x - plane.x * ms, posplayer.y))
+			cub->cam->player_pos.x -= plane.x * ms;
+		if (!wallhit(cub, posplayer.x ,posplayer.y - plane.y * ms))
+			cub->cam->player_pos.y -= plane.y * ms;
+	}
 	if (cub->keys.d)
-		if (!wallhit(cub, posplayer.x + (plane.x * ms),
-				posplayer.y + (plane.y * ms)))
-			cub->cam->player_pos += (t_mgam2f){plane.x * ms, plane.y * ms};
+	{
+		if (!wallhit(cub, posplayer.x + plane.x * ms, posplayer.y))
+			cub->cam->player_pos.x += plane.x * ms;
+		if (!wallhit(cub, posplayer.x ,posplayer.y + plane.y * ms))
+			cub->cam->player_pos.y += plane.y * ms;
+	}
 	if (cub->keys.l)
-		lookmove(cub, cub->ray, cub->cam, XK_Left);
+		lookmove(cub->ray, cub->cam, XK_Left);
 	if (cub->keys.r)
-		lookmove(cub, cub->ray, cub->cam, XK_Right);
-	if (cub->keys.up)
-		if (cub->ray->head < cub->data->height / 4)
-			cub->ray->head += 10;
-	if (cub->keys.down)
-		if (cub->ray->head > -cub->data->height / 4)
-			cub->ray->head -= 10;
+		lookmove(cub->ray, cub->cam, XK_Right);
 }
 
-void	lookmove(t_cub *cub, t_ray *ray, t_cam *cam, int key)
+void	lookmove(t_ray *ray, t_cam *cam, int key)
 {
 	double	savelook;
 	double	saveplane;
 	double	rotate;
 
 	rotate = ROTATESPEED;
-	if (cub->data->width > 700)
-		rotate *= 2;
 	if (key == XK_Left)
 		rotate = -ROTATESPEED;
 	savelook = cam->look.x;

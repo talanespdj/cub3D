@@ -1,4 +1,17 @@
 
+on peut voir a travers les murs en forcant comme un porc mais pas de pblm valgrind + pas de depassement de map
+
+quand   010	on passe a travers le trou et ca on aime pas mgl
+	1N1
+	010
+
+
+
+
+
+
+
+
 ✅	l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n`est vrmt pas bonne
 		cub->map->matrix = split(save, '\n');
 
