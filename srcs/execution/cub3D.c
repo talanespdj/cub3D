@@ -21,7 +21,7 @@ int	looping(t_cub *cub)
 		xpos(cub, cub->ray);
 		raycast(cub, cub->ray);
 	}
-	if (cub->keys.tab)
+	if (cub->keys.tab == 1)
 		minimap(cub, cub->map->matrix);
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win,
 		cub->data->img, 0, 0);

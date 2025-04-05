@@ -20,6 +20,8 @@ int	mmap_color(char c)
 	return (0);
 }
 
+static void draw_disk(t_cub *cub, double x, double y, double radius);
+
 void	minimap(t_cub *cub, char **matrix)
 {
 	int	r;
@@ -50,5 +52,26 @@ void	minimap(t_cub *cub, char **matrix)
 			x++;
 		}
 		y++;
+	}
+	draw_disk(cub, cub->cam->player_pos.x * MMAP, cub->cam->player_pos.y * MMAP, 20.0);
+}
+
+static void draw_disk(t_cub *cub, double x, double y, double radius)
+{
+	t_mgam2i	delta;	
+	int		w;
+	int		h;
+	
+	w = -1;
+	while (++w < radius * 2)
+	{
+		h = -1;
+		while (++h < radius * 2)
+		{
+			delta = (t_mgam2i){radius - w, radius - h};
+			if ((delta.x * delta.x + delta.y * delta.y) <= (radius * radius))
+				setpixel(cub->data, (int)(x + delta.x), (int)(y + delta.y), cub->map->floor);
+		}
+
 	}
 }

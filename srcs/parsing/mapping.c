@@ -24,14 +24,11 @@ void	mapping(t_cub *cub, char *line)
 	line = gnl(cub->fd);
 	while (line)
 	{
-		cub->map->matrix[i] = tdup(line); // protege
+		cub->map->matrix[i] = tdup(line);
 		if (!cub->map->matrix[i])
 		{
 			while (line)
-			{
-				free(line);
-				line = gnl(cub->fd);
-			}
+				next_line(cub, &line);
 			wgas(cub, "monstre tdup", NULL);
 		}
 		next_line(cub, &line);
@@ -73,9 +70,8 @@ void	length_map(t_cub *cub)
 			cub->map->l = tstrlen(line);
 		next_line(cub, &line);
 	}
-	cub->map->l -= 1; // enlever \n dans le compte
+	cub->map->l -= 1;
 	cub->map->L = width - 1;
-	// printf("les size sont : ->l %d, ->L %d\n", cub->map->l, cub->map->L);
 	close(cub->fd);
 	free(line);
 }
@@ -89,7 +85,7 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	rearrange = malloc(sizeof(char *) * (map->L + 4));
 	if (!rearrange)
 		wgas(cub, "rearrange map", NULL);
-	rearrange[0] = malloc(sizeof(char) * (map->l + 3)); //premiere ligne
+	rearrange[0] = malloc(sizeof(char) * (map->l + 3));
 	if (!rearrange[0])
 	{
 		fsplit(rearrange);
@@ -131,7 +127,7 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 
 	}
 	rearrange[i] = NULL;
-	rearrange[i] = malloc(sizeof(char) * (map->l + 3)); //derniere
+	rearrange[i] = malloc(sizeof(char) * (map->l + 3));
 	if (!rearrange[i])
 	{
 		fsplit(rearrange);

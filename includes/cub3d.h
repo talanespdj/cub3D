@@ -47,7 +47,6 @@ void			txtinit(t_cub *cub);
 
 void			parse_map(t_cub *cub, char *name);
 
-
 void			print_map(char **str);
 void			next_line(t_cub *cub, char **line);
 bool			valid_char(char c, int indic);
@@ -89,7 +88,6 @@ void			wegotasplituation(struct spt x);
 void			freend(t_cub *cub);
 void			fsplit(char **str);
 void			free_map(t_cub *cub);
-void			gnl_free(int fd);
 int				end_win(t_cub *cub);
 
 /////////////////////

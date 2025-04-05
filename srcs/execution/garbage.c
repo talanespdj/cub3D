@@ -49,20 +49,6 @@ void	fsplit(char **str)
 	}
 }
 
-void	gnl_free(int fd)
-{
-	char	*line;
-
-	line = gnl(fd);
-	while (line)
-	{
-		free(line);
-		line = gnl(fd);
-	}
-	if (fd > 0)
-		close(fd);
-}
-
 char	*erase_new_line(t_cub *cub, char *str)
 {
 	char	*line;

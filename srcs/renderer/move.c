@@ -29,7 +29,12 @@ int	press(int key, t_cub *cub)
 			cub->keys.r = 1;
 	}
 	if (key == XK_Tab)
-		cub->keys.tab = 1;
+	{
+		if (cub->keys.tab == 1)
+			cub->keys.tab = 0;
+		else
+			cub->keys.tab = 1;
+	}
 	if (key == XK_Shift_L)
 		cub->keys.shift = 1;
 	if (key == XK_Up)
@@ -58,8 +63,6 @@ int	release(int key, t_cub *cub)
 		else
 			cub->keys.r = 0;
 	}
-	if (key == XK_Tab)
-		cub->keys.tab = 0;
 	if (key == XK_Shift_L)
 		cub->keys.shift = 0;
 	if (key == XK_Up)

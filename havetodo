@@ -1,10 +1,8 @@
-// creer un buffer [height][width] = moitie ceiling/floor
-
 
 ✅	l.85 split supprime les lignes sans rien donc si la map est coupe width est faux et on peut pas savoir si la map n`est vrmt pas bonne
 		cub->map->matrix = split(save, '\n');
 
-	nom de texture supprimer les espaces et les \t
+✅	nom de texture supprimer les espaces et les \t
 
 
 ✅ s`il y a des tab dans la map ya des invalid read
@@ -12,12 +10,8 @@
 
 ✅ mettre en place rgb pour floor et ceiling, sont stocke dans cub->map sous t_rgb
 
-
 	pour regarder en haut ou en bas :
 ✅	
 	simplement faire que ray->startp commence plus tot/tard
 	ray->endp commence plus tot/tard
     
-	regler le pblm de lag quand j essaie d ecrire dehors
-
-

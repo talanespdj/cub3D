@@ -17,14 +17,14 @@ void	everyinit(t_cub *cub, char *name)
 	cub->lim = -1;
 	mapinit(cub, name);
 	datainit(cub);
-	cub->cam = malloc(sizeof(t_cam));
-	if (!cub->cam)
-		wgas(cub, "malloc cam failed", NULL);
-	caminit(cub);
 	cub->ray = malloc(sizeof(t_ray));
 	if (!cub->ray)
 		wgas(cub, "malloc ray failed", NULL);
 	rayinit(cub->ray);
+	cub->cam = malloc(sizeof(t_cam));
+	if (!cub->cam)
+		wgas(cub, "malloc cam failed", NULL);
+	caminit(cub);
 	cub->ray->head = 0;
 	txtinit(cub);
 }

@@ -30,14 +30,12 @@ bool	valid_char(char c, int indic)
 
 bool	validcase(char **matrix, int width, int x, int y)
 {
-	{ //ligne actuelle
-		if (x + 1 > tstrlen(matrix[y]))
-			return (false);
-		if (matrix[y][x - 1] == ' ' || matrix[y][x - 1] == '\n')
-			return (false);
-		if (matrix[y][x + 1] == ' ' || matrix[y][x + 1] == '\n')
-			return (false);
-	}
+	if (x + 1 > tstrlen(matrix[y]))
+		return (false);
+	if (matrix[y][x - 1] == ' ' || matrix[y][x - 1] == '\n')
+		return (false);
+	if (matrix[y][x + 1] == ' ' || matrix[y][x + 1] == '\n')
+		return (false);
 	if (y == 0 || x == 0 || x == tstrlen(matrix[y]) - 1 || y == width)  // check ligne du dessus
 		return (false);
 	if (y - 1 >= 0) // check ligne du haut

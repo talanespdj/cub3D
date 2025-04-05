@@ -16,7 +16,6 @@ void	mapinit(t_cub *cub, char *name)
 	int	i;
 
 	i = -1;
-	cub->map = NULL;
 	cub->map = malloc(sizeof(t_map));
 	if (!cub->map)
 		wgas(cub, "fail malloc cub->map", NULL);
@@ -32,7 +31,6 @@ void	mapinit(t_cub *cub, char *name)
 
 void	datainit(t_cub *cub)
 {
-	cub->data = NULL;
 	cub->data = malloc(sizeof(t_data));
 	if (!cub->data)
 		wgas(cub, "fail malloc cub->data", NULL);
@@ -64,8 +62,8 @@ void	datainit(t_cub *cub)
 void	caminit(t_cub *cub)
 {
 	char **matrix;
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	y = -1;
 	matrix = cub->map->matrix;
@@ -75,16 +73,34 @@ void	caminit(t_cub *cub)
 		while (matrix[y][++x])
 		{
 			if (matrix[y][x] == 'N' || matrix[y][x] == 'S' ||
-			    matrix[y][x] == 'E' || matrix[y][x] == 'O')
+			    matrix[y][x] == 'E' || matrix[y][x] == 'W')
 			{
-				matrix[y][x] = '0';
+				if (matrix[y][x] == 'N') {
+					cub->cam->look = (t_mgam2f){0.0, -1.0};
+					cub->ray->plane = (t_mgam2f){0.66, 0.0};
+				}
+				if (matrix[y][x] == 'S') {
+					cub->cam->look = (t_mgam2f){0.0, 1.0};
+					cub->ray->plane = (t_mgam2f){-0.66, 0.0};
+				}
+				if (matrix[y][x] == 'W') {
+					cub->cam->look = (t_mgam2f){-1.0, 0.0};
+					cub->ray->plane = (t_mgam2f){0.0, -0.66};
+				}
+				if (matrix[y][x] == 'E') {
+					cub->cam->look = (t_mgam2f){1.0, 0.0};
+					cub->ray->plane = (t_mgam2f){0.0, 0.66};
+				}
 				cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
+				matrix[y][x] = '0';
 				break;
 			}
 		}
+		if (matrix[y][x])
+			break;
 	}
-	cub->cam->look = (t_mgam2f){1.0, 0.0};
-	////////////////// METTRE LE BON LOOK
+	if (!matrix[y])
+		wgas(cub, "No player pos detected", NULL);
 	// mlx_mouse_move(cub->data->mlx, cub->data->win,
 	// 	       cub->data->width / 2, cub->data->height / 2);
 	// mlx_mouse_get_pos(cub->data->mlx, cub->data->win,

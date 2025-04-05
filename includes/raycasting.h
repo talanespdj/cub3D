@@ -81,6 +81,7 @@ int			wallhit(t_cub *cub, double x, double y);
 void		lookmove(t_cub *cub, t_ray *ray, t_cam *cam, int key);
 int			press(int key, t_cub *cub);
 int			release(int key, t_cub *cub);
+int			hookmap(int key, t_cub *cub);
 int			mousemotion(t_cub *cub);
 
 #endif
