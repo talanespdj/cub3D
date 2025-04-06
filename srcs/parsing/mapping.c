@@ -45,12 +45,10 @@ void	mapping(t_cub *cub, char *line)
 void	length_map(t_cub *cub)
 {
 	char	*line;
-	int		i;
 	int		width;
 	int		nill;
 
 	width = 0;
-	i = 0;
 	line = gnl(cub->fd);
 	while (line)
 	{

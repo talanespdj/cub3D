@@ -28,7 +28,7 @@
 # define EA 2
 # define WE 3
 
-# define MS 0.04
+# define MS 0.02
 # define ROTATESPEED 0.015
 
 typedef double	t_mgam2f __attribute__((ext_vector_type(2)));
@@ -71,7 +71,7 @@ void		txt_pixel(t_cub *cub, t_ray *ray);
 
 
 void		setpixel(t_data *data, int x, int y, int color);
-uint		getpixel(t_txt *txt, int x, int y);
+unsigned int	getpixel(t_txt *txt, int x, int y);
 
 void		minimap(t_cub *cub, char **matrix);
 int			wallhit(t_cub *cub, double x, double y);

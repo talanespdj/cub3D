@@ -65,12 +65,32 @@ static void	ddainit(t_ray *ray, t_cam *cam)
 int	wallhit(t_cub *cub, double x, double y)
 {
 	t_mgam2i	pos2d;
+	t_mgam2f	iter;
 	int			verti;
 	int			horiz;
 
 	verti = -1;
 	horiz = -1;
 	pos2d = (t_mgam2i){(int)cub->cam->player_pos.x, (int)cub->cam->player_pos.y};
+	iter = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
+	(void)verti;
+	(void)horiz;
+	(void)pos2d;
+	while (iter.x < x)
+	{
+		printf("iter.x\n");
+		iter.x += 0.01;
+		if (cub->map->matrix[(int)iter.y][(int)iter.x] == '1' || cub->map->matrix[(int)iter.y][(int)iter.x] == '.')
+			return (1);
+	}
+	while (iter.y < y)
+	{
+		printf("iter.y\n");
+		iter.y += 0.01;
+		if (cub->map->matrix[(int)iter.y][(int)iter.x] == '1' || cub->map->matrix[(int)iter.y][(int)iter.x] == '.')
+			return (1);
+	}
+
 	// if (pos2d.x != (int)x && pos2d.y != (int)y)
 	// {
 	// 	if ((int)x > pos2d.x)

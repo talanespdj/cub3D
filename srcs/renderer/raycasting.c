@@ -44,7 +44,7 @@ void	setpixel(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-uint	getpixel(t_txt *txt, int x, int y)
+unsigned int	getpixel(t_txt *txt, int x, int y)
 {
 	char	*dst;
 

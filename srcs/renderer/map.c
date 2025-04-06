@@ -53,7 +53,7 @@ void	minimap(t_cub *cub, char **matrix)
 		}
 		y++;
 	}
-	player(cub, cub->cam->player_pos.x, cub->cam->player_pos.y, 20.0);
+	player(cub, cub->cam->player_pos.x, cub->cam->player_pos.y, 4.0);
 }
 
 static void	player(t_cub *cub, double x, double y, double radius)
