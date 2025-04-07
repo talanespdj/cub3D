@@ -47,25 +47,20 @@ char	*rearrange_color(t_cub *cub, char *line)
 	c = 0;
 	i = 1;
 	if ((line[0] != 'F' && line[0] != 'C') || line[1] != ' ')
-		wgas(cub, "debug", NULL);
+		wgas(cub, "wrong format for floor/ceiling colors", NULL);
 	while (line[++i])
-	{
 		if (line[i] == ' ' || line[i] == '\t')
 			c++;
-	}
 	str = malloc(sizeof (char) * (tstrlen(line) - c + 1));
 	if (!str)
 		wgas(cub, "str malloc rearrange color", NULL);
 	c = 1;
 	str[0] = line[0];
 	str[1] = line[1];
-	i = 2;
-	while (line[i])
-	{
+	i = 1;
+	while (line[++i])
 		if (line[i] != ' ' && line[i] != '\t')
 			str[++c] = line[i];
-		i++;
-	}
 	str[++c] = '\0';
 	return (str);
 }
@@ -85,7 +80,7 @@ void	fill_floor(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "First lines should contain Floor and Ceiling RGB colors\n", NULL);
 	}
-	floor = erase_new_line(cub, rgb[1]);
+	floor = erase_new_line(rgb[1]);
 	fsplit(rgb);
 	rgb = NULL;
 	rgb = split(floor, ',');
@@ -117,7 +112,7 @@ void	fill_ceiling(t_cub *cub, char *line)
 		fsplit(rgb);
 		wgas(cub, "First lines should contain floor and Ceiling RGB colors\n", NULL);
 	}
-	ceiling = erase_new_line(cub, rgb[1]);
+	ceiling = erase_new_line(rgb[1]);
 	fsplit(rgb);
 	rgb = NULL;
 	rgb = split(ceiling, ',');

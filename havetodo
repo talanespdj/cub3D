@@ -5,10 +5,10 @@ quand   010	on passe a travers le trou et ca on aime pas mgl
 	1N1
 	010
 
-		idée du révéil :
-			
-			lorsqu`on move, wall hit bouclera sur la position ou on veut aller depuis posplayer
-				ça dépend de si on avance sur x ou y
+idée du révéil :
+		
+	lorsqu`on move, wall hit bouclera sur la position ou on veut aller depuis posplayer
+		ça dépend de si on avance sur x ou y
 
 
 

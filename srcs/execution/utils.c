@@ -41,13 +41,6 @@ void	wegotasplituation(struct spt x)
 	free(x.split);
 }
 
-void	free_map(t_cub *cub)
-{
-	if ((cub->map) && (cub->map->matrix))
-		fsplit(cub->map->matrix);
-	free(cub->map);
-}
-
 void	free_data(t_cub *cub)
 {
 	if (!cub->data)
@@ -69,7 +62,9 @@ void	freend(t_cub *cub)
 	int	i;
 
 	i = -1;
-	free_map(cub);
+	if ((cub->map) && (cub->map->matrix))
+		fsplit(cub->map->matrix);
+	free(cub->map);
 	if (cub->cam)
 		free(cub->cam);
 	if (cub->ray)

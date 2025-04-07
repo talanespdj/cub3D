@@ -36,21 +36,27 @@ void	textures(t_cub *cub, t_txt **txt)
 			break ;
 		line = cub->map->matrix[++i];
 	}
-	i = -1;
-	while (++i < 4)
-		checktxt(cub, txt[i]->name);
+	checktxt(cub);
 }
 
-void	checktxt(t_cub *cub, char *file)
+void	checktxt(t_cub *cub)
 {
-	if (!file)
-		wgas(cub, "textures", "First lines should contain textures addresses");
-	if (file && file[0] && file[1] && (file[0] != '.' || file[1] != '/'))
-		wgas(cub, file, "Should be a relative path");
-	else if (access(file, F_OK))
-		wgas(cub, file, "File doesn't exist");
-	else if (access(file, R_OK))
-		wgas(cub, file, "No permission to read the texture");
+	char 	*file;
+	int		i;
+
+	i = -1;
+	while (cub->txt[++i])
+	{
+		file = cub->txt[i]->name;
+		if (!file)
+			wgas(cub, "textures", "First lines should contain textures addresses");
+		if (file && file[0] && file[1] && (file[0] != '.' || file[1] != '/'))
+			wgas(cub, file, "Should be a relative path");
+		else if (access(file, F_OK))
+			wgas(cub, file, "File doesn't exist");
+		else if (access(file, R_OK))
+			wgas(cub, file, "No permission to read the texture");
+	}
 }
 
 void	fill_textures(t_cub *cub, char *line)
@@ -66,11 +72,9 @@ void	fill_textures(t_cub *cub, char *line)
 	inf = NULL;
 	inf = split(str, ' ');
 	free(str);
-	if (!inf)
-		wgas(cub, "Textures", "Couldn't split line");
-	if (inf && inf[0] && inf[1] && inf[2])
+	if (!inf || (inf[0] && inf[1] && inf[2]))
 		wgas(cub, inf[2], "texture name has to be on its own");
-	if (inf && inf[0] && inf[1])
+	if (inf[0] && inf[1])
 	{
 		if (!tstrcmp(inf[0], "NO"))
 			cub->txt[NO]->name = tdup(inf[1]);

@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 00:31:26 by tespandj          #+#    #+#             */
-/*   Updated: 2025/03/28 20:24:06 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/07 09:40:21 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef RAYCASTING_H
@@ -38,8 +38,6 @@ typedef struct s_cam
 {
 	t_mgam2f	player_pos;
 	t_mgam2f	look;
-	int		mouse_x;
-	int		mouse_y;
 }		t_cam;
 
 typedef struct s_ray
@@ -69,9 +67,8 @@ t_txt		*cardinalstxt(t_cub *cub, t_ray *ray);
 void		xpos(t_cub *cub, t_ray *ray);
 void		txt_pixel(t_cub *cub, t_ray *ray);
 
-
 void		setpixel(t_data *data, int x, int y, int color);
-unsigned int	getpixel(t_txt *txt, int x, int y);
+uint		getpixel(t_txt *txt, int x, int y);
 
 void		minimap(t_cub *cub, char **matrix);
 int			wallhit(t_cub *cub, double x, double y);
@@ -80,7 +77,5 @@ int			wallhit(t_cub *cub, double x, double y);
 void		lookmove(t_ray *ray, t_cam *cam, int key);
 int			press(int key, t_cub *cub);
 int			release(int key, t_cub *cub);
-int			hookmap(int key, t_cub *cub);
-int			mousemotion(t_cub *cub);
 
 #endif

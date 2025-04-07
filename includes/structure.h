@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:42:20 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/28 21:42:22 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/07 09:42:11 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef STRUCTURE_H
@@ -16,17 +16,17 @@
 
 typedef struct s_keys
 {
-	int	w;
-	int	a;
-	int	s;
-	int	d;
-	int	l;
-	int	r;
-	int	q;
-	int	up;
-	int	down;
-	int	tab;
-	int	shift;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		l;
+	int		r;
+	int		q;
+	int		up;
+	int		down;
+	int		tab;
+	int		shift;
 }		t_keys;
 
 typedef struct s_txt
@@ -34,11 +34,11 @@ typedef struct s_txt
 	void	*img;
 	char	*addr;
 	char	*name;
-	int	width;
-	int	height;
-	int	bits_per_pixel;
-	int	size_line;
-	int	endian;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 }		t_txt;
 
 typedef struct s_cub
@@ -47,8 +47,8 @@ typedef struct s_cub
 	struct s_cam	*cam;
 	struct s_data	*data;
 	struct s_ray	*ray;
-	struct s_keys		keys;
-	struct s_txt		*txt[4];
+	struct s_txt	*txt[4];
+	struct s_keys	keys;
 	int				fd;
 	int				lim;
 }		t_cub;
@@ -68,8 +68,8 @@ typedef struct spt
 typedef struct s_map
 {
 	char	**matrix;
-	int		L;
-	int		l;
+	int		lar;
+	int		lon;
 	int		floor;
 	int		ceiling;
 }		t_map;
@@ -83,13 +83,10 @@ typedef struct s_data
 	int			width;
 	int			height;
 	int			endian;
-	int			bits_per_pixel;
+	int			bppixel;
 	int			line_length;
 	int			x_off;
 	int			y_off;
 }			t_data;
-
-
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:22:13 by tespandj          #+#    #+#             */
-/*   Updated: 2024/11/30 06:55:17 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/07 09:38:22 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -46,12 +46,13 @@ void			rayinit(t_ray *ray);
 void			txtinit(t_cub *cub);
 
 void			parse_map(t_cub *cub, char *name);
+void			setlook(t_cub *cub, char cardinal);
 
 void			print_map(char **str);
 void			next_line(t_cub *cub, char **line);
 bool			valid_char(char c, int indic);
 void			textures(t_cub *cub, t_txt **txt);
-void				checktxt(t_cub *cub, char *file);
+void			checktxt(t_cub *cub);
 void			fill_textures(t_cub *cub, char *line);
 
 void			fccolors(t_cub *cub);
@@ -74,12 +75,11 @@ char			*tjoin(char *str, char *add);
 int				tstrcmp(char *str, char *cmp);
 int				tinstr(char *str, char *search);
 
-
-bool				validcase(char **matrix, int width, int x, int y);
-bool				validmap(t_cub *cub, char **matrix);
+bool			validcase(char **matrix, int width, int x, int y);
+bool			validmap(t_cub *cub, char **matrix);
 int				valid_lli(long long int nt, char c, int sign, int situation);
 int				check_lli(char *str);
-char				*erase_new_line(t_cub *cub, char *str);
+char			*erase_new_line(char *str);
 int				null_line(char *str);
 int				null_linev2(char *str);
 
@@ -87,7 +87,7 @@ void			wgas(t_cub *cub, char *arg, char *str);
 void			wegotasplituation(struct spt x);
 void			freend(t_cub *cub);
 void			fsplit(char **str);
-void			free_map(t_cub *cub);
+
 int				end_win(t_cub *cub);
 
 /////////////////////

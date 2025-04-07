@@ -89,3 +89,27 @@ static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 		next_line(cub, &line);
 	close(cub->fd);
 }
+
+void	setlook(t_cub *cub, char cardinal)
+{
+	if (cardinal == 'N')
+	{
+		cub->cam->look = (t_mgam2f){0.0, -1.0};
+		cub->ray->plane = (t_mgam2f){0.66, 0.0};
+	}
+	else if (cardinal == 'S')
+	{
+		cub->cam->look = (t_mgam2f){0.0, 1.0};
+		cub->ray->plane = (t_mgam2f){-0.66, 0.0};
+	}
+	else if (cardinal == 'W')
+	{
+		cub->cam->look = (t_mgam2f){-1.0, 0.0};
+		cub->ray->plane = (t_mgam2f){0.0, -0.66};
+	}
+	else if (cardinal == 'E')
+	{
+		cub->cam->look = (t_mgam2f){1.0, 0.0};
+		cub->ray->plane = (t_mgam2f){0.0, 0.66};
+	}
+}

@@ -24,7 +24,6 @@ int	null_linev2(char *str)
 	return (1);
 }
 
-
 int	null_line(char *str)
 {
 	int	i;
@@ -49,7 +48,7 @@ void	fsplit(char **str)
 	}
 }
 
-char	*erase_new_line(t_cub *cub, char *str)
+char	*erase_new_line(char *str)
 {
 	char	*line;
 	int		i;
@@ -61,8 +60,6 @@ char	*erase_new_line(t_cub *cub, char *str)
 	while (str && str[++i] && str[i + 1])
 		line[i] = str[i];
 	line[i] = '\0';
-	// line = epur(line);
-	(void)cub;
 	return (line);
 }
 

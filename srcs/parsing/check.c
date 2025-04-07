@@ -6,7 +6,7 @@
 /*   By: tespandj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 22:58:49 by tespandj          #+#    #+#             */
-/*   Updated: 2025/04/05 15:53:47 by tespandj         ###   ########.fr       */
+/*   Updated: 2025/04/07 09:45:12 by tespandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -71,7 +71,7 @@ bool	validmap(t_cub *cub, char **matrix)
 				else
 					wgas(cub, "invalid map", NULL);
 			}
-			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->L, x, y))
+			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->lar, x, y))
 				return (false);
 		}
 	}

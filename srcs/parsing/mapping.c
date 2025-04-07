@@ -18,9 +18,9 @@ void	mapping(t_cub *cub, char *line)
 	int	i;
 
 	i = 0;
-	cub->map->matrix = malloc(sizeof(char *) * (cub->map->L + 2));
+	cub->map->matrix = malloc(sizeof(char *) * (cub->map->lar + 2));
 	if (!cub->map->matrix)
-		wgas(cub, "pblm mapping matrix", "malloc(.. (cub->map->L + 2))");
+		wgas(cub, "pblm mapping matrix", "malloc(.. (cub->map->lar + 2))");
 	line = gnl(cub->fd);
 	while (line)
 	{
@@ -64,12 +64,12 @@ void	length_map(t_cub *cub)
 			}
 		}
 		++width;
-		if (tstrlen(line) > cub->map->l)
-			cub->map->l = tstrlen(line);
+		if (tstrlen(line) > cub->map->lon)
+			cub->map->lon = tstrlen(line);
 		next_line(cub, &line);
 	}
-	cub->map->l -= 1;
-	cub->map->L = width - 1;
+	cub->map->lon -= 1;
+	cub->map->lar = width - 1;
 	close(cub->fd);
 	free(line);
 }
@@ -80,24 +80,24 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	int		i;
 	int		x;
 
-	rearrange = malloc(sizeof(char *) * (map->L + 4));
+	rearrange = malloc(sizeof(char *) * (map->lar + 4));
 	if (!rearrange)
 		wgas(cub, "rearrange map", NULL);
-	rearrange[0] = malloc(sizeof(char) * (map->l + 3));
+	rearrange[0] = malloc(sizeof(char) * (map->lon + 3));
 	if (!rearrange[0])
 	{
 		fsplit(rearrange);
 		wgas(cub, "rearrange[i] map", NULL);
 	}
 	x = -1;
-	while (++x < map->l + 2)
+	while (++x < map->lon + 2)
 		rearrange[0][x] = '.';
 	rearrange[0][x] = '\0';
 	i = 0;
-	while (++i < map->L + 2)
+	while (++i < map->lar + 2)
 	{
 		rearrange[i] = NULL;
-		rearrange[i] = malloc(sizeof(char) * (map->l + 3));
+		rearrange[i] = malloc(sizeof(char) * (map->lon + 3));
 		if (!rearrange[i])
 		{
 			fsplit(rearrange);
@@ -105,11 +105,11 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 		}
 		rearrange[i][0] = '.';
 		x = 0;
-		while (++x < map->l + 3)
+		while (++x < map->lon + 3)
 		{
 			if (x > tstrlen(map->matrix[i - 1]))
 			{
-				while (x < map->l + 2)
+				while (x < map->lon + 2)
 				{
 					rearrange[i][x] = '.';
 					++x;
@@ -124,14 +124,14 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 		}
 	}
 	rearrange[i] = NULL;
-	rearrange[i] = malloc(sizeof(char) * (map->l + 3));
+	rearrange[i] = malloc(sizeof(char) * (map->lon + 3));
 	if (!rearrange[i])
 	{
 		fsplit(rearrange);
 		wgas(cub, "rearrange[i] map", NULL);
 	}
 	x = -1;
-	while (++x < map->l + 2)
+	while (++x < map->lon + 2)
 		rearrange[i][x] = '.';
 	rearrange[i][x] = '\0';
 	rearrange[i + 1] = NULL;

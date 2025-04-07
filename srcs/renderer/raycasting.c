@@ -40,7 +40,7 @@ void	setpixel(t_data *data, int x, int y, int color)
 		printf("t'ecries en dehors\n");
 		return ;
 	}
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * (data->bppixel / 8));
 	*(unsigned int *)dst = color;
 }
 
