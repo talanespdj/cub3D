@@ -72,7 +72,7 @@ static void	player(t_cub *cub, double x, double y, double radius)
 			delta = (t_mgam2i){radius - w, radius - h};
 			if ((delta.x * delta.x + delta.y * delta.y) <= (radius * radius))
 				setpixel(cub->data, (int)(x + delta.x),
-					(int)(y + delta.y), cub->map->floor);
+					(int)(y + delta.y), 0x949396);
 		}
 	}
 }

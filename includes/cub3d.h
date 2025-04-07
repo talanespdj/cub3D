@@ -51,7 +51,7 @@ void			next_line(t_cub *cub, char **line);
 bool			valid_char(char c, int indic);
 void			textures(t_cub *cub, t_txt **txt);
 void			checktxt(t_cub *cub);
-void			fill_textures(t_cub *cub, char *line);
+void			fill_textures(t_cub *cub, char *line, int i, int c);
 
 void			fccolors(t_cub *cub);
 void			fill_colors(t_cub *cub, char *line, int *color);

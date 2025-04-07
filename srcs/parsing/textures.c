@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
+int	tinstr(char *str, char *search);
+
 void	textures(t_cub *cub, t_txt **txt)
 {
 	char	*line;
@@ -22,16 +24,9 @@ void	textures(t_cub *cub, t_txt **txt)
 			|| !txt[EA]->name || !txt[WE]->name))
 	{
 		if (!null_line(line))
-		{
-			if (line[0] && line[1] && line[0] == 'N' && line[1] == 'O')
-				fill_textures(cub, line);
-			else if (line[0] && line[1] && line[0] == 'S' && line[1] == 'O')
-				fill_textures(cub, line);
-			else if (line[0] && line[1] && line[0] == 'W' && line[1] == 'E')
-				fill_textures(cub, line);
-			else if (line[0] && line[1] && line[0] == 'E' && line[1] == 'A')
-				fill_textures(cub, line);
-		}
+			if (tinstr(line, "NO") || tinstr(line, "SO")
+				|| tinstr(line, "WE") || tinstr(line, "EA"))
+				fill_textures(cub, line, 0, -1);
 		if (txt[NO]->name && txt[SO]->name && txt[EA]->name && txt[WE]->name)
 			break ;
 		line = cub->map->matrix[++i];
@@ -59,31 +54,52 @@ void	checktxt(t_cub *cub)
 	}
 }
 
-void	fill_textures(t_cub *cub, char *line)
+void	fill_textures(t_cub *cub, char *line, int i, int c)
 {
-	char	**inf;
-	char	*str;
+	t_txt	*tmp;
+	char	name[1000];
 
-	inf = split(line, '\n');
-	if (!inf)
-		wgas(cub, "first split", NULL);
-	str = tdup(inf[0]);
-	fsplit(inf);
-	inf = NULL;
-	inf = split(str, ' ');
-	free(str);
-	if (!inf || (inf[0] && inf[1] && inf[2]))
-		wgas(cub, inf[2], "texture name has to be on its own");
-	if (inf[0] && inf[1])
+	while ((line[i] >= 8 && line[i] <= 12) || line[i] == ' ')
+		++i;
+	if (line[i] && line[i + 1] && line[i] == 'N' && line[i + 1] == 'O')
+		tmp = cub->txt[NO];
+	else if (line[i] && line[i + 1] && line[i] == 'S' && line[i + 1] == 'O')
+		tmp = cub->txt[SO];
+	else if (line[i] && line[i + 1] && line[i] == 'E' && line[i + 1] == 'A')
+		tmp = cub->txt[EA];
+	else if (line[i] && line[i + 1] && line[i] == 'W' && line[i + 1] == 'E')
+		tmp = cub->txt[WE];
+	i += 2;
+	while ((line[i] >= 8 && line[i] <= 12) || line[i] == ' ')
+		++i;
+	while (line[i] && (!((line[i] >= 8 && line[i] <= 12) || line[i] == ' ')))
+		name[++c] = line[i++];
+	while (line[i] && ((line[i] >= 8 && line[i] <= 12) || line[i] == ' '))
+		++i;
+	if (line[i])
+		wgas(cub, "texture name is not alone", NULL);
+	name[++c] = '\0';
+	tmp->name = tdup(name);
+}
+
+int	tinstr(char *str, char *search)
+{
+	int	i;
+	int	r;
+
+	i = -1;
+	if (!str || !search)
+		return (0);
+	while (str[++i])
 	{
-		if (!tstrcmp(inf[0], "NO"))
-			cub->txt[NO]->name = tdup(inf[1]);
-		if (!tstrcmp(inf[0], "SO"))
-			cub->txt[SO]->name = tdup(inf[1]);
-		if (!tstrcmp(inf[0], "WE"))
-			cub->txt[WE]->name = tdup(inf[1]);
-		if (!tstrcmp(inf[0], "EA"))
-			cub->txt[EA]->name = tdup(inf[1]);
+		if (str[i] == search[0])
+		{
+			r = 0;
+			while (search[r] && str[i + r] && search[r] == str[i + r])
+				r++;
+			if (!search[r])
+				return (1);
+		}
 	}
-	fsplit(inf);
+	return (0);
 }
