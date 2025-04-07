@@ -3,7 +3,7 @@ SO ./texture/wallSouth.xpm
 EA ./texture/wallEast.xpm
 WE ./texture/wallWest.xpm
 
-F 176,152,9223372036854775808
+F 176,152,164
 C 69,80,59
 
 1111111111111111111111111

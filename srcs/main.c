@@ -15,6 +15,7 @@ void	everyinit(t_cub *cub, char *name)
 {
 	cub->fd = -1;
 	cub->lim = -1;
+	cub->minimap = 1;
 	mapinit(cub, name);
 	datainit(cub);
 	cub->ray = malloc(sizeof(t_ray));
@@ -24,8 +25,10 @@ void	everyinit(t_cub *cub, char *name)
 	cub->cam = malloc(sizeof(t_cam));
 	if (!cub->cam)
 		wgas(cub, "malloc cam failed", NULL);
+	cub->cam->look = (t_mgam2f){0.0, 0.0};
+	cub->cam->player_pos = (t_mgam2f){0.0, 0.0};
+	cub->lim = -1;
 	caminit(cub);
-	cub->ray->head = 0;
 	txtinit(cub);
 }
 

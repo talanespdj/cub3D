@@ -28,7 +28,7 @@
 # define EA 2
 # define WE 3
 
-# define MS 0.02
+# define MS 0.03
 # define ROTATESPEED 0.015
 
 typedef double	t_mgam2f __attribute__((ext_vector_type(2)));
@@ -52,7 +52,6 @@ typedef struct s_ray
 	double		camerax;
 	double		perpwalldist;
 	int			x;
-	int			head;
 	int			raylength;
 	int			whichside;
 	int			startp;

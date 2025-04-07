@@ -59,6 +59,8 @@ static	void	def_lim(t_cub *cub)
 		next_line(cub, &line);
 		cub->lim++;
 	}
+	if (!line)
+		wgas(cub, "invalid map", NULL);
 	while (line)
 		next_line(cub, &line);
 	close(cub->fd);
@@ -86,6 +88,8 @@ static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 
 void	setlook(t_cub *cub, char cardinal)
 {
+	if (cub->lim == -1)
+		cub->lim = 1;
 	if (cardinal == 'N')
 	{
 		cub->cam->look = (t_mgam2f){0.0, -1.0};

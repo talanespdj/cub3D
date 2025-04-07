@@ -32,8 +32,6 @@
 
 typedef struct s_ray	t_ray;
 
-long long int	atolli(char *str);
-
 int				cub3d(t_cub *cub, t_data *data);
 int				looping(t_cub *cub);
 
@@ -72,12 +70,9 @@ int				tstrlen(char *str);
 char			*tdup(char *str);
 char			*tjoin(char *str, char *add);
 int				tstrcmp(char *str, char *cmp);
-int				tinstr(char *str, char *search);
 
 bool			validcase(char **matrix, int width, int x, int y);
 bool			validmap(t_cub *cub, char **matrix);
-int				valid_lli(long long int nt, char c, int sign, int situation);
-int				check_lli(char *str);
 char			*erase_new_line(char *str);
 int				null_line(char *str);
 int				null_linev2(char *str);
@@ -89,9 +84,12 @@ void			fsplit(char **str);
 
 int				end_win(t_cub *cub);
 
-/////////////////////
-
 void			movement(t_cub *cub);
+void			forward(t_cub *cub, double ms);
+void			backward(t_cub *cub, double ms);
+void			right(t_cub *cub, double ms);
+void			left(t_cub *cub, double ms);
+
 int				press(int key, t_cub *cub);
 int				release(int key, t_cub *cub);
 

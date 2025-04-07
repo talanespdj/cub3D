@@ -70,16 +70,19 @@ int	wallhit(t_cub *cub, double x, double y)
 	while (iter.x < x)
 	{
 		iter.x += 0.01;
-		if (cub->map->matrix[(int)iter.y][(int)iter.x] == '1' || cub->map->matrix[(int)iter.y][(int)iter.x] == '.')
+		if (cub->map->matrix[(int)iter.y][(int)iter.x] == '1'
+			|| cub->map->matrix[(int)iter.y][(int)iter.x] == '.')
 			return (1);
 	}
 	while (iter.y < y)
 	{
 		iter.y += 0.01;
-		if (cub->map->matrix[(int)iter.y][(int)iter.x] == '1' || cub->map->matrix[(int)iter.y][(int)iter.x] == '.')
+		if (cub->map->matrix[(int)iter.y][(int)iter.x] == '1'
+			|| cub->map->matrix[(int)iter.y][(int)iter.x] == '.')
 			return (1);
 	}
-	if (cub->map->matrix[(int)y][(int)x] == '1' || cub->map->matrix[(int)y][(int)x] == '.')
+	if (cub->map->matrix[(int)y][(int)x] == '1'
+		|| cub->map->matrix[(int)y][(int)x] == '.')
 		return (1);
 	return (0);
 }

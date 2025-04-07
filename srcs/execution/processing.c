@@ -81,16 +81,15 @@ void	caminit(t_cub *cub)
 			if (matrix[y][x] == 'N' || matrix[y][x] == 'S' ||
 				matrix[y][x] == 'E' || matrix[y][x] == 'W')
 			{
+				if (cub->lim == 1)
+					wgas(cub, "multiple player position detected", NULL);
 				setlook(cub, matrix[y][x]);
 				cub->cam->player_pos = (t_mgam2f){x + 0.5, y + 0.5};
 				matrix[y][x] = '0';
-				break ;
 			}
 		}
-		if (matrix[y][x])
-			break ;
 	}
-	if (!matrix[y])
+	if (cub->lim == -1)
 		wgas(cub, "No player pos detected", NULL);
 }
 

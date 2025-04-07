@@ -73,25 +73,3 @@ int	tstrcmp(char *str, char *cmp)
 			return (str[i] - cmp[i]);
 	return (0);
 }
-
-int	tinstr(char *str, char *search)
-{
-	int	i;
-	int	r;
-
-	i = -1;
-	if (!str || !search)
-		return (0);
-	while (str[++i])
-	{
-		if (str[i] == search[0])
-		{
-			r = 0;
-			while (search[r] && str[i + r] && search[r] == str[i + r])
-				r++;
-			if (!search[r])
-				return (1);
-		}
-	}
-	return (0);
-}

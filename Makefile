@@ -3,15 +3,12 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -O3 -march=native #-fsanitize=address
 MLX_FLAGS = -L ./includes/mlx/ -lmlx -lXext -lX11 -lm
 
-#	comment this to compile on mac
-LDL_FLAGS =  -L/opt/X11/lib -lX11
-CFLAGS += -I/opt/X11/include
-
-CFLAGS += -Wno-unused-command-line-argument
+#	decomment this to compile on mac
+# LDL_FLAGS =  -L/opt/X11/lib -lX11
+# CFLAGS += -I/opt/X11/include
 
 PARSING = srcs/parsing/parsing.c \
 		srcs/parsing/gnl.c \
-		srcs/parsing/ltoa.c \
 		srcs/parsing/check.c \
 		srcs/parsing/gnlv2.c \
 		srcs/parsing/split.c \
@@ -29,6 +26,7 @@ EXECUTION =  srcs/main.c \
 RENDERER = srcs/renderer/map.c \
 		srcs/renderer/dda.c \
 		srcs/renderer/move.c \
+		srcs/renderer/hook.c \
 		srcs/renderer/raycasting.c \
 		srcs/renderer/scaledTextures.c \
 
