@@ -73,3 +73,32 @@ int	tstrcmp(char *str, char *cmp)
 			return (str[i] - cmp[i]);
 	return (0);
 }
+
+void	length_map(t_cub *cub)
+{
+	char	*line;
+	int		nill;
+
+	cub->map->lar = 0;
+	line = gnl(cub->fd);
+	while (line)
+	{
+		nill = 0;
+		while (line && null_linev2(line))
+		{
+			nill++;
+			next_line(cub, &line);
+			if (!null_linev2(line))
+			{
+				cub->map->lar += nill;
+				break ;
+			}
+		}
+		++cub->map->lar;
+		if (tstrlen(line) > cub->map->lon)
+			cub->map->lon = tstrlen(line);
+		next_line(cub, &line);
+	}
+	cub->map->lon -= 1;
+	free(line);
+}

@@ -40,12 +40,10 @@ void	fsplit(char **str)
 	int	i;
 
 	i = -1;
+	while (str && str[++i])
+		free(str[i]);
 	if (str)
-	{
-		while (str[++i])
-			free(str[i]);
 		free(str);
-	}
 }
 
 char	*erase_new_line(char *str)

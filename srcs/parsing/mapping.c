@@ -12,6 +12,9 @@
 #include "../../includes/cub3d.h"
 
 static void	rearrange_map(t_cub *cub, t_map *map);
+static char	**fill_matrix(t_cub *cub, t_map *map);
+static void	fill_dot(t_map *map, char **line, int i);
+static void	fill_last_line(t_cub *cub, t_map *map, char **rearrange, int i);
 
 void	mapping(t_cub *cub, char *line)
 {
@@ -42,55 +45,13 @@ void	mapping(t_cub *cub, char *line)
 	rearrange_map(cub, cub->map);
 }
 
-void	length_map(t_cub *cub)
-{
-	char	*line;
-	int		nill;
-
-	cub->map->lar = 0;
-	line = gnl(cub->fd);
-	while (line)
-	{
-		nill = 0;
-		while (line && null_linev2(line))
-		{
-			nill++;
-			next_line(cub, &line);
-			if (!null_linev2(line))
-			{
-				cub->map->lar += nill;
-				break ;
-			}
-		}
-		++cub->map->lar;
-		if (tstrlen(line) > cub->map->lon)
-			cub->map->lon = tstrlen(line);
-		next_line(cub, &line);
-	}
-	cub->map->lon -= 1;
-	free(line);
-}
-
 static	void	rearrange_map(t_cub *cub, t_map *map)
 {
 	char	**rearrange;
 	int		i;
-	int		x;
 
-	rearrange = malloc(sizeof(char *) * (map->lar + 4));
-	if (!rearrange)
-		wgas(cub, "rearrange map", NULL);
-	rearrange[0] = malloc(sizeof(char) * (map->lon + 3));
-	if (!rearrange[0])
-	{
-		fsplit(rearrange);
-		wgas(cub, "rearrange[i] map", NULL);
-	}
-	x = -1;
-	while (++x < map->lon + 2)
-		rearrange[0][x] = '.';
-	rearrange[0][x] = '\0';
 	i = 0;
+	rearrange = fill_matrix(cub, cub->map);
 	while (++i < map->lar + 2)
 	{
 		rearrange[i] = NULL;
@@ -100,26 +61,61 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 			fsplit(rearrange);
 			wgas(cub, "rearrange[i] map", NULL);
 		}
-		rearrange[i][0] = '.';
-		x = 0;
-		while (++x < map->lon + 3)
-		{
-			if (x > tstrlen(map->matrix[i - 1]))
-			{
-				while (x < map->lon + 2)
-				{
-					rearrange[i][x] = '.';
-					++x;
-				}
-				rearrange[i][x] = '\0';
-				break ;
-			}
-			if (valid_char(map->matrix[i - 1][x - 1], 1))
-				rearrange[i][x] = map->matrix[i - 1][x - 1];
-			else
-				rearrange[i][x] = '.';
-		}
+		fill_dot(cub->map, &rearrange[i], i);
 	}
+	fill_last_line(cub, map, rearrange, i);
+}
+
+char	**fill_matrix(t_cub *cub, t_map *map)
+{
+	char	**tmp;
+	int		x;
+
+	tmp = malloc(sizeof(char *) * (map->lar + 4));
+	if (!tmp)
+		wgas(cub, "tmp map", NULL);
+	tmp[0] = malloc(sizeof(char) * (map->lon + 3));
+	if (!tmp[0])
+	{
+		fsplit(tmp);
+		wgas(cub, "tmp[i] map", NULL);
+	}
+	x = -1;
+	while (++x < map->lon + 2)
+		tmp[0][x] = '.';
+	tmp[0][x] = '\0';
+	return (tmp);
+}
+
+void	fill_dot(t_map *map, char **line, int i)
+{
+	int	x;
+
+	x = 0;
+	(*line)[x] = '.';
+	while (++x < map->lon + 3)
+	{
+		if (x > tstrlen(map->matrix[i - 1]))
+		{
+			while (x < map->lon + 2)
+			{
+				(*line)[x] = '.';
+				++x;
+			}
+			(*line)[x] = '\0';
+			break ;
+		}
+		if (valid_char(map->matrix[i - 1][x - 1], 1))
+			(*line)[x] = map->matrix[i - 1][x - 1];
+		else
+			(*line)[x] = '.';
+	}
+}
+
+void	fill_last_line(t_cub *cub, t_map *map, char **rearrange, int i)
+{
+	int	x;
+
 	rearrange[i] = NULL;
 	rearrange[i] = malloc(sizeof(char) * (map->lon + 3));
 	if (!rearrange[i])
