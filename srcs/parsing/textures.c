@@ -41,7 +41,7 @@ void	textures(t_cub *cub, t_txt **txt)
 
 void	checktxt(t_cub *cub)
 {
-	char 	*file;
+	char	*file;
 	int		i;
 
 	i = -1;
@@ -49,7 +49,7 @@ void	checktxt(t_cub *cub)
 	{
 		file = cub->txt[i]->name;
 		if (!file)
-			wgas(cub, "textures", "First lines should contain textures addresses");
+			wgas(cub, "texture address missing", NULL);
 		if (file && file[0] && file[1] && (file[0] != '.' || file[1] != '/'))
 			wgas(cub, file, "Should be a relative path");
 		else if (access(file, F_OK))

@@ -46,9 +46,9 @@ void			rayinit(t_ray *ray);
 void			txtinit(t_cub *cub);
 
 void			parse_map(t_cub *cub, char *name);
+void			txtprocess(t_cub *cub);
 void			setlook(t_cub *cub, char cardinal);
 
-void			print_map(char **str);
 void			next_line(t_cub *cub, char **line);
 bool			valid_char(char c, int indic);
 void			textures(t_cub *cub, t_txt **txt);

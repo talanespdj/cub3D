@@ -26,6 +26,13 @@ void	mapinit(t_cub *cub, char *name)
 	cub->map->matrix = NULL;
 	while (++i < 4)
 		cub->txt[i] = NULL;
+	if (access(name, F_OK))
+		wgas(cub, name, "File doesn't exist");
+	else if (access(name, R_OK))
+		wgas(cub, name, "No permission to read the map");
+	cub->fd = open(name, O_RDONLY);
+	if (cub->fd == -1)
+		wgas(cub, name, "Failed to open the map");
 	parse_map(cub, name);
 }
 

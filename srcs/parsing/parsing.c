@@ -18,23 +18,7 @@ void	parse_map(t_cub *cub, char *name)
 	char	*line;
 	int		i;
 
-	i = -1;
-	if (access(name, F_OK))
-		wgas(cub, name, "File doesn't exist");
-	else if (access(name, R_OK))
-		wgas(cub, name, "No permission to read the map");
-	cub->fd = open(name, O_RDONLY);
-	if (cub->fd == -1)
-		wgas(cub, name, "Failed to open the map");
-	while (++i < 4)
-	{
-		cub->txt[i] = malloc(sizeof(t_txt));
-		if (!cub->txt[i])
-			wgas(cub, "Textures", "malloc t_txt failed");
-		cub->txt[i]->name = NULL;
-		cub->txt[i]->img = NULL;
-		cub->txt[i]->addr = NULL;
-	}
+	txtprocess(cub);
 	retrieve_txt_floor_ceiling(cub, name);
 	textures(cub, cub->txt);
 	fccolors(cub);
@@ -56,7 +40,7 @@ void	parse_map(t_cub *cub, char *name)
 	mapping(cub, NULL);
 }
 
-static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
+static	void	def_lim(t_cub *cub)
 {
 	char	*line;
 	int		x;
@@ -76,6 +60,14 @@ static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
 	while (line)
 		next_line(cub, &line);
 	close(cub->fd);
+}
+
+static	void	retrieve_txt_floor_ceiling(t_cub *cub, char *name)
+{
+	char	*line;
+	int		x;
+
+	def_lim(cub);
 	cub->map->matrix = malloc(sizeof(char *) * (cub->lim + 1));
 	if (!cub->map->matrix)
 		wgas(cub, "retrieve_txt_floor_ceiling", NULL);
@@ -111,5 +103,21 @@ void	setlook(t_cub *cub, char cardinal)
 	{
 		cub->cam->look = (t_mgam2f){1.0, 0.0};
 		cub->ray->plane = (t_mgam2f){0.0, 0.66};
+	}
+}
+
+void	txtprocess(t_cub *cub)
+{
+	int		i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		cub->txt[i] = malloc(sizeof(t_txt));
+		if (!cub->txt[i])
+			wgas(cub, "Textures", "malloc t_txt failed");
+		cub->txt[i]->name = NULL;
+		cub->txt[i]->img = NULL;
+		cub->txt[i]->addr = NULL;
 	}
 }

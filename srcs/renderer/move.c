@@ -87,30 +87,30 @@ void	movement(t_cub *cub)
 	posplayer = (t_mgam2f){cub->cam->player_pos.x, cub->cam->player_pos.y};
 	if (cub->keys.w)
 	{
-		if (!wallhit(cub, posplayer.x + look.x * ms, posplayer.y))
+		if (!wallhit(cub, posplayer.x + look.x * ms * 1.0003, posplayer.y))
 			cub->cam->player_pos.x += look.x * ms;
-		if (!wallhit(cub, posplayer.x ,posplayer.y + look.y * ms))
+		if (!wallhit(cub, posplayer.x ,posplayer.y + look.y * ms * 1.0003))
 			cub->cam->player_pos.y += look.y * ms;
 	}
 	if (cub->keys.s)
 	{
-		if (!wallhit(cub, posplayer.x - look.x * ms, posplayer.y))
+		if (!wallhit(cub, posplayer.x - look.x * ms * 1.0003, posplayer.y))
 			cub->cam->player_pos.x -= look.x * ms;
-		if (!wallhit(cub, posplayer.x ,posplayer.y - look.y * ms))
+		if (!wallhit(cub, posplayer.x ,posplayer.y - look.y * ms * 1.0003))
 			cub->cam->player_pos.y -= look.y * ms;
 	}
 	if (cub->keys.a)
 	{
-		if (!wallhit(cub, posplayer.x - plane.x * ms, posplayer.y))
+		if (!wallhit(cub, posplayer.x - plane.x * ms * 1.0003, posplayer.y))
 			cub->cam->player_pos.x -= plane.x * ms;
-		if (!wallhit(cub, posplayer.x ,posplayer.y - plane.y * ms))
+		if (!wallhit(cub, posplayer.x ,posplayer.y - plane.y * ms * 1.0003))
 			cub->cam->player_pos.y -= plane.y * ms;
 	}
 	if (cub->keys.d)
 	{
-		if (!wallhit(cub, posplayer.x + plane.x * ms, posplayer.y))
+		if (!wallhit(cub, posplayer.x + plane.x * ms * 1.0003, posplayer.y))
 			cub->cam->player_pos.x += plane.x * ms;
-		if (!wallhit(cub, posplayer.x ,posplayer.y + plane.y * ms))
+		if (!wallhit(cub, posplayer.x ,posplayer.y + plane.y * ms * 1.0003))
 			cub->cam->player_pos.y += plane.y * ms;
 	}
 	if (cub->keys.l)

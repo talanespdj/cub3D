@@ -40,12 +40,14 @@ bool	validcase(char **matrix, int width, int x, int y)
 		return (false);
 	if (y - 1 >= 0)
 	{
-		if (x >= tstrlen(matrix[y - 1]) || matrix[y - 1][x] == ' ' || matrix[y - 1][x] == '\n' )
+		if (x >= tstrlen(matrix[y - 1]) || matrix[y - 1][x] == ' '
+			|| matrix[y - 1][x] == '\n' )
 			return (false);
 	}
 	if (y + 1 <= width)
 	{
-		if (x >= tstrlen(matrix[y + 1]) || matrix[y + 1][x] == ' ' || matrix[y + 1][x] == '\n')
+		if (x >= tstrlen(matrix[y + 1]) || matrix[y + 1][x] == ' '
+			|| matrix[y + 1][x] == '\n')
 			return (false);
 	}
 	return (true);
@@ -66,7 +68,8 @@ bool	validmap(t_cub *cub, char **matrix)
 		{
 			if (!valid_char(matrix[y][x], 0))
 			{
-				if (!stop && (matrix[y][x] == 'N' || matrix[y][x] == 'S' || matrix[y][x] == 'E' || matrix[y][x] == 'W'))
+				if (!stop && (matrix[y][x] == 'N' || matrix[y][x] == 'S'
+						|| matrix[y][x] == 'E' || matrix[y][x] == 'W'))
 					stop = 1;
 				else
 					wgas(cub, "invalid map", NULL);

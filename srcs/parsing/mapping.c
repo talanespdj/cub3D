@@ -65,7 +65,7 @@ void	length_map(t_cub *cub)
 		}
 		++width;
 		if (tstrlen(line) > cub->map->lon)
-			cub->map->lon = tstrlen(line);
+			cub->map->lon = tstrlen(line) - 1;
 		next_line(cub, &line);
 	}
 	cub->map->lon -= 1;
@@ -137,13 +137,4 @@ static	void	rearrange_map(t_cub *cub, t_map *map)
 	rearrange[i + 1] = NULL;
 	fsplit(cub->map->matrix);
 	cub->map->matrix = rearrange;
-}
-
-void	print_map(char **str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		printf("[%d] - %s\n", i, str[i]);
 }
