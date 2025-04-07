@@ -56,8 +56,7 @@ void			checktxt(t_cub *cub);
 void			fill_textures(t_cub *cub, char *line);
 
 void			fccolors(t_cub *cub);
-void			fill_floor(t_cub *cub, char *line);
-void			fill_ceiling(t_cub *cub, char *line);
+void			fill_colors(t_cub *cub, char *line, int *color);
 
 void			length_map(t_cub *cub);
 void			mapping(t_cub *cub, char *line);

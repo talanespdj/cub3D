@@ -45,10 +45,9 @@ void	mapping(t_cub *cub, char *line)
 void	length_map(t_cub *cub)
 {
 	char	*line;
-	int		width;
 	int		nill;
 
-	width = 0;
+	cub->map->lar = 0;
 	line = gnl(cub->fd);
 	while (line)
 	{
@@ -59,18 +58,16 @@ void	length_map(t_cub *cub)
 			next_line(cub, &line);
 			if (!null_linev2(line))
 			{
-				width += nill;
+				cub->map->lar += nill;
 				break ;
 			}
 		}
-		++width;
+		++cub->map->lar;
 		if (tstrlen(line) > cub->map->lon)
-			cub->map->lon = tstrlen(line) - 1;
+			cub->map->lon = tstrlen(line);
 		next_line(cub, &line);
 	}
 	cub->map->lon -= 1;
-	cub->map->lar = width - 1;
-	close(cub->fd);
 	free(line);
 }
 

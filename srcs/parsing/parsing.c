@@ -31,6 +31,8 @@ void	parse_map(t_cub *cub, char *name)
 	fsplit(cub->map->matrix);
 	cub->map->matrix = NULL;
 	length_map(cub);
+	cub->map->lar -= 1;
+	close(cub->fd);
 	i = cub->lim;
 	cub->fd = open(name, O_RDONLY);
 	line = gnl(cub->fd);

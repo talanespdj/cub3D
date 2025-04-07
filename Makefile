@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -O3 #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -O3 -march=native #-fsanitize=address
 MLX_FLAGS = -L ./includes/mlx/ -lmlx -lXext -lX11 -lm
 
 #	comment this to compile on mac
@@ -44,7 +44,7 @@ $(HIDDEN)/%.o: %.c
 all: $(NAME)
         
 $(NAME): $(OBJS)
-	make -C ./includes/mlx
+	@$(MAKE) -C ./includes/mlx
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS) $(LDL_FLAGS)
 	@echo "\033[1m		______     __  __     ______     _____    \n\
 		       /\  ___\   /\ \/\ \   /\  == \   /\  __-.  \n\
@@ -54,7 +54,7 @@ $(NAME): $(OBJS)
 
 
 clean:
-	@make clean -C ./includes/mlx
+	@$(MAKE) clean -C ./includes/mlx
 	@rm -rf $(OBJS)
 	@rm -rf $(HIDDEN)
 	@rm -rf .vscode
@@ -64,6 +64,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "c'est fclean"
 
-re: fclean all
+re: fclean
+	@$(MAKE) all
 
 .PHONY: all, clean, fclean, re
