@@ -87,7 +87,7 @@ bool	validmap(t_cub *cub, char **matrix)
 				else
 					wgas(cub, "invalid map", NULL);
 			}
-			if (check(cub, matrix, x, y))
+			if (!check(cub, matrix, x, y))
 				return (false);
 		}
 	}
