@@ -48,14 +48,12 @@ static	void	def_lim(t_cub *cub)
 	int		x;
 
 	cub->lim = 0;
+	x = 0;
 	line = gnl(cub->fd);
-	while (line)
+	while (line && x < 6)
 	{
-		x = 0;
-		while (line[x] && valid_char(line[x], 0))
+		if (!null_line(line))
 			x++;
-		if ((!line[x] || !line[x + 1]) && !null_line(line))
-			break ;
 		next_line(cub, &line);
 		cub->lim++;
 	}

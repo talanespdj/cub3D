@@ -30,6 +30,8 @@ bool	valid_char(char c, int indic)
 
 bool	validcase(char **matrix, int width, int x, int y)
 {
+	if (x == 0 || y == 0)
+		return (false);
 	if (x + 1 > tstrlen(matrix[y]))
 		return (false);
 	if (matrix[y][x - 1] == ' ' || matrix[y][x - 1] == '\n')
@@ -50,6 +52,17 @@ bool	validcase(char **matrix, int width, int x, int y)
 			|| matrix[y + 1][x] == '\n')
 			return (false);
 	}
+	return (true);
+}
+
+static	bool	check(t_cub *cub, char **matrix, int x, int y)
+{
+	if ((!validcase(matrix, cub->map->lar, x, y))
+		&& (matrix[y][x] == 'N' || matrix[y][x] == 'S'
+		|| matrix[y][x] == 'E' || matrix[y][x] == 'W'))
+		wgas(cub, "invalid map", NULL);
+	if (matrix[y][x] == '0' && !validcase(matrix, cub->map->lar, x, y))
+		return (false);
 	return (true);
 }
 
@@ -74,7 +87,7 @@ bool	validmap(t_cub *cub, char **matrix)
 				else
 					wgas(cub, "invalid map", NULL);
 			}
-			if (matrix[y][x] == '0' && !validcase(matrix, cub->map->lar, x, y))
+			if (check(cub, matrix, x, y))
 				return (false);
 		}
 	}
