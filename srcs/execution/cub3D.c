@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
+static	void	set_mmap(t_cub *cub)
+{
+	cub->mmap = MMAP;
+	if (((cub->map->lar - 2) * MMAP > cub->data->height / 3)
+		|| (cub->map->lon - 2) * MMAP > cub->data->width / 3)
+	{
+		if (((cub->map->lar - 2) * MMAP / 2 > cub->data->height / 3)
+		|| (cub->map->lon - 2) * MMAP / 2 > cub->data->width / 3)
+		{
+			cub->minimap = 0;
+			return ;
+		}
+		cub->mmap = MMAP / 2;
+	}
+}
+
 int	looping(t_cub *cub)
 {
 	movement(cub);
@@ -30,6 +46,7 @@ int	looping(t_cub *cub)
 
 int	cub3d(t_cub *cub, t_data *data)
 {
+	set_mmap(cub);
 	mlx_hook(data->win, KeyPress, 1L << 0, &press, cub);
 	mlx_hook(data->win, KeyRelease, 1L << 1, &release, cub);
 	mlx_hook(data->win, DestroyNotify, 0, &end_win, cub);

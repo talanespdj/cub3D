@@ -52,6 +52,7 @@ typedef struct s_cub
 	int				fd;
 	int				lim;
 	int				minimap;
+	int				mmap;
 }		t_cub;
 
 typedef struct spt

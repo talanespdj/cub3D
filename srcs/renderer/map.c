@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-void	mmap_color(t_cub *cub, char c, int x, int y)
+void	cube(t_cub *cub, char c, int x, int y)
 {
 	int	color;
 	int	r;
@@ -23,11 +23,12 @@ void	mmap_color(t_cub *cub, char c, int x, int y)
 	else if (c == '1')
 		color = 0x090C08;
 	r = -1;
-	while (++r < MMAP)
+	while (++r < cub->mmap)
 	{
 		t = -1;
-		while (++t < MMAP)
-			setpixel(cub->data, x * MMAP + r, y * MMAP + t, color);
+		while (++t < cub->mmap)
+			setpixel(cub->data, x * cub->mmap + r, y * cub->mmap + t, color);
+		
 	}
 }
 
@@ -39,20 +40,14 @@ void	minimap(t_cub *cub, char **matrix)
 	int	y;
 
 	y = 0;
-	if (((cub->map->lar - 2) * MMAP > cub->data->height / 3)
-		|| (cub->map->lon - 2) * MMAP > cub->data->width / 3)
-	{
-		cub->minimap = 0;
-		return ;
-	}
 	while (matrix[++y + 1])
 	{
 		x = -1;
 		while (matrix[y][++x + 1])
 			if (matrix[y][x] == '0' || matrix[y][x] == '1')
-				mmap_color(cub, matrix[y][x], x, y);
+				cube(cub, matrix[y][x], x, y);
 	}
-	player(cub, cub->cam->player_pos.x, cub->cam->player_pos.y, 4.0);
+	player(cub, cub->cam->player_pos.x, cub->cam->player_pos.y, (double)(cub->mmap / 5.0));
 }
 
 static void	player(t_cub *cub, double x, double y, double radius)
@@ -62,8 +57,8 @@ static void	player(t_cub *cub, double x, double y, double radius)
 	int			h;
 
 	w = -1;
-	x *= MMAP;
-	y *= MMAP;
+	x *= cub->mmap;
+	y *= cub->mmap;
 	while (++w < radius * 2)
 	{
 		h = -1;
