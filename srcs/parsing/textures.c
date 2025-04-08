@@ -57,7 +57,7 @@ void	checktxt(t_cub *cub)
 void	fill_textures(t_cub *cub, char *line, int i, int c)
 {
 	t_txt	*tmp;
-	char	name[1000];
+	char	name[5000];
 
 	while ((line[i] >= 8 && line[i] <= 12) || line[i] == ' ')
 		++i;

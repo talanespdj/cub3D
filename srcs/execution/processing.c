@@ -50,7 +50,7 @@ void	datainit(t_cub *cub)
 	cub->data->mlx = mlx_init();
 	if (!cub->data->mlx)
 		wgas(cub, "fail mlx open", NULL);
-	mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
+	// mlx_get_screen_size(cub->data->mlx, &cub->data->width, &cub->data->height);
 	cub->data->win = mlx_new_window(cub->data->mlx, cub->data->width,
 			cub->data->height, "CUB bcp de D");
 	if (!cub->data->win)

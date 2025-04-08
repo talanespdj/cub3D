@@ -18,7 +18,7 @@ static	void	set_mmap(t_cub *cub)
 		|| (cub->map->lon - 2) * MMAP > cub->data->width / 3)
 	{
 		if (((cub->map->lar - 2) * MMAP / 2 > cub->data->height / 3)
-		|| (cub->map->lon - 2) * MMAP / 2 > cub->data->width / 3)
+			|| (cub->map->lon - 2) * MMAP / 2 > cub->data->width / 3)
 		{
 			cub->minimap = 0;
 			return ;

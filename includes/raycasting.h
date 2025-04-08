@@ -15,13 +15,6 @@
 # include "cub3d.h"
 
 # define MMAP 16
-# define MAP_VOID 0x353831
-// # define MAP_WALL 0x090C08
-# define MAP_WALL 0xFF0000
-# define MAP_PLAYER 0x474056
-
-# define MAP_SKY 0x778BF0
-# define MAP_FLOOR 0x7C7C7C
 
 # define NO 0
 # define SO 1

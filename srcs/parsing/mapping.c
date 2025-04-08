@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-static void	rearrange_map(t_cub *cub, t_map *map);
+static void	rearrange_map(t_cub *cub, t_map *map, char *line);
 static char	**fill_matrix(t_cub *cub, t_map *map);
 static void	fill_dot(t_map *map, char **line, int i);
 static void	fill_last_line(t_cub *cub, t_map *map, char **rearrange, int i);
@@ -25,7 +25,7 @@ void	mapping(t_cub *cub, char *line)
 	if (!cub->map->matrix)
 		wgas(cub, "pblm mapping matrix", "malloc(.. (cub->map->lar + 2))");
 	line = gnl(cub->fd);
-	while (line)
+	while (line && i < cub->map->lar + 1)
 	{
 		cub->map->matrix[i] = tdup(line);
 		if (!cub->map->matrix[i])
@@ -38,19 +38,21 @@ void	mapping(t_cub *cub, char *line)
 		i++;
 	}
 	cub->map->matrix[i] = NULL;
-	free(line);
 	close(cub->fd);
 	if (!validmap(cub, cub->map->matrix))
 		wgas(cub, "map invalid", NULL);
-	rearrange_map(cub, cub->map);
+	rearrange_map(cub, cub->map, line);
 }
 
-static	void	rearrange_map(t_cub *cub, t_map *map)
+static	void	rearrange_map(t_cub *cub, t_map *map, char *line)
 {
 	char	**rearrange;
 	int		i;
 
 	i = 0;
+	while (line)
+		next_line(cub, &line);
+	free(line);
 	rearrange = fill_matrix(cub, cub->map);
 	while (++i < map->lar + 2)
 	{

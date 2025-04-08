@@ -28,7 +28,6 @@ void	cube(t_cub *cub, char c, int x, int y)
 		t = -1;
 		while (++t < cub->mmap)
 			setpixel(cub->data, x * cub->mmap + r, y * cub->mmap + t, color);
-		
 	}
 }
 
@@ -47,7 +46,8 @@ void	minimap(t_cub *cub, char **matrix)
 			if (matrix[y][x] == '0' || matrix[y][x] == '1')
 				cube(cub, matrix[y][x], x, y);
 	}
-	player(cub, cub->cam->player_pos.x, cub->cam->player_pos.y, (double)(cub->mmap / 5.0));
+	player(cub, cub->cam->player_pos.x,
+		cub->cam->player_pos.y, (double)(cub->mmap / 5.0));
 }
 
 static void	player(t_cub *cub, double x, double y, double radius)
