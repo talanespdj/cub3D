@@ -81,6 +81,11 @@ void	length_map(t_cub *cub)
 
 	cub->map->lar = 0;
 	line = gnl(cub->fd);
+	while (line && null_linev2(line))
+	{
+		next_line(cub, &line);
+		++cub->lim;
+	}
 	while (line)
 	{
 		nill = 0;
